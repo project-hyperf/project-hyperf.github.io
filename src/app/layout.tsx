@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body className="bg-white">
         <QueryProvider>
           <NextUiProvider>{children}</NextUiProvider>
         </QueryProvider>

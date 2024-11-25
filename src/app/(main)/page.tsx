@@ -8,6 +8,7 @@
 // import { Section } from "@/components/Section/Section";
 // import { Researchers } from "@/components/Section/Teams/Researchers";
 // import { Teams } from "@/components/Section/Teams/Teams";
+import { Footer } from "@/components/Widget/Footer/Footer";
 import { GNB } from "@/components/Widget/GNB/GNB";
 
 const Components = {
@@ -22,7 +23,7 @@ const Components = {
 
 export default function Home() {
   return (
-    <main>
+    <main className="">
       <div className="w-full fixed top-0 z-50">
         <GNB />
       </div>
@@ -31,7 +32,7 @@ export default function Home() {
           <Component />
         </Section>
       ))} */}
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }
