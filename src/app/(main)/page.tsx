@@ -2,22 +2,18 @@
 import { KeyVisual } from "@/components/Composition/Keyvisual/Keyvisual";
 // import { GeneralNavigationBar } from "@/components/Navigator/GeneralNavigationBar/GeneralNavigationBar";
 import { About } from "@/components/Composition/About/About";
-// import { Events } from "@/components/Section/Events/Events";
-// import { Modules } from "@/components/Section/Modules/Modules";
-// import { Outcomes } from "@/components/Section/Outcomes/Outcomes";
-// import { Section } from "@/components/Section/Section";
-// import { Researchers } from "@/components/Section/Teams/Researchers";
-// import { Teams } from "@/components/Section/Teams/Teams";
+import { Teams } from "@/components/Composition/Teams/Teams";
 import { Footer } from "@/components/Widget/Footer/Footer";
 import { GNB } from "@/components/Widget/GNB/GNB";
 import { Main } from "@/components/Widget/Layout/Main";
 import { Section } from "@/components/Widget/Layout/Section";
+import { Framework } from "@/components/Composition/Framework/Framework";
 
 const Components = {
   "key-visual": KeyVisual,
   about: About,
-  // teams: Teams,
-  // researchers: Researchers,
+  teams: Teams,
+  framework: Framework,
   // outcomes: Outcomes,
   // modules: Modules,
   // events: Events,
@@ -25,7 +21,7 @@ const Components = {
 
 export default function Home() {
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <div className="w-full fixed top-0 z-50">
         <GNB />
       </div>
@@ -36,6 +32,7 @@ export default function Home() {
           </Section>
         ))}
       </Main>
+
       <Footer />
     </div>
   );

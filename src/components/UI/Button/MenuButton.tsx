@@ -7,7 +7,7 @@ interface MenuButtonProps {
 }
 export const MenuButton: React.FC<MenuButtonProps> = ({ title, menuKey }) => {
   return (
-    <Link href={`/${menuKey}`}>
+    <Link href={`/#${menuKey}`}>
       <Text variant="h2" className="cursor-pointer">
         {title}
       </Text>

@@ -9,7 +9,7 @@ export const Main: React.FC<PropsWithChildren<MainProps>> = ({ children }) => {
   console.log(GNBHeight);
   return (
     <main
-      className={classNames(`h-screen`)}
+      className={classNames(`min-h-screen`)}
       style={{ paddingTop: `${GNBHeight}px` }}
     >
       {children}

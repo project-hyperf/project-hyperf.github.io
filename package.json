@@ -23,12 +23,14 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-slick": "^0.30.2",
+    "react-svg": "^16.2.0",
     "slick-carousel": "^1.8.1",
     "tailwindcss-gradients": "^3.0.0",
     "uuid": "^11.0.3",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
