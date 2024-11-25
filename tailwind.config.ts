@@ -16,12 +16,31 @@ export default {
           strong: "#C81CCC",
         },
         label: {
-          normal: "#000",
-          strong: "#fff",
-          assistive: "#000",
-          neautral: "#000",
-          alternative: "#000",
-          dissabled: "#000",
+          normal: "#171719",
+          strong: "#000",
+          assistive: "#C7C8C9",
+          neautral: "#47484C",
+          alternative: "#858588",
+          dissabled: "#DFDFE0",
+        },
+        background: {
+          normal: "#fff",
+          alternative: "#F7F7F8",
+        },
+        line: {
+          nomral: "#DFDFDF",
+          neutral: "#F7F7F8",
+          alternative: "#F4F4F5",
+        },
+        inverse: {
+          primary: "#0D00B5",
+          background: "#6541F2",
+          alternative: "#fff",
+        },
+        "elevation-shadow": {
+          primary: "#0D00B5",
+          background: "#6541F2",
+          alternative: "#fff",
         },
       },
       backgroundImage: {
