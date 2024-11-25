@@ -14,6 +14,8 @@ export default {
         primary: {
           normal: "#0D00B5",
           strong: "#C81CCC",
+          assistive: "#6E68BA",
+          neautral: "#EFEFEF",
         },
         label: {
           normal: "#171719",

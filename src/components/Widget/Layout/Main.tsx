@@ -10,7 +10,7 @@ export const Main: React.FC<PropsWithChildren<MainProps>> = ({ children }) => {
   return (
     <main
       className={classNames(`min-h-screen`)}
-      style={{ paddingTop: `${GNBHeight}px` }}
+      style={{ marginTop: `${GNBHeight}px` }}
     >
       {children}
     </main>

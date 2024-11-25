@@ -8,15 +8,17 @@ import { GNB } from "@/components/Widget/GNB/GNB";
 import { Main } from "@/components/Widget/Layout/Main";
 import { Section } from "@/components/Widget/Layout/Section";
 import { Framework } from "@/components/Composition/Framework/Framework";
+import { Outcomes } from "@/components/Composition/Outcomes/Outcomes";
+import { Events } from "@/components/Composition/Events/Events";
 
 const Components = {
   "key-visual": KeyVisual,
   about: About,
   teams: Teams,
   framework: Framework,
-  // outcomes: Outcomes,
+  outcomes: Outcomes,
   // modules: Modules,
-  // events: Events,
+  events: Events,
 };
 
 export default function Home() {

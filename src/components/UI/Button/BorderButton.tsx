@@ -20,9 +20,10 @@ export const BorderButton: React.FC<BorderButtonProps> = ({
     <GeneralButton
       variant="ghost"
       className={classNames(
-        "py-5 h-auto w-[400px] pl-12 pr-7 justify-between rounded-none box-border",
+        "py-5 h-auto w-[400px] pl-12 pr-7 justify-between rounded-none box-border hover:bg-white",
         className,
       )}
+      data-hover={false}
       endContent={endContent}
       onClick={onClick}
     >
