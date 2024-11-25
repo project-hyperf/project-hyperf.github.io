@@ -1,4 +1,3 @@
-import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { GNB } from "@/components/Widget/GNB/GNB";
 
 export default function Home() {
