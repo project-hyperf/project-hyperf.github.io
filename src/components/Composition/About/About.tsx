@@ -4,15 +4,18 @@ import { BorderButton } from "@/components/UI/Button/BorderButton";
 import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider, useDisclosure } from "@nextui-org/react";
-import React from "react";
+import React, { useContext } from "react";
+import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
+import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 
 export const About: React.FC = () => {
+  const { open, close } = useContext(ModalsDispatchContext);
   const necessary = useDisclosure();
   const method = useDisclosure();
   const integrated = useDisclosure();
   const DescriptionButtonList = [
     { label: "연구필요성", key: "necessary", onClick: necessary.onOpen },
-    { label: "추진방법", key: "method", onClick: method.onOpen },
+    { label: "추진방법", key: "method", onClick: () => open(MethodModal) },
     { label: "연구 통합 단계", key: "integrated", onClick: integrated.onOpen },
   ];
   return (

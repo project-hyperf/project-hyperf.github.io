@@ -1,3 +1,4 @@
+import { GradientBox } from "@/components/UI/Box/GradientBox";
 import { Text } from "@/components/UI/Text/Text";
 
 export const Outcomes: React.FC = () => {
