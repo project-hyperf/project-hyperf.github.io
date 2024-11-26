@@ -1,9 +1,8 @@
 "use client";
-import { Icon } from "@/assets/Icon";
+
 import { BorderButton } from "@/components/UI/Button/BorderButton";
 import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
-import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { Divider, useDisclosure } from "@nextui-org/react";
 import React from "react";
 
@@ -28,7 +27,7 @@ export const About: React.FC = () => {
       >
         다계층(multi-level),다목적(multi-objective) 오토튜닝프레임워크개발
       </Text>
-      <div className="flex gap-10 items-center">
+      <div className="flex md:flex-row flex-col gap-10 items-center">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton

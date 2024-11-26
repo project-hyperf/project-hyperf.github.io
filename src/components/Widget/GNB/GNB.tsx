@@ -3,22 +3,59 @@
 import { MenuButton } from "./Element/MenuButton";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useMenu } from "@/hooks/useMenu";
-import React, { createRef } from "react";
+import classNames from "classnames";
+import React, { createRef, useEffect, useState } from "react";
 
 export const headerRef = createRef<HTMLHeadElement>();
 
 export const GNB: React.FC = () => {
   const { data: menus } = useMenu();
+  const [isBlackArea, setIsBlackArea] = useState(false);
+  useEffect(() => {
+    const target = document.getElementById("about");
 
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsBlackArea(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.9,
+      },
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
   return (
-    <header className="bg-white w-full h-[120px] px-5 py-8" ref={headerRef}>
+    <header
+      className={classNames(
+        "w-full h-[120px] px-5 py-8",
+        isBlackArea ? "bg-black" : "bg-white",
+      )}
+      ref={headerRef}
+    >
       <div className="flex items-center max-w-[1300px] mx-auto justify-between">
         <div className="shrink-0">
-          <CustomImage src="images/logo/logo-color.svg" alt="로고 이미지" />
+          {isBlackArea ? (
+            <CustomImage src="images/logo/logo-white.svg" alt="로고 이미지" />
+          ) : (
+            <CustomImage src="images/logo/logo-color.svg" alt="로고 이미지" />
+          )}
         </div>
         <div className="flex items-center gap-[100px] h-full pt-3 max-lg:hidden">
           {menus?.map((menu) => (
-            <MenuButton key={menu.key} title={menu.label} menuKey={menu.key} />
+            <MenuButton
+              key={menu.key}
+              title={menu.label}
+              menuKey={menu.key}
+              isBlackArea={isBlackArea}
+            />
           ))}
         </div>
       </div>

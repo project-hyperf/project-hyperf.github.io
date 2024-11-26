@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { QueryProvider } from "@/components/Utilities/Providers/QueryProvider";
 import { NextUiProvider } from "@/components/Utilities/Providers/NextUiProvider";
+import { RecoilProvider } from "@/components/Utilities/Providers/RecoilProvider";
 
 export const metadata: Metadata = {
   title: "HYPERF",
@@ -18,7 +19,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className="bg-white">
         <QueryProvider>
-          <NextUiProvider>{children}</NextUiProvider>
+          <RecoilProvider>
+            <NextUiProvider>{children}</NextUiProvider>
+          </RecoilProvider>
         </QueryProvider>
       </body>
     </html>

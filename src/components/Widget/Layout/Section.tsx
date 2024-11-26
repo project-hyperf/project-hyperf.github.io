@@ -17,7 +17,7 @@ export const Section: React.FC<PropsWithChildren<SectionProps>> = ({
   const { rect } = useWindow();
   return (
     <motion.div
-      // id={id}
+      id={id}
       initial={
         revealAnimation
           ? {

@@ -18,7 +18,7 @@ export const BorderButton: React.FC<BorderButtonProps> = ({
     <GeneralButton
       variant="ghost"
       className={classNames(
-        "py-5 h-auto w-[400px] pl-12 pr-5 justify-between rounded-none box-border",
+        "pt-4 pb-3 h-auto w-[400px] pl-12 pr-5 justify-between rounded-none box-border",
         className,
       )}
       data-hover={false}

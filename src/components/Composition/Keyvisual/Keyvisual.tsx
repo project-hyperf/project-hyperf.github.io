@@ -23,7 +23,8 @@ const KeyTitle: React.FC = () => {
       <Text variant="h4" className="uppercase">
         <StrongKeyWord>HY</StrongKeyWord>PERF High-
         <StrongKeyWord>Per</StrongKeyWord>
-        formanceEnergy-AwareResourceAutotuningFramework
+        formanceEnergy-AwareResourceAutotuning<StrongKeyWord>F</StrongKeyWord>
+        ramework
       </Text>
     </div>
   );
