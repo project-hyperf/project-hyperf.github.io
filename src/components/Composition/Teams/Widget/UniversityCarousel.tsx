@@ -1,10 +1,12 @@
 "use client";
+
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaOptionsType } from "embla-carousel";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import classNames from "classnames";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CurrentTeamContext } from "../Teams";
 
 interface UniversityCarouselProps {
   teams?: any[];
@@ -28,7 +30,8 @@ export const UniversityCarousel: React.FC<UniversityCarouselProps> = ({
     } as CarouselProps,
     [Autoplay()],
   );
-  const [isActivated, setIsActivated] = useState(false);
+
+  const currentTeam = useContext(CurrentTeamContext);
 
   return (
     <div className="embla" ref={emblaRef}>
@@ -40,7 +43,8 @@ export const UniversityCarousel: React.FC<UniversityCarouselProps> = ({
               alt={team.university}
               className={classNames(
                 "w-[102px] aspect-square",
-                !isActivated && "fillter grayscale",
+                team?.university !== currentTeam?.university &&
+                  "fillter grayscale",
               )}
             />
           </div>
