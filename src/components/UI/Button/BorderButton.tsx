@@ -1,6 +1,4 @@
-import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { GeneralButton } from "./GeneralButton";
-import { Divider } from "@nextui-org/react";
 import React from "react";
 import classNames from "classnames";
 interface BorderButtonProps {
@@ -20,7 +18,7 @@ export const BorderButton: React.FC<BorderButtonProps> = ({
     <GeneralButton
       variant="ghost"
       className={classNames(
-        "py-5 h-auto w-[400px] pl-12 pr-7 justify-between rounded-none box-border hover:bg-white",
+        "py-5 h-auto w-[400px] pl-12 pr-5 justify-between rounded-none box-border",
         className,
       )}
       data-hover={false}

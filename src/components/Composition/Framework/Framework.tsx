@@ -14,7 +14,7 @@ export const Framework: React.FC = () => {
       >
         hYPERF
       </Text>
-      <div className="flex items-center justify-center gap-10">
+      <div className="flex md:flex-row flex-col items-center justify-center gap-10 ">
         {archiveList?.map((archive) => (
           <årchiveLink
             key={archive.name}

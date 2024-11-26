@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { Text } from "../Text/Text";
-import { GeneralButton } from "./GeneralButton";
+import { Text } from "../../../UI/Text/Text";
+import { GeneralButton } from "../../../UI/Button/GeneralButton";
 
 interface MenuButtonProps {
   title: string;
@@ -13,7 +12,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ title, menuKey }) => {
       onClick={() => {
         document
           .getElementById(menuKey)
-          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }}
     >
       <Text variant="h4" className="cursor-pointer">

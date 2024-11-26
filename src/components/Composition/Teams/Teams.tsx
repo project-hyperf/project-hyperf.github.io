@@ -13,7 +13,7 @@ const AGNECY_LIST = [
 
 export const Teams: React.FC = () => {
   return (
-    <div className="w-full pt-[93px] pb-[177px]">
+    <div className="w-full pt-[93px] pb-[177px]" id="teams">
       <Text
         variant="t1"
         className="uppercase !text-[50px] text-primary-normal text-center mb-11"

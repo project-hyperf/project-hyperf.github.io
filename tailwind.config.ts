@@ -49,6 +49,9 @@ export default {
         "primary-assistive": "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",
         "primary-bg": "linear-gradient(180deg, #6541F2 0%, #0D00B5 100%)",
       },
+      stroke: {
+        "hover-primary": "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",
+      },
     },
   },
   plugins: [nextui()],
