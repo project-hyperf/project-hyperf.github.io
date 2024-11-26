@@ -2,10 +2,10 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { RepresentativeCard } from "./Widget/RepresentativeCard";
 import { UniversityCarousel } from "./Widget/UniversityCarousel";
 import { useTeams } from "@/hooks/useTeams";
 import { TeamCarousel } from "./Widget/TeamCarousel";
+import { createContext, useState } from "react";
 
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
@@ -15,9 +15,12 @@ const AGNECY_LIST = [
   { name: "아주대학교", key: "ajou" },
   { name: "키스트", key: "kisti" },
 ];
-
+export const CurrentTeamContext = createContext<any>(null);
+export const SetCurrentTeamContext = createContext<any>(null);
 export const Teams: React.FC = () => {
   const { data: teams } = useTeams();
+
+  const [currentTeam, setCurrentTeam] = useState<any>(null);
   return (
     <div className="w-full pt-[93px] pb-[177px]" id="teams">
       <Text
@@ -45,12 +48,16 @@ export const Teams: React.FC = () => {
           />
         ))}
       </div>
-      <div className="relative">
-        <div className="absolute right-0 top-10 z-10">
-          <UniversityCarousel teams={teams} />
-        </div>
-        <TeamCarousel teams={teams} />
-      </div>
+      <CurrentTeamContext.Provider value={currentTeam}>
+        <SetCurrentTeamContext.Provider value={setCurrentTeam}>
+          <div className="relative">
+            <div className="absolute right-0 top-10 z-10">
+              <UniversityCarousel teams={teams} />
+            </div>
+            <TeamCarousel teams={teams} />
+          </div>
+        </SetCurrentTeamContext.Provider>
+      </CurrentTeamContext.Provider>
     </div>
   );
 };
