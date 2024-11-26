@@ -11,7 +11,7 @@ export const About: React.FC = () => {
   const necessary = useDisclosure();
   const method = useDisclosure();
   const integrated = useDisclosure();
-  const integratedStep = useDisclosure({defaultOpen: true});
+  const integratedStep = useDisclosure({ defaultOpen: true });
   const DescriptionButtonList = [
     { label: "연구필요성", key: "necessary", onClick: necessary.onOpen },
     { label: "추진방법", key: "method", onClick: method.onOpen },
@@ -54,7 +54,10 @@ export const About: React.FC = () => {
                 {button.label}
               </Text>
             </BorderButton>
-            <IntegrationStepModal isOpen={integratedStep.isOpen} onClose={integratedStep.onClose} />
+            <IntegrationStepModal
+              isOpen={integratedStep.isOpen}
+              onClose={integratedStep.onClose}
+            />
           </React.Fragment>
         ))}
       </div>
