@@ -19,9 +19,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="bg-white">
         <QueryProvider>
-          <RecoilProvider>
-            <NextUiProvider>{children}</NextUiProvider>
-          </RecoilProvider>
+          <NextUiProvider>{children}</NextUiProvider>
         </QueryProvider>
       </body>
     </html>
