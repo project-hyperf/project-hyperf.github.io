@@ -1,16 +1,11 @@
 "use client";
-import { atom, useSetRecoilState } from "recoil";
+
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaOptionsType } from "embla-carousel";
 import { RepresentativeCard } from "./RepresentativeCard";
-import { useEffect } from "react";
-
-export const currentTeamState = atom<any>({
-  key: "currentTeamState",
-  default: null,
-});
-
+import { useEffect, useContext } from "react";
+import { SetCurrentTeamContext } from "../Teams";
 interface TeamCarouselProps {
   teams?: any[];
 }
@@ -22,7 +17,7 @@ interface CarouselProps extends EmblaOptionsType {
 }
 
 export const TeamCarousel: React.FC<TeamCarouselProps> = ({ teams }) => {
-  const setCurrentTeam = useSetRecoilState(currentTeamState);
+  const setCurrentTeam = useContext(SetCurrentTeamContext);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
