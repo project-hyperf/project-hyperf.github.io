@@ -1,9 +1,9 @@
 "use client";
-import { BorderButton } from "@/components/UI/Button/BorderButton";
-import { Text } from "@/components/UI/Text/Text";
-import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { Divider, useDisclosure } from "@nextui-org/react";
 
+import { BorderButton } from "@/components/UI/Button/BorderButton";
+import GradientIcon from "@/components/UI/Icon/GradientIcon";
+import { Text } from "@/components/UI/Text/Text";
+import { Divider, useDisclosure } from "@nextui-org/react";
 import React from "react";
 
 export const About: React.FC = () => {
@@ -16,7 +16,7 @@ export const About: React.FC = () => {
     { label: "연구 통합 단계", key: "integrated", onClick: integrated.onOpen },
   ];
   return (
-    <div className="bg-black pt-[115px] pb-[146px] flex flex-col items-center">
+    <div className="bg-black  pb-[146px] flex flex-col items-center" id="about">
       <AboutTitle />
       <div className="h-[480px] w-full bg-white max-w-[1140px] mb-[60px]">
         다계층 다목적 관련 내용
@@ -27,7 +27,7 @@ export const About: React.FC = () => {
       >
         다계층(multi-level),다목적(multi-objective) 오토튜닝프레임워크개발
       </Text>
-      <div className="flex gap-10 items-center">
+      <div className="flex md:flex-row flex-col gap-10 items-center">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton
@@ -39,17 +39,15 @@ export const About: React.FC = () => {
                     orientation="vertical"
                     className="!w-[2px] !h-[45px] bg-white group-hover:bg-primary-assistive"
                   />
-                  <CustomImage
-                    src="images/icons/right-top-arrow.svg"
-                    alt="화살표"
-                    className=""
-                  />
+                  {/* <div className="relative"> */}
+                  <GradientIcon className="my-auto" />
+                  {/* </div> */}
                 </div>
               }
             >
               <Text
                 variant="h3"
-                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent"
+                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px]"
               >
                 {button.label}
               </Text>
@@ -66,7 +64,7 @@ const AboutTitle: React.FC = () => {
     <div>
       <Text
         variant="h0"
-        className="!text-[50px] text-white text-center mb-[84px]"
+        className="!text-[50px] text-white text-center mb-[84px] pt-[115px]"
       >
         엑사급 초고성능 컴퓨터의 잠재 성능을 최대한 활용하며
         <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을 최소화 하는

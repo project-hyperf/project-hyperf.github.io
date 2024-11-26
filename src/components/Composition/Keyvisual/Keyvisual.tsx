@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from "react";
 
 export const KeyVisual: React.FC = () => {
   return (
-    <section className="w-full pb-[114px] pt-14">
+    <section className="w-full pb-[114px] pt-14 max-w-[1300px] mx-auto">
       <div>
         <KeyTitle />
       </div>
@@ -23,7 +23,8 @@ const KeyTitle: React.FC = () => {
       <Text variant="h4" className="uppercase">
         <StrongKeyWord>HY</StrongKeyWord>PERF High-
         <StrongKeyWord>Per</StrongKeyWord>
-        formanceEnergy-AwareResourceAutotuningFramework
+        formanceEnergy-AwareResourceAutotuning<StrongKeyWord>F</StrongKeyWord>
+        ramework
       </Text>
     </div>
   );

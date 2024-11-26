@@ -6,12 +6,10 @@ interface MainProps {}
 
 export const Main: React.FC<PropsWithChildren<MainProps>> = ({ children }) => {
   const { GNBHeight } = useHeaderMargin();
-  console.log(GNBHeight);
+
   return (
-    <main
-      className={classNames(`min-h-screen`)}
-      style={{ paddingTop: `${GNBHeight}px` }}
-    >
+    <main className={classNames(`min-h-screen`)}>
+      <div style={{ height: `${GNBHeight}px`, width: "100%" }} />
       {children}
     </main>
   );

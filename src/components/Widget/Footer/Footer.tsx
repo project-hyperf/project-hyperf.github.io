@@ -12,7 +12,7 @@ const AGNECY_LIST = [
 
 export const Footer: React.FC = () => {
   return (
-    <footer className=" py-14 px-5  border-1 border-black mb-[232px] w-full h-[180px]">
+    <footer className=" py-14 px-5 pb-[232px] w-full h-[180px]">
       <div className="flex justify-between items-start">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6">
@@ -24,7 +24,10 @@ export const Footer: React.FC = () => {
               />
             ))}
           </div>
-          <Text variant="c1" className="!font-bold text-black text-start">
+          <Text
+            variant="c1"
+            className="!font-bold text-primary-assistive text-start"
+          >
             Copyright © HYPERF 2024
           </Text>
         </div>

@@ -14,6 +14,8 @@ export default {
         primary: {
           normal: "#0D00B5",
           strong: "#C81CCC",
+          assistive: "#6E68BA",
+          neautral: "#EFEFEF",
         },
         label: {
           normal: "#171719",
@@ -46,6 +48,9 @@ export default {
       backgroundImage: {
         "primary-assistive": "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",
         "primary-bg": "linear-gradient(180deg, #6541F2 0%, #0D00B5 100%)",
+      },
+      stroke: {
+        "hover-primary": "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",
       },
     },
   },

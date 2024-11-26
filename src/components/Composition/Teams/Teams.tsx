@@ -1,6 +1,11 @@
+"use client";
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { RepresentativeCard } from "./Widget/RepresentativeCard";
+import { UniversityCarousel } from "./Widget/UniversityCarousel";
+import { useTeams } from "@/hooks/useTeams";
+import { TeamCarousel } from "./Widget/TeamCarousel";
 
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
@@ -12,8 +17,9 @@ const AGNECY_LIST = [
 ];
 
 export const Teams: React.FC = () => {
+  const { data: teams } = useTeams();
   return (
-    <div className="w-full pt-[93px] pb-[177px]">
+    <div className="w-full pt-[93px] pb-[177px]" id="teams">
       <Text
         variant="t1"
         className="uppercase !text-[50px] text-primary-normal text-center mb-11"
@@ -24,12 +30,13 @@ export const Teams: React.FC = () => {
       <AssistiveStyle variant="h5" className="text-center mb-4">
         <span className="text-black">
           원천기술 확보 전문 인력 양성이 가능한
+          <br className="md:hidden" />{" "}
         </span>{" "}
         연구 중심의 대학(연세대, 포항공대, 건국대, 아주대)과
         <br /> 초고성능컴퓨팅 정부책임기관(한국과학기술정보연구원){" "}
         <span className="text-black">이 참여하는 컨소시엄</span>
       </AssistiveStyle>
-      <div className="flex items-center gap-6 justify-center mb-[71px]">
+      <div className="flex items-center flex-wrap gap-6 justify-center mb-[71px]">
         {AGNECY_LIST.map((agency) => (
           <CustomImage
             src={`images/agency/${agency.key}.svg`}
@@ -38,7 +45,12 @@ export const Teams: React.FC = () => {
           />
         ))}
       </div>
-      <div className="max-w-[1240px] w-full h-[780px] bg-slate-600"></div>
+      <div className="relative">
+        <div className="absolute right-0 top-10 z-10">
+          <UniversityCarousel teams={teams} />
+        </div>
+        <TeamCarousel teams={teams} />
+      </div>
     </div>
   );
 };
