@@ -11,6 +11,7 @@ import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 
 export const About: React.FC = () => {
   const { open, close } = useContext(ModalsDispatchContext);
+
   const necessary = useDisclosure();
 
   const integrated = useDisclosure();
