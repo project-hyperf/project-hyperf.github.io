@@ -23,3 +23,12 @@ body {
   height: 100vh;
   background-color: #fff;
 }
+
+@layer utilities {
+  .gradient-border {
+    @apply relative p-1 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 rounded-lg;
+  }
+  .gradient-border > div {
+    @apply bg-white rounded-lg p-4;
+  }
+}
