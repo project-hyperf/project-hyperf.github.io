@@ -13,7 +13,7 @@ export const Events: React.FC = () => {
     <div className="w-full pt-[104px] pb-[144px] bg-primary-neautral">
       <Text
         variant="t1"
-        className="uppercase text-[50px] text-center text-primary-normal"
+        className="uppercase text-[50px] text-center text-primary-normal mb-[84px]"
       >
         Events
       </Text>

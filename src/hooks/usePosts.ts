@@ -6,6 +6,9 @@ export interface Post {
   filename: string;
   title: string;
   updatedAt: string;
+  date?: string;
+  location?: string;
+  tags?: string[];
   content: string;
   thumbnail?: string;
   author?: string;
@@ -60,6 +63,16 @@ export const usePosts = ({
           const titleWithHash = data.match(/(#.*)/)?.[1] ?? "";
           const title = titleWithHash.replace("#", "").trim();
           const updatedAt = headers["last-modified"];
+          const dateMatch = data.match(/<!--\s*날짜\s?:\s?(.*)\s*-->/)?.[1];
+          const date = dateMatch ? dateMatch.trim() : "";
+
+          const tagsMatch = data.match(/\[(#.*)\]/)?.[1];
+          const tags = tagsMatch
+            ? tagsMatch.split(",").map((tag) => tag.replace("#", "").trim())
+            : [];
+
+          const locationMatch = data.match(/<!--\s*장소\s?:\s?(.*)\s*-->/)?.[1];
+          const location = locationMatch ? locationMatch.trim() : "";
           const thumbnailRaw = data.match(/!\[.*\]\((.*)\)/)?.[1] ?? "";
           const thumbnail = thumbnailRaw.startsWith("http")
             ? thumbnailRaw
@@ -74,6 +87,9 @@ export const usePosts = ({
             thumbnail,
             content: data.replace(titleWithHash, "").trim(),
             author,
+            date,
+            location,
+            tags,
           });
         } catch (e) {
           if (e instanceof AxiosError) {
