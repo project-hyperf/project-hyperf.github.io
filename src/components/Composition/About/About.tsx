@@ -5,11 +5,14 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider, useDisclosure } from "@nextui-org/react";
 import React from "react";
+import { NecessityModal } from "./NecessityModal";
 
 export const About: React.FC = () => {
   const necessary = useDisclosure();
   const method = useDisclosure();
   const integrated = useDisclosure();
+  const necessityModal = useDisclosure({defaultOpen: true});
+
   const DescriptionButtonList = [
     { label: "연구필요성", key: "necessary", onClick: necessary.onOpen },
     { label: "추진방법", key: "method", onClick: method.onOpen },
@@ -52,6 +55,7 @@ export const About: React.FC = () => {
                 {button.label}
               </Text>
             </BorderButton>
+            <NecessityModal isOpen={necessityModal.isOpen} onClose={necessityModal.onClose} />
           </React.Fragment>
         ))}
       </div>
