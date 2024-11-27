@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { MenuButton } from "./Element/MenuButton";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useMenu } from "@/hooks/useMenu";
@@ -11,34 +12,42 @@ export const headerRef = createRef<HTMLHeadElement>();
 export const GNB: React.FC = () => {
   const { data: menus } = useMenu();
   const [isBlackArea, setIsBlackArea] = useState(false);
+
   useEffect(() => {
     const target = document.getElementById("about");
 
     if (!target) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsBlackArea(entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0.9,
-      },
-    );
+    const handleScroll = () => {
+      const rect = target.getBoundingClientRect();
+      if (rect.top <= 125 && rect.bottom >= 120) {
+        setIsBlackArea(true);
+      } else {
+        setIsBlackArea(false);
+      }
+    };
 
-    observer.observe(target);
+    window.addEventListener("scroll", handleScroll);
+
+    handleScroll();
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
-    <header
-      className={classNames(
-        "w-full h-[120px] px-5 py-8",
-        isBlackArea ? "bg-black" : "bg-white",
-      )}
+    <motion.header
+      className={classNames("w-full h-[120px] px-5 py-8")}
       ref={headerRef}
+      animate={{
+        backgroundColor: isBlackArea ? "#000000" : "#FFFFFF",
+        color: isBlackArea ? "#FFFFFF" : "#000000",
+      }}
+      transition={{
+        duration: 0.2,
+        ease: "easeInOut",
+      }}
     >
       <div className="flex items-center max-w-[1300px] mx-auto justify-between">
         <div className="shrink-0">
@@ -59,6 +68,6 @@ export const GNB: React.FC = () => {
           ))}
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
