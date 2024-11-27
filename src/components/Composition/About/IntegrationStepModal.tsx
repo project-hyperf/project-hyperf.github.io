@@ -100,8 +100,6 @@ function Divider(
             dangerouslySetInnerHTML={{ __html: summary }}
 
           />
-            {/* {summary}
-          </Text> */}
         </div>
         <div className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px]">
           {list.map((item) => renderList(item.id, item.content))}
