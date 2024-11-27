@@ -92,12 +92,12 @@ const AboutContent: React.FC = () => {
 
   const containerWidth = useTransform(
     scrollYProgress,
-    [0, 0.05, 0.2, 0.3, 0.41, 0.5],
+    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
     ["2px", "2px", "480px", "480px", "2px", "2px"],
   );
   const containerPadding = useTransform(
     scrollYProgress,
-    [0, 0.05, 0.2, 0.3, 0.41, 0.5],
+    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
     ["0px", "0px", "60px", "60px", "0px", "0px"],
   );
 
