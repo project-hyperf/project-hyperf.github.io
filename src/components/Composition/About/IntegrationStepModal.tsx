@@ -58,7 +58,7 @@ export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = ({
       classNames={{
         base: "w-[1440px]",
       }}
-      className="min-w-[1440px] max-w-[1440px] h-[1200px] max-h-[1200px] min-h-[1100px] bg-white"
+      className="min-w-[1440px] max-w-[1440px] h-[1800px] max-h-[1800px] min-h-[1600px] bg-white"
     >
       <div>
         <ModalContent>
@@ -71,9 +71,9 @@ export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = ({
             </AssistiveStyle>
           </ModalHeader>
           <ModalBody className="px-[70px]">
-            {RESEARCH_TIME_LINE.map((item) =>
-              Divider(item.year, item.summary, item.list)
-            )}
+            {RESEARCH_TIME_LINE.map((item) => (
+                Divider(item.year, item.summary, item.list)
+            ))}
           </ModalBody>
         </ModalContent>
       </div>
@@ -87,25 +87,24 @@ function Divider(
   list: { id: string; content: string }[]
 ) {
   return (
-    <>
+    <div key={year}>
       <div className="border-dashed border-1 border-black" />
       <div className="flex flex-col">
         <div className="flex  flex-row">
-          <Text variant="b2" className="pl-[18px] !text-[24px] !font-bold">
+          <Text variant="b2" className="pl-[18px] !text-[24px] !font-bold mt-3">
             {year}
           </Text>
           <Text
             variant="h4"
-            className="text-[38px] !font-light px-[115px] tracking-tight"
+            className="text-[38px] !font-light px-[115px] tracking-tight mt-3"
             dangerouslySetInnerHTML={{ __html: summary }}
-
           />
         </div>
         <div className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px]">
           {list.map((item) => renderList(item.id, item.content))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
