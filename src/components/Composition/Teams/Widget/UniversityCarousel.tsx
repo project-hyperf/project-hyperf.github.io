@@ -40,7 +40,7 @@ export const UniversityCarousel: React.FC<UniversityCarouselProps> = ({
               alt={team.university}
               className={classNames(
                 "w-[102px] aspect-square",
-                !isActivated && "fillter grayscale",
+                !isActivated && "filter grayscale",
               )}
             />
           </div>
