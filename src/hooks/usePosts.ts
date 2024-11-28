@@ -12,6 +12,10 @@ export interface Post {
   content: string;
   thumbnail?: string;
   author?: string;
+  picture?: {
+    src: string;
+    alt: string;
+  }[];
 }
 
 export const usePosts = ({
@@ -77,6 +81,18 @@ export const usePosts = ({
           const thumbnail = thumbnailRaw.startsWith("http")
             ? thumbnailRaw
             : window?.["basePath" as any] + thumbnailRaw;
+          const picture = data.match(/!\[(.*?)\]\((.*?)\)/g)?.map((p) => {
+            const match = p.match(/!\[(.*?)\]\((.*?)\)/);
+            const alt = match?.[1] ?? ""; // Extract alt text
+            const src = match?.[2] ?? ""; // Extract src URL
+
+            const finalSrc = src.startsWith("http")
+              ? src
+              : window?.["basePath" as any] + src;
+
+            return { alt, src: finalSrc }; // Return as an object
+          }, []);
+
           const author =
             data.match(/<!--\s*author\s?:\s?(.*)\s*-->/)?.[1] ?? "";
 
@@ -90,6 +106,7 @@ export const usePosts = ({
             date,
             location,
             tags,
+            picture,
           });
         } catch (e) {
           if (e instanceof AxiosError) {

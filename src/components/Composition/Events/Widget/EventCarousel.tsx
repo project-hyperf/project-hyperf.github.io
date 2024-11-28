@@ -2,12 +2,12 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 import { motion } from "framer-motion";
-import { Button, Image } from "@nextui-org/react";
-import classNames from "classnames";
+import { Button, useDisclosure } from "@nextui-org/react";
 import { Text } from "@/components/UI/Text/Text";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { Icon } from "@/assets/Icon";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 
 interface EventCarouselProps {
   posts?: any[];
@@ -26,6 +26,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
     axis: "x",
     align: "start",
   } as CarouselProps);
+  const eventModal = useDisclosure();
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -33,6 +34,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
+  console.log(posts);
   return (
     <div className="w-[90%] mx-auto relative">
       <motion.div
@@ -49,47 +51,54 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           {posts?.map((post, index) => (
-            <motion.div
-              key={index}
-              className="embla__slide h-full cursor-pointer flex-shrink-0 hover:bg-primary-bg relative mr-4"
-              initial={{ width: "226px" }}
-              whileHover={{
-                width: 470,
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              style={{
-                overflow: "hidden",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundImage: `url(${post.thumbnail})`,
-              }}
-            >
+            <React.Fragment key={index}>
               <motion.div
-                className="absolute inset-0 px-[37px] pt-[50px] pb-5 text-white opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between"
-                style={{
-                  background: `linear-gradient(180deg, rgba(101, 65, 242, 0.57) 0%, rgba(13, 0, 181, 0.57) 100%)`,
+                className="embla__slide h-full cursor-pointer flex-shrink-0 hover:bg-primary-bg relative mr-4"
+                initial={{ width: "226px" }}
+                whileHover={{
+                  width: 470,
                 }}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{
+                  overflow: "hidden",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundImage: `url(${post.thumbnail})`,
+                }}
               >
-                <div>
-                  <Text variant="h2" className="break-all">
-                    {post.title}
-                  </Text>
-                  <Text variant="h4" className="mt-2 font-medium">
-                    {post.date}
-                  </Text>
-                </div>
-                <div className="flex items-center mt-auto">
-                  {post.tags &&
-                    post.tags.map((tag: any, index: number) => (
-                      <Tag key={index}>{tag}</Tag>
-                    ))}
-                </div>
+                <motion.div
+                  className="absolute inset-0 px-[37px] cursor-pointer pt-[50px] pb-5 text-white opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between"
+                  style={{
+                    background: `linear-gradient(180deg, rgba(101, 65, 242, 0.57) 0%, rgba(13, 0, 181, 0.57) 100%)`,
+                  }}
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  onClick={eventModal.onOpen}
+                >
+                  <div>
+                    <Text variant="h2" className="break-all">
+                      {post.title}
+                    </Text>
+                    <Text variant="h4" className="mt-2 font-medium">
+                      {post.date}
+                    </Text>
+                  </div>
+                  <div className="flex items-center mt-auto">
+                    {post.tags &&
+                      post.tags.map((tag: any, index: number) => (
+                        <Tag key={index}>{tag}</Tag>
+                      ))}
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
+              <EventModal
+                isOpen={eventModal.isOpen}
+                onClose={eventModal.onClose}
+                post={post}
+              />
+            </React.Fragment>
           ))}
         </motion.div>
       </motion.div>
