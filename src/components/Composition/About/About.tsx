@@ -5,7 +5,7 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 import { useTransform, motion, useScroll } from "framer-motion";
@@ -16,11 +16,6 @@ export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
 
   const DescriptionButtonList = [
-    {
-      label: "연구필요성",
-      key: "necessary",
-      onClick: () => open(NecessityModal),
-    },
     {
       label: "연구필요성",
       key: "necessary",
@@ -96,25 +91,27 @@ const AboutContent: React.FC = () => {
 
   const containerWidth = useTransform(
     scrollYProgress,
-    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
-    ["2px", "2px", "480px", "480px", "2px", "2px"],
+    [0, 0.02, 0.04, 0.05, 0.1],
+    ["2px", "2px", "480px", "480px", "2px"],
   );
   const containerPadding = useTransform(
     scrollYProgress,
-    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
-    ["0px", "0px", "60px", "60px", "0px", "0px"],
+    [0, 0.02, 0.04, 0.5, 0.1],
+    ["0px", "0px", "60px", "60px", "0px"],
   );
+  // const containerPadding = useTransform(
+  //   scrollYProgress,
+  //   [0, 0.07, 0.19, 0.32, 0.41, 0.5],
+  //   ["0px", "0px", "60px", "60px", "0px", "0px"],
+  // );
 
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.15, 0.19, 0.41, 0.5],
-    [0, 0, 0, 1, 0, 0],
-  );
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 0.05, 0.19, 0.23, 0.41, 0.5],
-    [20, 20, 15, 0, 15, 20],
-  );
+  const textOpacity = useTransform(scrollYProgress, [0, 0.045, 0.2], [0, 1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.04, 0.2], [20, 0, 20]);
+  // const textY = useTransform(
+  //   scrollYProgress,
+  //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],
+  //   [20, 20, 15, 0, 15, 20],
+  // );
   return (
     <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
       {ABOUT_CONTENT.map((item, index) => (
@@ -133,7 +130,7 @@ const AboutContent: React.FC = () => {
           {/* 컨텐츠 */}
 
           <>
-            <motion.div className={classNames(`mb-4 flex flex-col flex-1 `)}>
+            <motion.div className={classNames(`flex flex-col flex-1 `)}>
               <motion.div
                 style={{
                   opacity: textOpacity,
@@ -159,7 +156,7 @@ const AboutContent: React.FC = () => {
                 }}
                 className="mt-auto"
               >
-                <Text className="text-white text-sm whitespace-pre-wrap">
+                <Text className="text-white !text-[24px] whitespace-pre-wrap">
                   {item.content}
                 </Text>
               </motion.div>

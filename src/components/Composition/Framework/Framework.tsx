@@ -2,10 +2,12 @@
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
+import { useScroll, useTransform, motion } from "framer-motion";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
+
   return (
     <div className="w-full bg-primary-bg pt-[104px] pb-[178px]">
       <Text
@@ -24,7 +26,7 @@ export const Framework: React.FC = () => {
         ))}
       </div>
     </div>
-  ); 
+  );
 };
 interface ArchiveProps {
   title: string;
@@ -32,26 +34,60 @@ interface ArchiveProps {
 }
 
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
+  const { scrollYProgress } = useScroll();
+  const router = useRouter();
+  const containerHeight = useTransform(
+    scrollYProgress,
+    [0.83, 0.84, 0.86, 0.87],
+    ["90px", "142px", "142px", "90px"],
+  );
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0.83, 0.84, 0.86, 0.87],
+    [0, 1, 1, 0],
+  );
   return (
-    <Link href={`/${link}`} className="py-7 border-t-1 border-b-1 border-white">
-      <div className="flex items-center">
-        <Text
-          variant="t1"
-          className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
-        >
-          {title}
-        </Text>
-        <div className="relative w-10 h-[58px]">
-          <CustomImage
-            src="images/icons/right-top-arrow.svg"
-            alt="화살표"
-            fill
-          />
+    <motion.div
+      className="py-7 border-t-1 border-b-1 border-white"
+      style={{
+        height: containerHeight,
+        overflow: "hidden",
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      onClick={() => window.open(link, "_blank")}
+    >
+      <motion.div>
+        <div className="flex items-center">
+          <Text
+            variant="t1"
+            className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
+          >
+            {title}
+          </Text>
+          <div className="relative w-10 h-[58px] -mt-4">
+            <CustomImage
+              src="images/icons/right-top-arrow.svg"
+              alt="화살표"
+              fill
+            />
+          </div>
         </div>
-      </div>
-      <Text variant="h4" className="text-white">
-        {link}
-      </Text>
-    </Link>
+      </motion.div>
+      <motion.div
+        style={{
+          opacity: textOpacity,
+        }}
+        transition={{
+          delay: 0.2,
+          duration: 0.3,
+        }}
+      >
+        <Text variant="h4" className="text-white">
+          {link}
+        </Text>
+      </motion.div>
+    </motion.div>
   );
 };

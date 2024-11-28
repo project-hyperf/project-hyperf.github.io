@@ -14,13 +14,13 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({
   onClose,
 }) => {
   return (
-    <ModalContent>
-      <ModalHeader className="justify-center px-4">
-        <AssistiveStyle variant="t1" className="text-center pt-4">
+    <ModalContent className="pt-5">
+      <ModalHeader className="justify-center px-4 ">
+        <AssistiveStyle variant="t1" className="text-center pt-4 font-light">
           연구필요성
         </AssistiveStyle>
       </ModalHeader>
-      <ModalBody className="px-[110px]">
+      <ModalBody className="px-[110px] scrollbar-hide">
         <Text variant="h4" className="text-center font-normal">
           고성능 컴퓨팅 영역이 확장됨에 따라, 엑사급FLOPS를 제공하는
           초고성능컴퓨터의 수요가 커지고 있고,

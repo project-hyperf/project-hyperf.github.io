@@ -1,68 +1,122 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
+import classNames from "classnames";
+import { useInView, useScroll } from "framer-motion";
+import { use, useEffect, useRef, useState } from "react";
 
 interface IntegrationStepModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = ({
-  isOpen,
-  onClose,
-}) => {
+export const IntegrationStepModal: React.FC<
+  IntegrationStepModalProps
+> = ({}) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
   return (
-    <Modal
-      placement="center"
-      isOpen={isOpen}
-      onClose={onClose}
-      classNames={{
-        base: "w-[1440px]",
-      }}
-      className="min-w-[1440px] max-w-[1440px] h-[180px] max-h-[1600px] min-h-[1600px] bg-white"
-    >
-      <div>
-        <ModalContent>
-          <ModalHeader className="flex justify-center item-center  pt-[50px] pb-[48px]">
-            <AssistiveStyle
-              variant="h1"
-              className="text-[51px] font-normal leading-[61.20px]"
-            >
-              연구 통합 단계
-            </AssistiveStyle>
-          </ModalHeader>
-          <ModalBody className="px-[70px]">
-            {RESEARCH_TIME_LINE.map((item) =>
-              Divider(item.year, item.summary, item.list)
-            )}
-            <div className="border-dashed border-1 border-black" />
-          </ModalBody>
-        </ModalContent>
-      </div>
-    </Modal>
+    <ModalContent>
+      <ModalHeader className="flex justify-center item-center  pt-[50px] pb-[48px]">
+        <AssistiveStyle
+          variant="h1"
+          className="text-[51px] font-light leading-[61.20px]"
+        >
+          연구 통합 단계
+        </AssistiveStyle>
+      </ModalHeader>
+      <ModalBody className="px-[70px] border-1 border-black">
+        <div
+          className="w-full h-full border-1 border-red-400 overflow-scroll scrollbar-hide"
+          ref={scrollRef}
+        >
+          {RESEARCH_TIME_LINE.map((item, idx) =>
+            Divider(item.year, item.summary, item.list, idx, scrollRef),
+          )}
+        </div>
+        <div className="border-dashed border-1 border-black" />
+      </ModalBody>
+    </ModalContent>
   );
 };
 
 function Divider(
   year: string,
   summary: string,
-  list: { id: string; content: string }[]
+  list: { id: string; content: string }[],
+  idx: number,
+  scrollRef: React.RefObject<HTMLDivElement>,
 ) {
+  const stickyTopRef = useRef<HTMLDivElement>(null);
+  const [titleHeight, setTitleHeight] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const {} = useScroll();
+  useEffect(() => {
+    if (!stickyTopRef.current) return;
+    const updateMargin = () => {
+      if (stickyTopRef.current) {
+        const rect = stickyTopRef.current.getBoundingClientRect();
+        // const headerHeight = headerRef.current.offsetHeight;
+        setTitleHeight(rect.height);
+      }
+    };
+
+    window.addEventListener("resize", updateMargin);
+    updateMargin();
+
+    return () => {
+      window.removeEventListener("resize", updateMargin);
+    };
+  }, []);
+  //스크롤 시 title부분이 sticky가 된다 스크롤이 계속되어서 다음 title이 올라오면 현재 title은 fixed가 되며 그 바로 밑에 붙는다.
+  useEffect(() => {
+    const sticky = stickyTopRef.current;
+    const scroll = scrollRef.current;
+
+    if (!sticky || !scroll) return;
+
+    const { top: stickyTop } = sticky.getBoundingClientRect();
+    const { top: scrollTop } = scroll.getBoundingClientRect();
+    console.log(stickyTop, scrollTop);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        console.log(entry, stickyTop, scrollTop);
+      },
+      {
+        root: null,
+        threshold: 0.5,
+      },
+    );
+    observer.observe(sticky);
+  }, [scrollRef]);
+
   return (
     <div key={year}>
-      <div className="border-dashed border-1 border-black" />
       <div className="flex flex-col">
-        <div className="flex  flex-row">
-          <Text variant="b2" className="pl-[18px] !text-[24px] !font-bold mt-3">
-            {year}
-          </Text>
-          <Text
-            variant="h4"
-            className="text-[38px] !font-light px-[115px] tracking-tight mt-3"
-            dangerouslySetInnerHTML={{ __html: summary }}
-          />
+        <div
+          className={classNames("sticky bg-white")}
+          ref={stickyTopRef}
+          style={{ top: idx * titleHeight || 0 }}
+        >
+          <div className="border-dashed border-1 border-black" />
+          <div className="flex items-center">
+            <Text
+              variant="b2"
+              className="pl-[18px] !text-[24px] !font-bold mt-3 "
+            >
+              {year}
+            </Text>
+            <Text
+              variant="h4"
+              className="text-[38px] !font-light px-[115px] tracking-tight mt-3 whitespace-pre-wrap"
+            >
+              {summary}
+            </Text>
+          </div>
         </div>
-        <div className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px]">
+        <div
+          className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px]"
+          ref={contentRef}
+        >
           {list.map((item) => renderList(item.id, item.content))}
         </div>
       </div>
@@ -73,7 +127,7 @@ function Divider(
 function renderList(
   id: string,
   content: string,
-  highlightColor = "text-primary-normal"
+  highlightColor = "text-primary-normal",
 ) {
   return (
     <div
@@ -82,7 +136,7 @@ function renderList(
     >
       <Text
         variant="h4"
-        className="text-[24px] !font-normal font-['D2Coding'] leading-[33.6px] ml-[29px]"
+        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]"
       >
         {id} {`{`}
         <span className={highlightColor}>{content}</span>
@@ -127,18 +181,18 @@ const RESEARCH_TIME_LINE = [
   {
     year: "2차년도",
     summary:
-      "반복문 최적화 및 병렬 프로그래밍 모델 최적화와<br/> 오토튜닝 메커니즘 연계, 성능/전력 동시 최적화 비용 모델 개발",
+      "반복문 최적화 및 병렬 프로그래밍 모델 최적화와\n오토튜닝 메커니즘 연계, 성능/전력 동시 최적화 비용 모델 개발",
     list: SECOND_LIST,
   },
   {
     year: "3차년도",
-    summary: "데이터 레이아웃 최적화와<br/> 오토튜닝 메커니즘 연계",
+    summary: "데이터 레이아웃 최적화와\n오토튜닝 메커니즘 연계",
     list: THIRD_LIST,
   },
   {
     year: "4차년도",
     summary:
-      "잡 스케줄링 최적화, 병렬 저장장치 시스템 최적화,<br/> 구현선택 최적화 기법과 오토튜닝 메커니즘 연계",
+      "잡 스케줄링 최적화, 병렬 저장장치 시스템 최적화,\n구현선택 최적화 기법과 오토튜닝 메커니즘 연계",
     list: FOURTH_LIST,
   },
 ];

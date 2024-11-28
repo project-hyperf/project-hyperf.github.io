@@ -13,6 +13,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "D2Coding";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,7 +30,6 @@ body {
   height: 100vh;
   background-color: #fff;
 }
-
 @layer utilities {
   .gradient-border {
     @apply relative p-1 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 rounded-lg;

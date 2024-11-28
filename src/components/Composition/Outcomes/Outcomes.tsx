@@ -1,9 +1,12 @@
+"use client";
 import { GradientBox } from "@/components/UI/Box/GradientBox";
 import { Text } from "@/components/UI/Text/Text";
+import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import classNames from "classnames";
 
 export const Outcomes: React.FC = () => {
   return (
-    <div className="w-full pt-[104px] pb-[114px]">
+    <div className="w-full pt-[104px] min-h-[1680px] h-fit pb-[114px] relative">
       <Text
         variant="t1"
         className="text-center uppercase text-primary-normal text-[50px]"
@@ -13,8 +16,9 @@ export const Outcomes: React.FC = () => {
       <Text variant="h4" className="text-center pt-12 text-primary-normal">
         예상성과
       </Text>
-
-      <Step1></Step1>
+      <div className="absolute bottom-0 z-[60] h-fi pb-[166px]">
+        <Step1></Step1>
+      </div>
       {/* <Step2></Step2> */}
     </div>
   );
@@ -24,11 +28,11 @@ const Step1: React.FC = () => {
   return (
     <>
       {/* 단계 마름모 & Text*/}
-      <div className="w-full flex flex-row pb-3">
-        <div className="pl-[376.3px] pt-[914px]">
+      <div className="w-full flex flex-row items-end pb-3">
+        <div className="pl-[376.3px] pt-[914px] flex flex-col items-center gap-14">
           <Text
             variant="h4"
-            className="text-center text-primary-normal !leading-[33.6px]"
+            className="text-center text-primary-normal !leading-[33.6px] whitespace-nowrap"
           >
             TVM의 기능적, 성능적 확장을
             <br />
@@ -36,11 +40,19 @@ const Step1: React.FC = () => {
             <br />
             활용한 최적화 목표
           </Text>
+          <div className="relative">
+            <CustomImage src="images/icons/rectangle.svg" alt="Step 1" />
+            <div className="absolute inset-0 flex justify-center items-center z-20">
+              <Text variant="h4" className="text-primary-normal">
+                1단계
+              </Text>
+            </div>
+          </div>
         </div>
 
         {/* 우측 Text & 박스 */}
         <div className="pl-[142.99px] pt-[120px] pr-[345px] grow shrink">
-          <Text variant="h4" className="mb-[25px]">
+          <Text variant="h4" className="mb-[49px]">
             TVM 컴파일러를 HPC(고성능 컴퓨팅)를 사용해 확장
           </Text>
 
@@ -89,40 +101,48 @@ const StepBox: React.FC<{
 }> = ({ title, purpose, tasks }) => {
   return (
     <>
-      <div className="py-6 px-[28px] bg-primary-bg mb-6 flex-col justify-center border-2 border-black">
-        <Text variant="h4" className="text-white pb-3 text-center">
+      <div className="py-6 px-[28px] bg-primary-bg mt-6 flex-col justify-center border-2 border-black">
+        <Text
+          variant="h4"
+          className="text-white pb-3 text-center !font-extrabold"
+        >
           {title}
-        </Text>
-        <Text variant="h5" className="text-white pb-3 text-center !font-normal">
-          {purpose}
         </Text>
         <Text
           variant="h5"
-          className="text-white pb-3 text-center !font-normal text-[16px]"
+          className="text-white pb-3 text-center !font-semibold"
+        ></Text>
+        <Text
+          variant="h5"
+          className="text-white pb-3 text-center !font-semibold !text-[16px]"
         >
           핵심작업
         </Text>
 
         <div
-            className={`grid gap-5 ${
-              tasks.length === 1 ? "grid-cols-1" : "grid-cols-2"
-            }`}
-          >
-            {tasks.map((task, index) => (
-              <div
-                key={index}
-                className={`bg-white flex justify-center items-center border-2 border-black py-[12px]`}
+          className={`grid gap-5 ${
+            tasks.length === 1 ? "grid-cols-1" : "grid-cols-2"
+          }`}
+        >
+          {tasks.map((task, index) => (
+            <div
+              key={index}
+              className={classNames(
+                `bg-white flex justify-center items-center border-2 border-black py-[12px] box-border`,
+                task.length % 2 === 0 && index === tasks.length - 1
+                  ? "col-span-2"
+                  : "",
+              )}
+            >
+              <Text
+                variant="h5"
+                className="text-black !font-bold !text-[16px] tracking-tighter w-full text-center"
               >
-                <Text
-                  variant="h5"
-                  className="text-black !font-normal text-[16px]"
-                >
-                  {task}
-                </Text>
-              </div>
-            ))}
-          </div>
-
+                {task}
+              </Text>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
