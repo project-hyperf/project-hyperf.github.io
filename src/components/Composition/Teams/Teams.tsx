@@ -5,7 +5,7 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { UniversityCarousel } from "./Widget/UniversityCarousel";
 import { useTeams } from "@/hooks/useTeams";
 import { TeamCarousel } from "./Widget/TeamCarousel";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
@@ -19,8 +19,59 @@ export const CurrentTeamContext = createContext<any>(null);
 export const SetCurrentTeamContext = createContext<any>(null);
 export const Teams: React.FC = () => {
   const { data: teams } = useTeams();
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const [currentTeam, setCurrentTeam] = useState<any>(null);
+
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      const sticky = stickyRef.current;
+
+      if (!section || !sticky) return;
+
+      const { top: sectionTop, height: sectionHeight } =
+        section.getBoundingClientRect();
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            console.log(entry);
+            const intersectionHeight = entry.intersectionRect.y;
+            // console.log(intersectionHeight, sectionTop, sectionHeight);
+            // const viewportHeight = window.innerHeight;
+
+            const progress = Math.min(
+              Math.max((intersectionHeight - sectionTop) / sectionHeight, 0),
+              1,
+            );
+            console.log(
+              progress,
+              intersectionHeight,
+              sectionTop,
+              sectionHeight,
+            );
+            setScrollProgress(progress);
+          }
+        },
+        {
+          root: null,
+          threshold: 0.9,
+        },
+      );
+      observer.observe(sticky);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="w-full pt-[93px] pb-[177px]" id="teams">
       <Text
@@ -50,11 +101,24 @@ export const Teams: React.FC = () => {
       </div>
       <CurrentTeamContext.Provider value={currentTeam}>
         <SetCurrentTeamContext.Provider value={setCurrentTeam}>
-          <div className="relative">
-            <div className="absolute right-0 top-10 z-10">
-              <UniversityCarousel teams={teams} />
+          <div
+            ref={sectionRef}
+            className="team-carousel-section relative"
+            style={{
+              height: "1200vh",
+              position: "relative",
+              padding: "50px 0",
+            }}
+          >
+            <div
+              className="sticky top-[200px] mb-100vh h-[1030px] w-vw overflow-hidden border-1 border-black"
+              ref={stickyRef}
+            >
+              <div className="absolute right-0 top-10 z-10">
+                <UniversityCarousel teams={teams} />
+              </div>
+              <TeamCarousel teams={teams} scrollProgress={scrollProgress} />
             </div>
-            <TeamCarousel teams={teams} />
           </div>
         </SetCurrentTeamContext.Provider>
       </CurrentTeamContext.Provider>

@@ -17,7 +17,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
   return (
     <div
       className={classNames(
-        "max-w-[1240px] w-full h-[780px] bg-[#F1F1F1] border-1 border-black pl-20 pr-[294px] pt-[54px] flex flex-col ml-auto",
+        "max-w-[1240px] w-full h-[780px] bg-[#F1F1F1] border-1 border-black pl-20 pr-[294px] pt-[54px] pb-[42px] flex flex-col",
         className,
       )}
     >

@@ -1,81 +1,58 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { EmblaOptionsType } from "embla-carousel";
-import { RepresentativeCard } from "./RepresentativeCard";
-import { useEffect, useContext, useRef, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { SetCurrentTeamContext } from "../Teams";
+import { RepresentativeCard } from "./RepresentativeCard";
+import { Sticky } from "@/components/UI/Sticky/Sticky";
 
 interface TeamCarouselProps {
   teams?: any[];
+  scrollProgress: number;
 }
 
-interface CarouselProps extends EmblaOptionsType {
-  axis?: "x" | "y";
-  loop?: boolean;
-  autoplay?: boolean;
-}
-
-export const TeamCarousel: React.FC<TeamCarouselProps> = ({ teams }) => {
+export const TeamCarousel: React.FC<TeamCarouselProps> = ({
+  teams,
+  scrollProgress,
+}) => {
   const setCurrentTeam = useContext(SetCurrentTeamContext);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    axis: "x",
-  } as CarouselProps);
-  useEffect(() => {
-    const target = document.getElementById("team-carousel-section");
-    if (!target) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        console.log(entry);
-      },
-      {
-        threshold: 0.5,
-      },
-    );
-    observer.observe(target);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  // const [scrollProgress, setScrollProgress] = useState(0);
 
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [isHorizontalScroll, setIsHorizontalScroll] = useState(false);
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const maxTranslateX = content.scrollWidth - window.innerWidth;
+    const translateX = -maxTranslateX * scrollProgress;
+
+    content.style.transform = `translateX(${translateX}px)`;
+  }, [scrollProgress]);
 
   return (
     <div
-      ref={sectionRef}
-      className={`team-carousel-section ${
-        isHorizontalScroll ? "no-vertical-scroll" : ""
-      }`}
+      ref={contentRef}
+      className="flex"
       style={{
-        height: "100vh",
-        overflow: isHorizontalScroll ? "hidden" : "auto",
+        height: "1030px",
+        width: "100%",
+        display: "flex",
+        transform: "translateX(0)",
+        transition: "transform 0.1s linear",
       }}
     >
-      <div className="overflow-hidden">
+      {teams?.map((team, index) => (
         <div
-          className="flex touch-pan-y touch-pinch-zoom"
+          key={index}
           style={{
-            marginLeft: "calc(1rem * -1)",
+            flex: "0 0 100%",
+            minWidth: "100vw",
+            padding: "1rem",
           }}
         >
-          {teams?.map((team, index) => (
-            <div
-              key={index}
-              className=""
-              style={{
-                transform: "translate3d(0, 0, 0)",
-                flex: "0 0 100%",
-                minWidth: "0",
-                paddingLeft: "1rem",
-              }}
-            >
-              <RepresentativeCard representative={team} />
-            </div>
-          ))}
+          <RepresentativeCard representative={team} />
         </div>
-      </div>
+      ))}
     </div>
   );
 };
