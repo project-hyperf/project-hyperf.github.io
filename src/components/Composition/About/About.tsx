@@ -3,18 +3,17 @@
 import { BorderButton } from "@/components/UI/Button/BorderButton";
 import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
-import { Divider, useDisclosure } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
 import React, { useContext } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
+import { useTransform, motion, useScroll } from "framer-motion";
+import { IntegrationStepModal } from "./IntegrationStepModal";
+import classNames from "classnames";
 
 export const About: React.FC = () => {
-  const { open, close } = useContext(ModalsDispatchContext);
-  const { open, close } = useContext(ModalsDispatchContext);
-  const necessary = useDisclosure();
-
-  const integrated = useDisclosure();
+  const { open } = useContext(ModalsDispatchContext);
 
   const DescriptionButtonList = [
     {
@@ -23,7 +22,11 @@ export const About: React.FC = () => {
       onClick: () => open(NecessityModal),
     },
     { label: "추진방법", key: "method", onClick: () => open(MethodModal) },
-    { label: "연구 통합 단계", key: "integrated", onClick: integrated.onOpen },
+    {
+      label: "연구 통합 단계",
+      key: "integrated",
+      onClick: () => open(IntegrationStepModal),
+    },
   ];
   return (
     <div className="bg-black  pb-[146px] flex flex-col items-center" id="about">
