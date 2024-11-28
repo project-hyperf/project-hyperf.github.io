@@ -21,6 +21,11 @@ export const About: React.FC = () => {
       key: "necessary",
       onClick: () => open(NecessityModal),
     },
+    {
+      label: "연구필요성",
+      key: "necessary",
+      onClick: () => open(NecessityModal),
+    },
     { label: "추진방법", key: "method", onClick: () => open(MethodModal) },
     {
       label: "연구 통합 단계",
