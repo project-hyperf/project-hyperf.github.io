@@ -3,8 +3,8 @@ import React, { PropsWithChildren } from "react";
 
 export const KeyVisual: React.FC = () => {
   return (
-    <section className="w-full pb-[114px] pt-14 max-w-[1300px] mx-auto">
-      <div>
+    <section className="w-full pb-[114px] pt-14 max-w-[1300px] mx-auto min-h-[750px] flex items-end">
+      <div className="mt-auto">
         <KeyTitle />
       </div>
     </section>

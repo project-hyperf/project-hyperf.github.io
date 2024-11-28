@@ -44,6 +44,9 @@ export default {
           background: "#6541F2",
           alternative: "#fff",
         },
+        tag: {
+          primary: "#5142F8",
+        },
       },
       backgroundImage: {
         "primary-assistive": "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",

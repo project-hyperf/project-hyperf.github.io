@@ -1,8 +1,192 @@
 [
-  { "university": "서울대학교", "name": "" },
-  { "university": "포항공과대학교", "name": "" },
-  { "university": "연세대학교", "name": "" },
-  { "university": "건국대학교", "name": "" },
-  { "university": "아주대학교", "name": "" },
-  { "university": "KISTI", "name": "" }
+  {
+    "university": "서울대학교",
+    "agency": "주관기관",
+    "name": "성효진",
+    "tags": [
+      "컨소시엄 총괄",
+      "HPC 연산을 위한 오토튜닝 프레임워크 개발",
+      "병렬 프로그래밍 모델 및 파일 시스템 최적화 개발"
+    ],
+    "major": "데이터사이언스 학과",
+    "description": [
+      "학습 기반 컴파일러 최적화 및 AI 오토튜닝 프레임워크 연구 경험 풍부",
+      "초고성능컴퓨터를 위한 컴파일러와 런타임 전문가"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2008.08 - 2015.08",
+        "university": "UNIV. OF ILLINOIS AT URBANA CHAMPAIGN (박사 - Computer Science)"
+      },
+      {
+        "duration": "2006.09 - 2009.03",
+        "university": "UNIV. OF CALIFORNIA AT SAN DIEGO (석사 - Computer Science and Engineering)"
+      },
+      {
+        "duration": "2002.03 - 2004.08",
+        "university": "서울대학교 (학사 - 컴퓨터공학)"
+      },
+      {
+        "duration": "1996.03 - 2000.02",
+        "university": "서울대학교 (학사 - 영어영문학)"
+      }
+    ],
+    "career": [
+      "서울대학교 데이터사이언스학과",
+      "IBM CORPORATION (2015~2019.07)"
+    ],
+    "researchFields": [
+      "컴파일러 및 런타임 시스템 컴퓨터 구조 (AI 가속기, Processing-in-Memory (PIM), cache coherence protocol)",
+      "기계학습/딥러닝 기반 컴파일러 최적화 및 오토튜닝 메커니즘"
+    ],
+    "representativeAchievements": [
+      "ASPLOS, PACT (best paper award 수상), MICRO Top Picks, CGO, CC 컴퓨터 구조와 컴파일러 분야의 (최)우수학회 논문 다수 보유"
+    ]
+  },
+  {
+    "university": "포항공과대학교",
+    "agency": "협력기관",
+    "name": "김철수",
+    "tags": [
+      "고성능 컴퓨팅 연구",
+      "분산 파일 시스템 설계",
+      "AI 기반 시스템 최적화"
+    ],
+    "major": "컴퓨터공학과",
+    "description": [
+      "분산 컴퓨팅 및 AI 최적화 연구 전문가",
+      "고성능 네트워크 설계 경험 보유"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2010.03 - 2014.02",
+        "university": "포항공과대학교 (학사 - 컴퓨터공학)"
+      },
+      {
+        "duration": "2015.03 - 2017.08",
+        "university": "KAIST (석사 - 컴퓨터공학)"
+      }
+    ],
+    "career": ["포항공과대학교 연구소", "삼성전자 (2017~2021)"],
+    "researchFields": [
+      "분산 컴퓨팅 시스템",
+      "고성능 네트워크 및 스토리지",
+      "AI 기반 최적화 알고리즘"
+    ],
+    "representativeAchievements": ["SIGMOD, VLDB, FAST 논문 다수 보유"]
+  },
+  {
+    "university": "연세대학교",
+    "agency": "주관기관",
+    "name": "이영희",
+    "tags": ["데이터 분석", "머신러닝 알고리즘 개발", "HPC 성능 분석"],
+    "major": "정보통신공학과",
+    "description": [
+      "대규모 데이터 분석 전문가",
+      "HPC 및 머신러닝 응용 연구 경력 보유"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2008.03 - 2012.02",
+        "university": "연세대학교 (학사 - 정보통신공학)"
+      },
+      {
+        "duration": "2012.03 - 2014.08",
+        "university": "KAIST (석사 - 데이터사이언스)"
+      }
+    ],
+    "career": ["연세대학교 연구소", "네이버 (2015~2020)"],
+    "researchFields": ["데이터 분석 및 머신러닝", "고성능 연산", "HPC 최적화"],
+    "representativeAchievements": ["KDD, NIPS, ICML 논문 발표"]
+  },
+  {
+    "university": "건국대학교",
+    "agency": "협력기관",
+    "name": "박민호",
+    "tags": ["AI 최적화", "분산 컴퓨팅", "HPC 성능 분석 및 개선"],
+    "major": "인공지능학과",
+    "description": [
+      "AI와 HPC 융합 연구 전문가",
+      "대규모 병렬 연산 최적화 경험 보유"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2010.03 - 2014.02",
+        "university": "건국대학교 (학사 - 인공지능)"
+      },
+      {
+        "duration": "2014.03 - 2016.08",
+        "university": "서울대학교 (석사 - 데이터사이언스)"
+      }
+    ],
+    "career": ["건국대학교 연구소", "LG CNS (2016~2021)"],
+    "researchFields": [
+      "AI 최적화 및 병렬 연산",
+      "분산 컴퓨팅 시스템",
+      "HPC를 활용한 데이터 분석"
+    ],
+    "representativeAchievements": ["SC, HPDC, PPoPP 논문 발표"]
+  },
+  {
+    "university": "아주대학교",
+    "agency": "주관기관",
+    "name": "정수현",
+    "tags": ["HPC 파일 시스템", "머신러닝 최적화", "고성능 스토리지 설계"],
+    "major": "컴퓨터공학과",
+    "description": [
+      "스토리지 및 파일 시스템 설계 전문가",
+      "머신러닝 기반 데이터 최적화 연구 경험 풍부"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2011.03 - 2015.02",
+        "university": "아주대학교 (학사 - 컴퓨터공학)"
+      },
+      {
+        "duration": "2015.03 - 2017.08",
+        "university": "UNIST (석사 - HPC 연구)"
+      }
+    ],
+    "career": ["아주대학교 연구소", "SK 하이닉스 (2017~2021)"],
+    "researchFields": [
+      "HPC 파일 시스템",
+      "고성능 스토리지",
+      "머신러닝 기반 시스템 최적화"
+    ],
+    "representativeAchievements": ["FAST, ATC, SoCC 논문 발표"]
+  },
+  {
+    "university": "KISTI",
+    "agency": "협력기관",
+    "name": "최지훈",
+    "tags": ["고성능 컴퓨팅", "병렬 알고리즘 설계", "컴파일러 최적화"],
+    "major": "컴퓨터공학",
+    "description": [
+      "초고성능컴퓨터 응용 연구 전문가",
+      "병렬 알고리즘 및 컴파일러 최적화 경험 보유"
+    ],
+    "image": "",
+    "education": [
+      {
+        "duration": "2005.03 - 2009.02",
+        "university": "한양대학교 (학사 - 컴퓨터공학)"
+      },
+      {
+        "duration": "2009.03 - 2011.08",
+        "university": "POSTECH (석사 - 병렬 컴퓨팅)"
+      }
+    ],
+    "career": ["KISTI 연구소", "Intel Corporation (2011~2019)"],
+    "researchFields": [
+      "고성능 병렬 컴퓨팅",
+      "컴파일러 최적화",
+      "AI 기반 시스템 분석"
+    ],
+    "representativeAchievements": ["SC, ACM TACO, PLDI 논문 발표"]
+  }
 ]

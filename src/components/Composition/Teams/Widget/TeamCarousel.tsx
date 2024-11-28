@@ -1,68 +1,58 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { EmblaOptionsType } from "embla-carousel";
-import { RepresentativeCard } from "./RepresentativeCard";
-import { useEffect, useContext } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { SetCurrentTeamContext } from "../Teams";
+import { RepresentativeCard } from "./RepresentativeCard";
+import { Sticky } from "@/components/UI/Sticky/Sticky";
+
 interface TeamCarouselProps {
   teams?: any[];
+  scrollProgress: number;
 }
 
-interface CarouselProps extends EmblaOptionsType {
-  axis?: "x" | "y";
-  loop?: boolean;
-  autoplay?: boolean;
-}
-
-export const TeamCarousel: React.FC<TeamCarouselProps> = ({ teams }) => {
+export const TeamCarousel: React.FC<TeamCarouselProps> = ({
+  teams,
+  scrollProgress,
+}) => {
   const setCurrentTeam = useContext(SetCurrentTeamContext);
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      axis: "x",
-    } as CarouselProps,
-    [Autoplay()],
-  );
-
-  const handleSelect = () => {
-    if (!emblaApi || !teams) return;
-    const selectedIndex = emblaApi.selectedScrollSnap();
-    setCurrentTeam(teams[selectedIndex]);
-  };
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  // const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", handleSelect);
-    handleSelect();
-  }, [emblaApi, teams]);
+    const content = contentRef.current;
+    if (!content) return;
+
+    const maxTranslateX = content.scrollWidth - window.innerWidth;
+    const translateX = -maxTranslateX * scrollProgress;
+
+    content.style.transform = `translateX(${translateX}px)`;
+  }, [scrollProgress]);
 
   return (
-    <div className="embla-viewport overflow-hidden" ref={emblaRef}>
-      <div
-        className="embla__container flex touch-pan-y touch-pinch-zoom"
-        style={{
-          marginLeft: "calc(1rem * -1)",
-        }}
-      >
-        {teams?.map((team, index) => (
-          <div
-            key={index}
-            className="embla__slide"
-            style={{
-              transform: "translate3d(0, 0, 0)",
-              flex: "0 0 100%",
-              minWidth: "0",
-              paddingLeft: "1rem",
-            }}
-          >
-            <RepresentativeCard representative={team} />
-          </div>
-        ))}
-      </div>
+    <div
+      ref={contentRef}
+      className="flex"
+      style={{
+        height: "1030px",
+        width: "100%",
+        display: "flex",
+        transform: "translateX(0)",
+        transition: "transform 0.1s linear",
+      }}
+    >
+      {teams?.map((team, index) => (
+        <div
+          key={index}
+          style={{
+            flex: "0 0 100%",
+            minWidth: "100vw",
+            padding: "1rem",
+          }}
+        >
+          <RepresentativeCard representative={team} />
+        </div>
+      ))}
     </div>
   );
 };

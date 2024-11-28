@@ -6,7 +6,19 @@ export const TEAM_QUERY_KEY = "TEAM_QUERY";
 
 type TeamItem = {
   university: string;
+  agency: string;
   name: string;
+  tags: string[];
+  major: string;
+  description: string[];
+  image: string;
+  education: {
+    duration: string;
+    university: string;
+  }[];
+  career: string[];
+  researchFields: string[];
+  representativeAchievements: string[];
 };
 
 export const useTeams = () => {

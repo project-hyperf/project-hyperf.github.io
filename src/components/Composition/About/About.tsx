@@ -11,6 +11,7 @@ import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 
 export const About: React.FC = () => {
   const { open, close } = useContext(ModalsDispatchContext);
+  const { open, close } = useContext(ModalsDispatchContext);
   const necessary = useDisclosure();
 
   const integrated = useDisclosure();
@@ -27,9 +28,9 @@ export const About: React.FC = () => {
   return (
     <div className="bg-black  pb-[146px] flex flex-col items-center" id="about">
       <AboutTitle />
-      <div className="h-[480px] w-full bg-white max-w-[1140px] mb-[60px]">
-        다계층 다목적 관련 내용
-      </div>
+
+      <AboutContent />
+
       <Text
         variant="h0"
         className="!text-[45px] !font-extrabold text-white text-center mb-20"
@@ -81,3 +82,165 @@ const AboutTitle: React.FC = () => {
     </div>
   );
 };
+
+const AboutContent: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+
+  const containerWidth = useTransform(
+    scrollYProgress,
+    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
+    ["2px", "2px", "480px", "480px", "2px", "2px"],
+  );
+  const containerPadding = useTransform(
+    scrollYProgress,
+    [0, 0.07, 0.19, 0.32, 0.41, 0.5],
+    ["0px", "0px", "60px", "60px", "0px", "0px"],
+  );
+
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.15, 0.19, 0.41, 0.5],
+    [0, 0, 0, 1, 0, 0],
+  );
+  const textY = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.19, 0.23, 0.41, 0.5],
+    [20, 20, 15, 0, 15, 20],
+  );
+  return (
+    <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
+      {ABOUT_CONTENT.map((item, index) => (
+        <motion.div
+          key={item.key}
+          className="h-[480px] border-white border-l-1 shadow-md  flex flex-col  overflow-hidden"
+          style={{
+            width: containerWidth,
+            padding: containerPadding,
+            overflow: "hidden",
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          {/* 컨텐츠 */}
+
+          <>
+            <motion.div className={classNames(`mb-4 flex flex-col flex-1 `)}>
+              <motion.div
+                style={{
+                  opacity: textOpacity,
+                  y: textY,
+                }}
+                transition={{
+                  delay: index * 0.2,
+                  duration: 0.3,
+                }}
+              >
+                <Text variant="h2" className="text-white text-[34px] font-thin">
+                  {item.title}
+                </Text>
+                <Text variant="t2" className="text-white text-[44px] font-bold">
+                  {item.key}
+                </Text>
+              </motion.div>
+              <motion.div
+                style={{ opacity: textOpacity, y: textY }}
+                transition={{
+                  delay: index * 0.6,
+                  duration: 0.3,
+                }}
+                className="mt-auto"
+              >
+                <Text className="text-white text-sm whitespace-pre-wrap">
+                  {item.content}
+                </Text>
+              </motion.div>
+            </motion.div>
+          </>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+};
+// const AboutContent: React.FC = () => {
+//   const { scrollYProgress } = useScroll();
+
+//   const containerWidth = useTransform(
+//     scrollYProgress,
+//     [0, 0.2, 0.3, 0.7],
+//     ["2px", "480px", "480px", "2px"],
+//   );
+
+//   return (
+//     <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
+//       {ABOUT_CONTENT.map((item, index) => (
+//         <motion.div
+//           key={item.key}
+//           className="h-[480px] border-white border-l-1 shadow-md p-[60px] flex flex-col justify-between"
+//           style={{
+//             width: containerWidth,
+//           }}
+//           transition={{ duration: 0.3 }}
+//         >
+//           {/* <div> */}
+//           <motion.div
+//             className="mb-4"
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{
+//               delay: index * 0.2,
+//               duration: 0.3,
+//             }}
+//           >
+//             <Text variant="h2" className="text-white text-[34px] font-thin">
+//               {item.title}
+//             </Text>
+//           </motion.div>
+//           <motion.div
+//             className="mb-2"
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{
+//               delay: index * 0.4,
+//               duration: 0.3,
+//             }}
+//           >
+//             <Text variant="t2" className="text-white text-[44px] font-bold">
+//               {item.key}
+//             </Text>
+//           </motion.div>
+//           {/* </div> */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{
+//               delay: index * 0.6,
+//               duration: 0.3,
+//             }}
+//           >
+//             <Text className="text-white text-sm whitespace-pre-wrap">
+//               {item.content}
+//             </Text>
+//           </motion.div>
+//         </motion.div>
+//       ))}
+//     </motion.div>
+//   );
+// };
+const ABOUT_CONTENT = [
+  {
+    title: "다계층",
+    key: "multi-level",
+    content: "고차원/저차원 최적화\n플랫폼 중립 최적화\n최적화 간 피드백 제공",
+  },
+  {
+    title: "다목적",
+    key: "multi-objective",
+    content: "실행시간과 전력 동시 고려\n다목적 탐색 알고리즘\n전력 모델링",
+  },
+  {
+    title: "탐색기반",
+    key: "search-driven",
+    content: "오토튜닝 용 샘플 생성\n하드웨어 프로파일링\n비용 모델 기반 탐색",
+  },
+];

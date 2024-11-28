@@ -12,8 +12,8 @@ const AGNECY_LIST = [
 
 export const Footer: React.FC = () => {
   return (
-    <footer className=" py-14 px-5 pb-[232px] w-full h-[180px]">
-      <div className="flex justify-between items-start">
+    <footer className=" py-14 px-5 w-full h-[180px]">
+      <div className="max-w-[1440px] mx-auto flex justify-between items-start">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6">
             {AGNECY_LIST.map((agency) => (
