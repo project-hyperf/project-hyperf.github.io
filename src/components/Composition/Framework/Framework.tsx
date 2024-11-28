@@ -16,7 +16,7 @@ export const Framework: React.FC = () => {
       </Text>
       <div className="flex md:flex-row flex-col items-center justify-center gap-10 ">
         {archiveList?.map((archive) => (
-          <årchiveLink
+          <ArchiveLink
             key={archive.name}
             title={archive.name}
             link={archive.link}
@@ -31,7 +31,7 @@ interface ArchiveProps {
   link: string;
 }
 
-const årchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
+const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   return (
     <Link href={`/${link}`} className="py-7 border-t-1 border-b-1 border-white">
       <div className="flex items-center">
