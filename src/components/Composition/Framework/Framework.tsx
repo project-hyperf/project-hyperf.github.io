@@ -24,7 +24,7 @@ export const Framework: React.FC = () => {
         ))}
       </div>
     </div>
-  );
+  ); 
 };
 interface ArchiveProps {
   title: string;
