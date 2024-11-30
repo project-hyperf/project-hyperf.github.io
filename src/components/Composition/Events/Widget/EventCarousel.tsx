@@ -1,11 +1,10 @@
-// "use client";
+"use client";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 import { motion } from "framer-motion";
 import { Button, useDisclosure } from "@nextui-org/react";
 import { Text } from "@/components/UI/Text/Text";
 import React, { useCallback } from "react";
-import { Icon } from "@/assets/Icon";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 

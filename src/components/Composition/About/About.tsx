@@ -5,7 +5,7 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 import { useTransform, motion, useScroll } from "framer-motion";
@@ -29,7 +29,10 @@ export const About: React.FC = () => {
     },
   ];
   return (
-    <div className="bg-black  pb-[146px] flex flex-col items-center" id="about">
+    <div
+      className="bg-black  pb-[146px] flex flex-col items-center px-5"
+      id="about"
+    >
       <AboutTitle />
 
       <AboutContent />
@@ -40,7 +43,7 @@ export const About: React.FC = () => {
       >
         다계층(multi-level),다목적(multi-objective) 오토튜닝프레임워크개발
       </Text>
-      <div className="flex md:flex-row flex-col gap-10 items-center">
+      <div className="flex xl:flex-row flex-col gap-10 items-center">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton
@@ -77,7 +80,7 @@ const AboutTitle: React.FC = () => {
     <div>
       <Text
         variant="h0"
-        className="!text-[50px] text-white text-center mb-[84px] pt-[115px]"
+        className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap"
       >
         엑사급 초고성능 컴퓨터의 잠재 성능을 최대한 활용하며
         <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을 최소화 하는
@@ -91,12 +94,12 @@ const AboutContent: React.FC = () => {
 
   const containerWidth = useTransform(
     scrollYProgress,
-    [0, 0.02, 0.04, 0.05, 0.1],
+    [0, 0.02, 0.04, 0.1, 0.13],
     ["2px", "2px", "480px", "480px", "2px"],
   );
   const containerPadding = useTransform(
     scrollYProgress,
-    [0, 0.02, 0.04, 0.5, 0.1],
+    [0, 0.02, 0.04, 0.1, 0.13],
     ["0px", "0px", "60px", "60px", "0px"],
   );
   // const containerPadding = useTransform(
@@ -113,7 +116,7 @@ const AboutContent: React.FC = () => {
   //   [20, 20, 15, 0, 15, 20],
   // );
   return (
-    <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
+    <motion.div className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]">
       {ABOUT_CONTENT.map((item, index) => (
         <motion.div
           key={item.key}

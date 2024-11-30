@@ -13,7 +13,7 @@ export const KeyVisual: React.FC = () => {
 
 const KeyTitle: React.FC = () => {
   return (
-    <div>
+    <div className="px-5">
       <Text variant="h4">초고성능컴퓨팅 SW 생태계조성사업</Text>
       <Text variant="h0" className="!text-[64px]">
         엑사급 초고성능 컴퓨터를 위한

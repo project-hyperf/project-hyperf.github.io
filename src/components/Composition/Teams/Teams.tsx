@@ -73,7 +73,7 @@ export const Teams: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full pt-[93px] pb-[177px]" id="teams">
+    <div className="w-full pt-[93px] pb-[100px]" id="teams">
       <Text
         variant="t1"
         className="uppercase !text-[50px] text-primary-normal text-center mb-11"
@@ -105,16 +105,16 @@ export const Teams: React.FC = () => {
             ref={sectionRef}
             className="team-carousel-section relative"
             style={{
-              height: "1200vh",
+              height: "700vh",
               position: "relative",
               padding: "50px 0",
             }}
           >
             <div
-              className="sticky top-[200px] mb-100vh h-[1030px] w-vw overflow-hidden border-1 border-black"
+              className="sticky top-[200px] mb-100vh h-[920px] w-vw overflow-hidden border-1 border-black"
               ref={stickyRef}
             >
-              <div className="absolute right-0 top-10 z-10">
+              <div className="absolute right-[25%] translate-x-1/2 top-10 z-20">
                 <UniversityCarousel teams={teams} />
               </div>
               <TeamCarousel teams={teams} scrollProgress={scrollProgress} />

@@ -2,11 +2,12 @@
 
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { TeamItem } from "@/hooks/useTeams";
 import classNames from "classnames";
 import Image from "next/image";
 
 interface RepresentativeCardProps {
-  representative: any;
+  representative: TeamItem;
   className?: string;
 }
 
@@ -43,11 +44,11 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
             variant="h2"
             className="text-[27px] font-normal leading-loose text-primary-normal"
           >
-            연구 책임자
+            {representative.role}
           </Text>
           <div className="mb-3">
             <Text variant="h3" className="text-[33px] font-normal">
-              {representative.name}
+              {representative.name} {representative.title}
               <span className="text-[29px] font-normal ">
                 ({representative.major})
               </span>
@@ -73,7 +74,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
         <ul className="list-inside list-disc pl-1rem">
           {representative.education?.map((education: any, idx: number) => (
             <li key={idx} className="pl-[8px]">
-              {education.duration + " " + education.university}
+              {education?.duration + " " + education.university}
             </li>
           ))}
         </ul>
@@ -83,7 +84,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
         <ul className="list-inside list-disc pl-1rem">
           {representative.career?.map((career: any, idx: number) => (
             <li key={idx} className="pl-[8px]">
-              {career}
+              {career?.duration + " " + career.university}
             </li>
           ))}
         </ul>

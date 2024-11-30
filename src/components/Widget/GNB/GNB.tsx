@@ -6,14 +6,13 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useMenu } from "@/hooks/useMenu";
 import classNames from "classnames";
 import React, { createRef, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export const headerRef = createRef<HTMLHeadElement>();
 
 export const GNB: React.FC = () => {
   const { data: menus } = useMenu();
   const [isBlackArea, setIsBlackArea] = useState(false);
-  const router = useRouter();
+
   useEffect(() => {
     const target = document.getElementById("about");
 
@@ -36,7 +35,7 @@ export const GNB: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  // 페이지 상단으로 스크롤
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -70,7 +69,7 @@ export const GNB: React.FC = () => {
             <CustomImage src="images/logo/logo-color.svg" alt="로고 이미지" />
           )}
         </div>
-        <div className="flex items-center gap-[100px] h-full pt-3 max-lg:hidden">
+        <div className="flex items-center justify-evenly grow h-full pt-3 max-lg:hidden">
           {menus?.map((menu) => (
             <MenuButton
               key={menu.key}

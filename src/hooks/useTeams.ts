@@ -4,10 +4,13 @@ import axios from "axios";
 
 export const TEAM_QUERY_KEY = "TEAM_QUERY";
 
-type TeamItem = {
+export type TeamItem = {
   university: string;
   agency: string;
   name: string;
+  role: string;
+  withWho: string;
+  title: string;
   tags: string[];
   major: string;
   description: string[];
@@ -16,7 +19,11 @@ type TeamItem = {
     duration: string;
     university: string;
   }[];
-  career: string[];
+  career: {
+    duration: string;
+    company: string;
+  }[];
+
   researchFields: string[];
   representativeAchievements: string[];
 };
