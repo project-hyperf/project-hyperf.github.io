@@ -25,14 +25,13 @@ const ModalsProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const open = (Component: React.FC<any>, props?: Record<string, any>) => {
     setModal({ Component });
     onOpen();
-    console.log("open");
   };
 
   const close = () => {
     onClose();
     setModal(null);
   };
-  console.log("isOpen", isOpen && !!modal);
+
   return (
     <ModalsDispatchContext.Provider value={{ open, close }}>
       <ModalsStateContext.Provider value={modal}>

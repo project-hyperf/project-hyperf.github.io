@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { headerRef } from "@/components/Widget/GNB/GNB";
 
 export const useHeaderMargin = () => {
