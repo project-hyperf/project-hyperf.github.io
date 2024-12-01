@@ -39,7 +39,6 @@ export const Teams: React.FC = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            console.log(entry);
             const intersectionHeight = entry.intersectionRect.y;
             // console.log(intersectionHeight, sectionTop, sectionHeight);
             // const viewportHeight = window.innerHeight;
@@ -48,12 +47,7 @@ export const Teams: React.FC = () => {
               Math.max((intersectionHeight - sectionTop) / sectionHeight, 0),
               1,
             );
-            console.log(
-              progress,
-              intersectionHeight,
-              sectionTop,
-              sectionHeight,
-            );
+
             setScrollProgress(progress);
           }
         },
@@ -111,7 +105,7 @@ export const Teams: React.FC = () => {
             }}
           >
             <div
-              className="sticky top-[200px] mb-100vh h-[920px] w-vw overflow-hidden border-1 border-black"
+              className="sticky top-[200px] mb-100vh h-[920px] w-vw overflow-hidden"
               ref={stickyRef}
             >
               <div className="absolute right-[25%] translate-x-1/2 top-10 z-20">

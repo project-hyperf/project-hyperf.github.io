@@ -1,12 +1,13 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
-import { motion } from "framer-motion";
+import { animate, motion } from "framer-motion";
 import { Button, useDisclosure } from "@nextui-org/react";
 import { Text } from "@/components/UI/Text/Text";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
+import { Post } from "@/hooks/usePosts";
 
 interface EventCarouselProps {
   posts?: any[];
@@ -20,6 +21,8 @@ interface CarouselProps extends EmblaOptionsType {
 //TODO: 모달 연결 필요
 //! 호버 이벤트 에러 있는 것 같음 (해결 필요)
 export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
+  const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     axis: "x",
@@ -33,21 +36,21 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-  console.log(posts);
+  const openDetailModal = (post: Post) => {
+    setSelectedPost(post);
+    eventModal.onOpen();
+  };
   return (
     <div className="w-[90%] mx-auto relative">
       <motion.div
-        className="embla overflow-hidden mx-auto h-[720px]"
+        className="embla overflow-hidden mx-auto h-[720px] w-auto"
         ref={emblaRef}
-        initial={{ width: 1194 }} // 기본 컨테이너 크기
-        whileHover={{ width: 1440 }} // 호버 시 확장
+        animate={{ width: isHovered ? "1440px" : "1194px" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <motion.div
           className="embla__container flex h-full w-full "
           initial={{ width: "100%" }}
-          whileHover={{ width: "100%" }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           {posts?.map((post, index) => (
             <React.Fragment key={index}>
@@ -57,6 +60,8 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                 whileHover={{
                   width: 470,
                 }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 style={{
                   overflow: "hidden",
@@ -74,7 +79,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  onClick={eventModal.onOpen}
+                  onClick={() => openDetailModal(post)}
                 >
                   <div>
                     <Text variant="h2" className="break-all">
@@ -92,11 +97,6 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                   </div>
                 </motion.div>
               </motion.div>
-              <EventModal
-                isOpen={eventModal.isOpen}
-                onClose={eventModal.onClose}
-                post={post}
-              />
             </React.Fragment>
           ))}
         </motion.div>
@@ -115,6 +115,11 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
       >
         <CustomImage src="images/icons/right.svg" alt="right" />
       </Button>
+      <EventModal
+        isOpen={eventModal.isOpen}
+        onClose={eventModal.onClose}
+        post={selectedPost}
+      />
     </div>
   );
 };

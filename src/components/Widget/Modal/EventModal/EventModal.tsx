@@ -24,6 +24,7 @@ export const EventModal: React.FC<EventModalProps> = ({
   modalProps,
   onClose,
 }) => {
+  if (!post) return null;
   const isPictureExists = post.picture?.length && post.picture.length > 0;
   const [selectedPictureIndex, setSelectedPictureIndex] = useState<
     number | null
@@ -49,7 +50,9 @@ export const EventModal: React.FC<EventModalProps> = ({
       onClose={onClose}
       className={classNames(modalProps?.className)}
       classNames={{
-        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px]",
+        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px] z-[100]",
+        wrapper: "z-[100]",
+        backdrop: "z-[100]",
         closeButton: "text-white text-[28px] right-[80px] top-[50px]",
         ...modalProps?.classNames,
       }}

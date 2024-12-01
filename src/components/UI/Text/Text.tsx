@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ComponentProps } from "react";
+import { ComponentProps, FC, Fragment, ReactNode } from "react";
 
 export type TextProps =
   | ({
