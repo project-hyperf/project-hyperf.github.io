@@ -38,12 +38,12 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   const router = useRouter();
   const containerHeight = useTransform(
     scrollYProgress,
-    [0.83, 0.84, 0.86, 0.87],
+    [0.34, 0.36, 0.368, 0.378],
     ["90px", "142px", "142px", "90px"],
   );
   const textOpacity = useTransform(
     scrollYProgress,
-    [0.83, 0.84, 0.86, 0.87],
+    [0.34, 0.36, 0.368, 0.378],
     [0, 1, 1, 0],
   );
   return (

@@ -3,23 +3,88 @@ import { GradientBox } from "@/components/UI/Box/GradientBox";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import classNames from "classnames";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { use, useEffect, useRef, useState } from "react";
+import style from "styled-jsx/style";
 
 export const Outcomes: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const step1Y = useTransform(scrollYProgress, [0.05, 0.45], [150, -300]);
+  const step1Opacity = useTransform(scrollYProgress, [0.3, 0.45], [1, 0]);
+
+  const step2Y = useTransform(scrollYProgress, [0.45, 0.8], [300, 100]);
+  const step2Opacity = useTransform(scrollYProgress, [0.45, 0.8], [0, 1]);
+  const smoothScrollY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 20,
+  });
+
+  const x = useTransform(smoothScrollY, [0, 1], [0, -2800]);
+
   return (
-    <div className="w-full pt-[104px] min-h-[1680px] h-fit pb-[114px] relative">
-      <Text
-        variant="t1"
-        className="text-center uppercase text-primary-normal text-[50px]"
-      >
-        Outcomes
-      </Text>
-      <Text variant="h4" className="text-center pt-12 text-primary-normal">
-        예상성과
-      </Text>
-      <div className="absolute bottom-0 z-[60] h-fi pb-[166px]">
-        <Step1></Step1>
+    <div className="pt-[104px] pb-[114px]">
+      <div className="">
+        <Text
+          variant="t1"
+          className="text-center uppercase text-primary-normal text-[50px]"
+        >
+          Outcomes
+        </Text>
+        <Text variant="h4" className="text-center pt-12 text-primary-normal">
+          예상성과
+        </Text>
       </div>
-      {/* <Step2></Step2> */}
+      <div
+        className="w-full relative "
+        ref={sectionRef}
+        style={{ height: "1450vh" }}
+      >
+        <div
+          className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[90]"
+          ref={stickyRef}
+        >
+          <div className="relative h-full">
+            <motion.div style={{ x }} className="absolute bottom-0 w-[4602px]">
+              <CustomImage
+                src="images/bg/bg-logo.png"
+                alt="HYPERF 로고"
+                className="opacity-10 h-[994px] aspect-auto"
+              />
+            </motion.div>
+
+            <motion.div
+              style={{ y: step1Y, opacity: step1Opacity }}
+              className={classNames(
+                "relative flex items-center justify-center !z-[90]",
+              )}
+            >
+              <Step1 />
+            </motion.div>
+
+            <motion.div
+              style={{ y: step2Y, opacity: step2Opacity }}
+              className={classNames(
+                "absolute inset-0 flex items-center justify-center",
+              )}
+            >
+              <Step2 />
+            </motion.div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -28,8 +93,8 @@ const Step1: React.FC = () => {
   return (
     <>
       {/* 단계 마름모 & Text*/}
-      <div className="w-full flex flex-row items-end pb-3">
-        <div className="pl-[376.3px] pt-[914px] flex flex-col items-center gap-14">
+      <div className="w-full flex flex-row justify-center gap-[143px] items-end pb-3">
+        <div className="flex flex-col items-center gap-14">
           <Text
             variant="h4"
             className="text-center text-primary-normal !leading-[33.6px] whitespace-nowrap"
@@ -51,11 +116,12 @@ const Step1: React.FC = () => {
         </div>
 
         {/* 우측 Text & 박스 */}
-        <div className="pl-[142.99px] pt-[120px] pr-[345px] grow shrink">
-          <Text variant="h4" className="mb-[49px]">
-            TVM 컴파일러를 HPC(고성능 컴퓨팅)를 사용해 확장
-          </Text>
-
+        <div className=" max-w-[768px] grow shrink relative z-[90]">
+          <div className="w-full h-full pb-[49px] bg-white">
+            <Text variant="h4" className=" ">
+              TVM 컴파일러를 HPC(고성능 컴퓨팅)를 사용해 확장
+            </Text>
+          </div>
           <StepBox
             title="HPC 프론트엔드(OpenMP/MPI C) 개발"
             purpose="목적 : 반복문 병렬화 및 최적화를 통해 TVM의 실행 성능 향상"
@@ -108,10 +174,14 @@ const StepBox: React.FC<{
         >
           {title}
         </Text>
+
         <Text
           variant="h5"
           className="text-white pb-3 text-center !font-semibold"
-        ></Text>
+        >
+          {purpose}
+        </Text>
+
         <Text
           variant="h5"
           className="text-white pb-3 text-center !font-semibold !text-[16px]"
@@ -150,8 +220,8 @@ const StepBox: React.FC<{
 
 const Step2: React.FC = () => {
   return (
-    <div className="w-full flex flex-row pb-3 flex-wrap">
-      <div className="pl-[359.3px] pt-[914px] flex-wrap">
+    <div className="w-full flex flex-row justify-center gap-[143px] items-end pb-3">
+      <div className="flex flex-col items-center gap-14">
         <Text
           variant="h4"
           className="text-center text-primary-normal !leading-[33.6px] flex-wrap"
@@ -161,10 +231,33 @@ const Step2: React.FC = () => {
           <br /> 구성 요소 간 상호작용을 정교화하여
           <br /> 최적화 프로세스를 자동화.
         </Text>
+
+        <div className="relative w-full h-fit">
+          <div className="relative w-full h-[180px]">
+            <CustomImage
+              src="images/icons/rectangle.svg"
+              alt="Step 1"
+              className="absolute inset-0 z-10 overflow-hidden"
+            />
+            <CustomImage
+              src="images/icons/rectangle-black.svg"
+              alt="Step 2"
+              className="absolute inset-0 -mt-[60px]"
+              style={{
+                clipPath: "inset(150px 0 0 0)", // 위쪽 70px 숨김
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 flex justify-center items-center z-20 -mt-[26px]">
+            <Text variant="h4" className="text-primary-normal">
+              2단계
+            </Text>
+          </div>
+        </div>
       </div>
 
-      <div className="pl-[142.9px] pt-[455px] pr-[344px] grow flex-wrap">
-        <Text variant="h4" className="mb-[24px] !leading-[33.6px]">
+      <div className="max-w-[728px] shrink grow flex-wrap">
+        <Text variant="h4" className=" !leading-[33.6px]">
           오토튜닝 패스 및 구성 요소 간 피드백을 관리하는 인터페이스 설계
           <br />
           해당 인터렉션은 구성, 실행 순서, 오토튜닝 시간 등을 사용자의
@@ -175,7 +268,7 @@ const Step2: React.FC = () => {
           <div
             key={index}
             //수정 필요
-            className="px-7 bg-primary-bg pt-6 mb-6 pb-3 max-w-[728px] flex flex-col justify-center border-2 border-black"
+            className="px-7 bg-primary-bg pt-6 mt-6 pb-3 max-w-[728px] flex flex-col justify-center border-2 border-black"
           >
             <Text variant="h4" className="text-white pb-3 text-center">
               {box.title}

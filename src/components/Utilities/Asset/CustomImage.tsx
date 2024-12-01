@@ -7,6 +7,7 @@ interface CustomImageProps {
   fill?: boolean;
   scale?: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
@@ -17,6 +18,7 @@ export const CustomImage: React.FC<CustomImageProps> = ({
   fill,
   className,
   scale,
+  style,
 }) => {
   const image: PartialBy<StaticImageData, "height" | "width"> = images[src];
 
@@ -34,5 +36,13 @@ export const CustomImage: React.FC<CustomImageProps> = ({
     if (imageProps.height) imageProps.height *= scale;
   }
 
-  return <Image {...imageProps} alt={alt} fill={fill} className={className} />;
+  return (
+    <Image
+      {...imageProps}
+      alt={alt}
+      fill={fill}
+      className={className}
+      style={style}
+    />
+  );
 };

@@ -1,6 +1,9 @@
 import { fetchFile } from "@/utils/fetch";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { match } from "assert";
 import { AxiosError } from "axios";
+import { warn } from "console";
+import { split } from "postcss/lib/list";
 
 export interface Post {
   filename: string;
@@ -55,8 +58,6 @@ export const usePosts = ({
 
       const hasNextPage = (wholePostLength ?? 0) > endIndex;
 
-      console.log(slicedPosts);
-
       const result: Post[] = [];
       for (const filename of slicedPosts) {
         try {
@@ -67,7 +68,7 @@ export const usePosts = ({
           const titleWithHash = data.match(/(#.*)/)?.[1] ?? "";
           const title = titleWithHash.replace("#", "").trim();
           const updatedAt = headers["last-modified"];
-          const dateMatch = data.match(/<!--\s*날짜\s?:\s?(.*)\s*-->/)?.[1];
+          const dateMatch = data.match(/\*\*날짜\*\*:\s*(.+)/)?.[1];
           const date = dateMatch ? dateMatch.trim() : "";
 
           const tagsMatch = data.match(/\[(#.*)\]/)?.[1];
@@ -75,33 +76,44 @@ export const usePosts = ({
             ? tagsMatch.split(",").map((tag) => tag.replace("#", "").trim())
             : [];
 
-          const locationMatch = data.match(/<!--\s*장소\s?:\s?(.*)\s*-->/)?.[1];
+          const locationMatch = data.match(/\*\*장소\*\*:\s*(.+)/)?.[1];
           const location = locationMatch ? locationMatch.trim() : "";
-          const thumbnailRaw = data.match(/!\[.*\]\((.*)\)/)?.[1] ?? "";
+
+          const thumbnailRaw = data.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "";
           const thumbnail = thumbnailRaw.startsWith("http")
             ? thumbnailRaw
             : window?.["basePath" as any] + thumbnailRaw;
+
           const picture = data.match(/!\[(.*?)\]\((.*?)\)/g)?.map((p) => {
             const match = p.match(/!\[(.*?)\]\((.*?)\)/);
-            const alt = match?.[1] ?? ""; // Extract alt text
-            const src = match?.[2] ?? ""; // Extract src URL
+            const alt = match?.[1] ?? "";
+            const src = match?.[2] ?? "";
 
             const finalSrc = src.startsWith("http")
               ? src
               : window?.["basePath" as any] + src;
 
-            return { alt, src: finalSrc }; // Return as an object
-          }, []);
+            return { alt, src: finalSrc };
+          });
 
           const author =
             data.match(/<!--\s*author\s?:\s?(.*)\s*-->/)?.[1] ?? "";
+
+          const content = data
+            .replace(titleWithHash, "")
+            .replace(/\*\*(날짜|장소)\*\*:\s*(.+)/, "")
+            .replace(/\*\*장소\*\*:\s*(.+)/, "")
+            .replace(/<!--[\s\S]*?-->/g, "")
+            .replace(/!\[.*?\]\(.*?\)/g, "")
+            .replace(/\[(#.*)\]/g, "")
+            .trim();
 
           result.push({
             filename,
             title,
             updatedAt,
             thumbnail,
-            content: data.replace(titleWithHash, "").trim(),
+            content,
             author,
             date,
             location,
@@ -111,7 +123,6 @@ export const usePosts = ({
         } catch (e) {
           if (e instanceof AxiosError) {
             console.warn("파일을 불러오는데 실패했습니다.", e.message);
-            console.log();
           } else {
             console.warn("파일을 불러오는데 실패했습니다.");
           }

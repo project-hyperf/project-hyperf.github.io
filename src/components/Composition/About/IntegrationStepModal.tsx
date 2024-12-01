@@ -65,6 +65,7 @@ const Divider: React.FC<DividerProps> = ({
     const updateTitleHeight = () => {
       if (stickyTopRef.current) {
         const rect = stickyTopRef.current.getBoundingClientRect();
+        console.log(idx, rect.height);
         setTitleHeight(rect.height);
       }
     };
@@ -114,12 +115,12 @@ const Divider: React.FC<DividerProps> = ({
     //   <div className="flex flex-col">
     <React.Fragment key={year}>
       <div
-        className={classNames("sticky bg-white overflow-hidden min-h-[150px]")}
+        className={classNames("sticky bg-white overflow-hidden ")}
         ref={stickyTopRef}
-        style={{ top: `${idx * titleHeight}px` || 0 }}
+        style={{ top: `${idx * 106.97}px` || 0 }}
       >
         <div className="border-dashed border-1 border-black" />
-        <div className="flex items-center h-full">
+        <div className="flex items-center">
           <Text
             variant="b2"
             className="pl-[18px] !text-[24px] !font-bold mt-3 "
@@ -135,7 +136,7 @@ const Divider: React.FC<DividerProps> = ({
         </div>
       </div>
       <div
-        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px]"
+        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px] min-h-[180px]"
         ref={contentRef}
       >
         {list?.map((item) => renderList(item.id, item.content))}

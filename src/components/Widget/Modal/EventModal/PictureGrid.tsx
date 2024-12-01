@@ -79,7 +79,7 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
               {picture.map((image, index) => (
                 <GeneralButton
                   key={image.src}
-                  className="w-auto h-auto rounded-none p-0 aspect-square relative"
+                  className="w-auto h-auto rounded-none p-0 aspect-square relative "
                   onClick={() => {
                     setSelectedPictureIndex(index + groupIndex * 4);
                   }}
@@ -127,7 +127,7 @@ const LeftIcon = () => (
     fill="none"
   >
     <g filter="url(#filter0_d_244_336)">
-      <path d="M27 46L7 26L27 6" stroke="#858788" stroke-width="3" />
+      <path d="M27 46L7 26L27 6" stroke="#858788" strokeWidth="3" />
     </g>
     <defs>
       <filter
@@ -137,9 +137,9 @@ const LeftIcon = () => (
         width="31.1816"
         height="50.1211"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -178,7 +178,7 @@ const RightIcon = () => (
     fill="none"
   >
     <g filter="url(#filter0_d_244_333)">
-      <path d="M20 42L40 22L20 2" stroke="#858788" stroke-width="3" />
+      <path d="M20 42L40 22L20 2" stroke="#858788" strokeWidth="3" />
     </g>
     <defs>
       <filter
@@ -188,9 +188,9 @@ const RightIcon = () => (
         width="31.1816"
         height="50.1211"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
