@@ -3,8 +3,6 @@ import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
 import { useScroll, useTransform, motion } from "framer-motion";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
@@ -35,15 +33,14 @@ interface ArchiveProps {
 
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   const { scrollYProgress } = useScroll();
-  const router = useRouter();
   const containerHeight = useTransform(
     scrollYProgress,
-    [0.34, 0.36, 0.368, 0.378],
+    [0.36, 0.38, 0.39, 0.41],
     ["90px", "142px", "142px", "90px"],
   );
   const textOpacity = useTransform(
     scrollYProgress,
-    [0.34, 0.36, 0.368, 0.378],
+    [0.36, 0.38, 0.39, 0.41],
     [0, 1, 1, 0],
   );
   return (

@@ -5,12 +5,19 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
-import { useTransform, motion, useScroll } from "framer-motion";
+import {
+  useTransform,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+} from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
+import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -76,14 +83,119 @@ export const About: React.FC = () => {
 };
 
 const AboutTitle: React.FC = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleScroll = () => {
+    setIsExpanded(window.scrollY > 100);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div>
       <Text
         variant="h0"
-        className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap"
+        className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap !leading-[65px]"
       >
-        엑사급 초고성능 컴퓨터의 잠재 성능을 최대한 활용하며
-        <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을 최소화 하는
+        엑사급 초고성능 컴퓨터의 잠재 성능을{" "}
+        <motion.span
+          className="px-2 pt-1.5 h-[64px] inline-block"
+          initial={false}
+          animate={{
+            letterSpacing: isExpanded ? "0.1em" : "0em",
+            transition: { duration: 0.5, ease: "easeInOut" },
+          }}
+        >
+          <AnimatePresence mode="wait">
+            {isExpanded ? (
+              <motion.div
+                key="expanded"
+                className="flex bg-primary-assistive bg-clip-text text-transparent"
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                최
+                <CustomImage
+                  src="images/icons/slash.svg"
+                  alt="slash"
+                  className="mx-1"
+                />
+                대
+                <CustomImage
+                  src="images/icons/slash.svg"
+                  alt="slash"
+                  className="mx-1"
+                />
+                한
+              </motion.div>
+            ) : (
+              <motion.div
+                key="collapsed"
+                className="bg-primary-normal px-2 pt-1.5"
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                최대한
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.span>
+        활용하며
+        <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을{" "}
+        <motion.span
+          className="px-2 pt-1.5 h-[64px] inline-block"
+          initial={false}
+          animate={{
+            letterSpacing: isExpanded ? "0.1em" : "0em",
+            transition: { duration: 0.5, ease: "easeInOut" },
+          }}
+        >
+          <AnimatePresence mode="wait">
+            {!isExpanded ? (
+              <motion.div
+                key="expanded"
+                className="flex bg-primary-strong px-2 pt-1.5"
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                최
+                <CustomImage
+                  src="images/icons/square-dot.svg"
+                  alt="slash"
+                  className="mx-1"
+                />
+                소
+                <CustomImage
+                  src="images/icons/square-dot.svg"
+                  alt="slash"
+                  className="mx-1"
+                />
+                화
+              </motion.div>
+            ) : (
+              <motion.div
+                key="collapsed"
+                className="bg-primary-assistive px-2 pt-1.5"
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                최소화
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.span>
+        하는
       </Text>
     </div>
   );
@@ -94,22 +206,17 @@ const AboutContent: React.FC = () => {
 
   const containerWidth = useTransform(
     scrollYProgress,
-    [0, 0.02, 0.04, 0.1, 0.13],
-    ["2px", "2px", "480px", "480px", "2px"],
+    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
+    ["2px", "2px", "480px", "480px", "2px", "2px"],
   );
   const containerPadding = useTransform(
     scrollYProgress,
-    [0, 0.02, 0.04, 0.1, 0.13],
-    ["0px", "0px", "60px", "60px", "0px"],
+    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
+    ["0px", "0px", "60px", "60px", "0px", "0px"],
   );
-  // const containerPadding = useTransform(
-  //   scrollYProgress,
-  //   [0, 0.07, 0.19, 0.32, 0.41, 0.5],
-  //   ["0px", "0px", "60px", "60px", "0px", "0px"],
-  // );
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.045, 0.2], [0, 1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.04, 0.2], [20, 0, 20]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.03, 0.07], [0, 1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.03, 0.07], [20, 0, 20]);
   // const textY = useTransform(
   //   scrollYProgress,
   //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],

@@ -1,17 +1,10 @@
 "use client";
-import { GradientBox } from "@/components/UI/Box/GradientBox";
+
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import classNames from "classnames";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { use, useEffect, useRef, useState } from "react";
-import style from "styled-jsx/style";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export const Outcomes: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -22,17 +15,17 @@ export const Outcomes: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const step1Y = useTransform(scrollYProgress, [0.05, 0.45], [150, -300]);
+  const step1Y = useTransform(scrollYProgress, [0.05, 0.35], [250, -300]);
   const step1Opacity = useTransform(scrollYProgress, [0.3, 0.45], [1, 0]);
 
-  const step2Y = useTransform(scrollYProgress, [0.45, 0.8], [300, 100]);
+  const step2Y = useTransform(scrollYProgress, [0.35, 0.6], [200, 50]);
   const step2Opacity = useTransform(scrollYProgress, [0.45, 0.8], [0, 1]);
   const smoothScrollY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 20,
   });
 
-  const x = useTransform(smoothScrollY, [0, 1], [0, -2800]);
+  const x = useTransform(smoothScrollY, [0, 1], [0, -2600]);
 
   return (
     <div className="pt-[104px] pb-[114px]">
@@ -50,7 +43,7 @@ export const Outcomes: React.FC = () => {
       <div
         className="w-full relative "
         ref={sectionRef}
-        style={{ height: "1450vh" }}
+        style={{ height: "1250vh" }}
       >
         <div
           className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[90]"
@@ -66,7 +59,10 @@ export const Outcomes: React.FC = () => {
             </motion.div>
 
             <motion.div
-              style={{ y: step1Y, opacity: step1Opacity }}
+              style={{
+                y: step1Y,
+                opacity: step1Opacity,
+              }}
               className={classNames(
                 "relative flex items-center justify-center !z-[90]",
               )}

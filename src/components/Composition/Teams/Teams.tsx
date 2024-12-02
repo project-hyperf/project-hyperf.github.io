@@ -5,7 +5,7 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { UniversityCarousel } from "./Widget/UniversityCarousel";
 import { useTeams } from "@/hooks/useTeams";
 import { TeamCarousel } from "./Widget/TeamCarousel";
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, createRef, useEffect, useRef, useState } from "react";
 
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
@@ -19,11 +19,12 @@ export const CurrentTeamContext = createContext<any>(null);
 export const SetCurrentTeamContext = createContext<any>(null);
 export const Teams: React.FC = () => {
   const { data: teams } = useTeams();
+
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [currentTeam, setCurrentTeam] = useState<any>(null);
-
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  // const sectionRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const Teams: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full pt-[93px] pb-[100px]" id="teams">
+    <div className="w-full pt-[93px] pb-[100px]">
       <Text
         variant="t1"
         className="uppercase !text-[50px] text-primary-normal text-center mb-11"
@@ -99,7 +100,7 @@ export const Teams: React.FC = () => {
             ref={sectionRef}
             className="team-carousel-section relative"
             style={{
-              height: "700vh",
+              height: "650vh",
               position: "relative",
               padding: "50px 0",
             }}
@@ -108,7 +109,7 @@ export const Teams: React.FC = () => {
               className="sticky top-[200px] mb-100vh h-[920px] w-vw overflow-hidden"
               ref={stickyRef}
             >
-              <div className="absolute right-[25%] translate-x-1/2 top-10 z-20">
+              <div className="w-[226px] h-[956px] absolute right-[21%] translate-x-1/2 top-10 z-20">
                 <UniversityCarousel teams={teams} />
               </div>
               <TeamCarousel teams={teams} scrollProgress={scrollProgress} />

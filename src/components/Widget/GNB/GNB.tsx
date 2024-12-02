@@ -56,7 +56,7 @@ export const GNB: React.FC = () => {
         ease: "easeInOut",
       }}
     >
-      <div className="flex items-center max-w-[1300px] mx-auto justify-between">
+      <div className="flex items-center cursor-pointer max-w-[1300px] mx-auto justify-between">
         <div
           className="shrink-0"
           onClick={() => {

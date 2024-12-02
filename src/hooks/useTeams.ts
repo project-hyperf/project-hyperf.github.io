@@ -34,8 +34,12 @@ export const useTeams = () => {
     queryFn: async () => {
       const { data } = await fetchFile<TeamItem[]>("/data/teams/teams.json");
       // const { data } = await axios.get<MenuItem[]>("/data/menu.json");
-      console.log("asd", data);
-      return data;
+
+      const dataWithImage = data.map((team) => ({
+        ...team,
+        image: `/data/teams/image/${team.university}_${team.name}.png`,
+      }));
+      return dataWithImage;
     },
   });
 };

@@ -1,9 +1,12 @@
 import { fetchFile } from "@/utils/fetch";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { match } from "assert";
 import { AxiosError } from "axios";
-import { warn } from "console";
-import { split } from "postcss/lib/list";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export interface Post {
   filename: string;
@@ -68,8 +71,11 @@ export const usePosts = ({
           const titleWithHash = data.match(/(#.*)/)?.[1] ?? "";
           const title = titleWithHash.replace("#", "").trim();
           const updatedAt = headers["last-modified"];
+
           const dateMatch = data.match(/\*\*날짜\*\*:\s*(.+)/)?.[1];
-          const date = dateMatch ? dateMatch.trim() : "";
+          const date = dateMatch
+            ? dateMatch.trim()
+            : dayjs(updatedAt).format("YYYY년 MM월 DD일");
 
           const tagsMatch = data.match(/\[(#.*)\]/)?.[1];
           const tags = tagsMatch

@@ -56,7 +56,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
           </div>
           <div>
             {representative.description?.map((keyword: string, idx: number) => (
-              <RespresentativeKeywords keyword={keyword} key={idx} />
+              <RespresentativeKeywords keyword={keyword} key={idx} idx={idx} />
             ))}
           </div>
         </div>
@@ -71,9 +71,9 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
       </div>
       <div className="histroy mb-4">
         <Text className="border-b-1 border-black">학력</Text>
-        <ul className="list-inside list-disc pl-1rem">
+        <ul className="list-inside list-disc pl-1rem pt-2">
           {representative.education?.map((education: any, idx: number) => (
-            <li key={idx} className="pl-[8px]">
+            <li key={idx} className="pl-[8px] text-sm">
               {education?.duration + " " + education.university}
             </li>
           ))}
@@ -81,9 +81,9 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
       </div>
       <div className="history2 mb-4">
         <Text className="border-b-1 border-black">경력</Text>
-        <ul className="list-inside list-disc pl-1rem">
+        <ul className="list-inside list-disc pl-1rem pt-2">
           {representative.career?.map((career: any, idx: number) => (
-            <li key={idx} className="pl-[8px]">
+            <li key={idx} className="pl-[8px] text-sm">
               {career?.duration + " " + career.university}
             </li>
           ))}
@@ -92,10 +92,10 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
       <div className="field flex items-start gap-[25.5px]">
         <div className="flex-1">
           <Text className="border-b-1 border-black">주요 연구 분야</Text>
-          <ul className="list-inside list-disc pl-1rem">
+          <ul className="list-inside list-disc pl-1rem pt-2">
             {representative.researchFields?.map(
               (researchFields: string, idx: number) => (
-                <li key={idx} className="">
+                <li key={idx} className="text-sm pl-[8px] ">
                   {researchFields}
                 </li>
               ),
@@ -104,10 +104,10 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
         </div>
         <div className="flex-1">
           <Text className="border-b-1 border-black">연구분야</Text>
-          <ul className="list-inside list-disc pl-1rem">
+          <ul className="list-inside list-disc pl-1rem pt-2">
             {representative.representativeAchievements?.map(
               (representativeAchievements: string, idx: number) => (
-                <li key={idx} className="">
+                <li key={idx} className="text-sm pl-[8px] font-[SUIT]">
                   {representativeAchievements}
                 </li>
               ),
@@ -147,12 +147,19 @@ const Tags: React.FC<TagsProps> = ({ tags }) => {
 };
 interface RepresentativeKeywordsrops {
   keyword: string;
+  idx: number;
 }
 const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
   keyword,
+  idx,
 }) => {
   return (
-    <div className="border-t-1 border-[#949494] p-2 flex justify-between items-center">
+    <div
+      className={classNames(
+        "border-b-1 border-[#949494] p-2 flex justify-between items-center",
+        idx === 0 ? "border-t-1" : "",
+      )}
+    >
       {keyword}
       <CustomImage
         src="images/icons/r-t-arrow-gray.svg"

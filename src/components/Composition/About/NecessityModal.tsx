@@ -9,10 +9,7 @@ interface NecessityModalProps {
   onClose: () => void;
 }
 
-export const NecessityModal: React.FC<NecessityModalProps> = ({
-  isOpen,
-  onClose,
-}) => {
+export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
   return (
     <ModalContent className="pt-5">
       <ModalHeader className="justify-center px-4 ">
@@ -37,7 +34,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({
         <div className="w-full bg-primary-bg">
           <Text
             variant="b3"
-            className="text-center text-white pt-[34px] pb-[34px] text-[26px]"
+            className="text-center text-white pt-[34px] pb-[34px] !text-[26px]"
           >
             반복적인 최적화 개발을 최소화하면서도 확장과 적응이 용이한
             “프레임워크” 형태의 최적화 메커니즘이 요구됨.
@@ -85,7 +82,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({
         <div className="w-full bg-primary-assistive mb-[82px]">
           <Text
             variant="h5"
-            className="text-center text-white pt-[34px] pb-[34px]"
+            className="!text-[26px] text-center text-white pt-[34px] pb-[34px]"
           >
             엑사급 초고성능 컴퓨터의 잠재성능을 최대한 활용하면서 응용별,
             하드웨어별 기반 SW의 개발 노력을 최소화

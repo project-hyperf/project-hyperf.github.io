@@ -3,7 +3,7 @@ import { Text } from "../../../UI/Text/Text";
 import { GeneralButton } from "../../../UI/Button/GeneralButton";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-
+import { sectionRef as teamSectionRef } from "@/components/Composition/Teams/Teams";
 interface MenuButtonProps {
   title: string;
   menuKey: string;
