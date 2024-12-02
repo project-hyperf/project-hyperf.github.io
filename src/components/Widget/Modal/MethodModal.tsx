@@ -15,7 +15,7 @@ interface MethodModalProps {
 }
 export const MethodModal: React.FC<MethodModalProps> = ({}) => {
   return (
-    <ModalContent className="flex flex-col items-center pt-[50px]">
+    <>
       <ModalHeader className="">
         <AssistiveStyle
           variant="h0"
@@ -35,41 +35,10 @@ export const MethodModal: React.FC<MethodModalProps> = ({}) => {
               src="images/modal/method/method-content.png"
               alt="추진 방법 도식화"
             />
-            {/* <div className="left">
-              <div className="border-1 border-primary-strong flex py-[37px] px-5">
-                <div className="basis1/5">프론트엔드</div>
-                <div className="basis1/5">
-                  <AssistiveStyle>반복문최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">
-                  <AssistiveStyle>병렬 프로그래밍 최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">
-                  <AssistiveStyle>최소 행렬 포맷 최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">백엔드</div>
-              </div>
-            </div>
-            <div className="center"></div>
-            <div className="right">
-              <div className="border-1 border-primary-strong flex py-[37px] px-5">
-                <div className="basis1/5">프론트엔드</div>
-                <div className="basis1/5">
-                  <AssistiveStyle>반복문최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">
-                  <AssistiveStyle>병렬 프로그래밍 최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">
-                  <AssistiveStyle>최소 행렬 포맷 최적화</AssistiveStyle>
-                </div>
-                <div className="basis1/5">백엔드</div>
-              </div>
-            </div> */}
           </div>
         </div>
       </ModalBody>
       <ModalFooter></ModalFooter>
-    </ModalContent>
+    </>
   );
 };

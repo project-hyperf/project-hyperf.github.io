@@ -11,7 +11,7 @@ interface NecessityModalProps {
 
 export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
   return (
-    <ModalContent className="pt-5">
+    <>
       <ModalHeader className="justify-center px-4 ">
         <AssistiveStyle variant="t1" className="text-center pt-4 font-light">
           연구필요성
@@ -89,7 +89,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
           </Text>
         </div>
       </ModalBody>
-    </ModalContent>
+    </>
   );
 };
 

@@ -2,7 +2,8 @@
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useInView } from "framer-motion";
+import { useRef } from "react";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
@@ -32,53 +33,51 @@ interface ArchiveProps {
 }
 
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
-  const { scrollYProgress } = useScroll();
-  const containerHeight = useTransform(
-    scrollYProgress,
-    [0.36, 0.38, 0.39, 0.41],
-    ["90px", "142px", "142px", "90px"],
-  );
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0.36, 0.38, 0.39, 0.41],
-    [0, 1, 1, 0],
-  );
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    margin: "-100px", // viewport에서 100px 안쪽으로 들어와야 트리거
+    amount: 0.5, // 요소의 50%가 보일 때
+  });
+
   return (
     <motion.div
+      ref={ref}
       className="py-7 border-t-1 border-b-1 border-white"
-      style={{
-        height: containerHeight,
-        overflow: "hidden",
+      variants={{
+        hidden: { height: "90px", opacity: 0.7 },
+        visible: { height: "142px", opacity: 1 },
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      transition={{
+        duration: 0.6,
+        ease: "easeInOut",
+      }}
       onClick={() => window.open(link, "_blank")}
     >
-      <motion.div>
-        <div className="flex items-center">
-          <Text
-            variant="t1"
-            className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
-          >
-            {title}
-          </Text>
-          <div className="relative w-10 h-[58px] -mt-4">
-            <CustomImage
-              src="images/icons/right-top-arrow.svg"
-              alt="화살표"
-              fill
-            />
-          </div>
+      <div className="flex items-center">
+        <Text
+          variant="t1"
+          className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
+        >
+          {title}
+        </Text>
+        <div className="relative w-10 h-[58px] -mt-4">
+          <CustomImage
+            src="images/icons/right-top-arrow.svg"
+            alt="화살표"
+            fill
+          />
         </div>
-      </motion.div>
+      </div>
       <motion.div
-        style={{
-          opacity: textOpacity,
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1 },
         }}
         transition={{
+          duration: 0.4,
           delay: 0.2,
-          duration: 0.3,
         }}
       >
         <Text variant="h4" className="text-white">

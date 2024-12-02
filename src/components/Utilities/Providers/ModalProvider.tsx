@@ -1,7 +1,8 @@
 "use client";
 import React, { createContext, useState, PropsWithChildren } from "react";
-import { Modal, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
 import { CloseButton } from "@/components/UI/Button/CloseButton";
+import { motion } from "framer-motion";
 
 interface ModalProps {
   Component: React.FC<any>;
@@ -66,16 +67,37 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
         placement="center"
         className="min-w-[800px] max-w-[1440px] h-[844px]"
         scrollBehavior="inside"
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.6,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: 50,
+              opacity: 0,
+              transition: {
+                duration: 0.5,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
         classNames={{
+          wrapper: "items-end sm:items-center",
+          base: "m-0 sm:m-auto",
           closeButton: "transform scale-[1.75] right-4 top-4",
         }}
-        // classNames={{
-        //   base: "relative",
-        //   closeButton: "absolute top-4 right-4",
-        // }}
-        // closeButton={<CloseButton onClick={onClose} />}
       >
-        {children}
+        <ModalContent>
+          {(onClose) => (
+            <div className="overflow-scroll scrollbar-hide">{children}</div>
+          )}
+        </ModalContent>
       </Modal>
     </>
   );

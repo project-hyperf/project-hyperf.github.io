@@ -5,7 +5,7 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 import {
@@ -14,6 +14,7 @@ import {
   useScroll,
   useMotionValueEvent,
   AnimatePresence,
+  useInView,
 } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
@@ -202,81 +203,152 @@ const AboutTitle: React.FC = () => {
 };
 
 const AboutContent: React.FC = () => {
-  const { scrollYProgress } = useScroll();
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    amount: 0.3,
+    once: false,
+  });
 
-  const containerWidth = useTransform(
-    scrollYProgress,
-    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-    ["2px", "2px", "480px", "480px", "2px", "2px"],
-  );
-  const containerPadding = useTransform(
-    scrollYProgress,
-    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-    ["0px", "0px", "60px", "60px", "0px", "0px"],
-  );
-
-  const textOpacity = useTransform(scrollYProgress, [0, 0.03, 0.07], [0, 1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.03, 0.07], [20, 0, 20]);
-  // const textY = useTransform(
-  //   scrollYProgress,
-  //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],
-  //   [20, 20, 15, 0, 15, 20],
-  // );
   return (
-    <motion.div className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]">
+    <motion.div
+      ref={ref}
+      className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]"
+    >
       {ABOUT_CONTENT.map((item, index) => (
         <motion.div
           key={item.key}
-          className="h-[480px] border-white border-l-1 shadow-md  flex flex-col  overflow-hidden"
-          style={{
-            width: containerWidth,
-            padding: containerPadding,
-            overflow: "hidden",
+          className="h-[480px] border-white border-l-1 shadow-md flex flex-col overflow-hidden"
+          variants={{
+            hidden: { width: "2px", padding: "0px" },
+            visible: { width: "480px", padding: "60px" },
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{
+            duration: 0.5,
+            delay: index * 0.2,
+          }}
         >
-          {/* 컨텐츠 */}
-
-          <>
-            <motion.div className={classNames(`flex flex-col flex-1 `)}>
-              <motion.div
-                style={{
-                  opacity: textOpacity,
-                  y: textY,
-                }}
-                transition={{
-                  delay: index * 0.2,
-                  duration: 0.3,
-                }}
-              >
-                <Text variant="h2" className="text-white text-[34px] font-thin">
-                  {item.title}
-                </Text>
-                <Text variant="t2" className="text-white text-[44px] font-bold">
-                  {item.key}
-                </Text>
-              </motion.div>
-              <motion.div
-                style={{ opacity: textOpacity, y: textY }}
-                transition={{
-                  delay: index * 0.6,
-                  duration: 0.3,
-                }}
-                className="mt-auto"
-              >
-                <Text className="text-white !text-[24px] whitespace-pre-wrap">
-                  {item.content}
-                </Text>
-              </motion.div>
+          <div className="flex flex-col flex-1">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{
+                delay: index * 0.3,
+                duration: 0.4,
+              }}
+            >
+              <Text variant="h2" className="text-white text-[34px] font-thin">
+                {item.title}
+              </Text>
+              <Text variant="t2" className="text-white text-[44px] font-bold">
+                {item.key}
+              </Text>
             </motion.div>
-          </>
+
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{
+                delay: index * 0.4,
+                duration: 0.4,
+              }}
+              className="mt-auto"
+            >
+              <Text className="text-white !text-[24px] whitespace-pre-wrap">
+                {item.content}
+              </Text>
+            </motion.div>
+          </div>
         </motion.div>
       ))}
     </motion.div>
   );
 };
+// const AboutContent: React.FC = () => {
+//   const { scrollYProgress } = useScroll();
+
+//   const containerWidth = useTransform(
+//     scrollYProgress,
+//     [0, 0.02, 0.03, 0.04, 0.07, 0.09],
+//     ["2px", "2px", "480px", "480px", "2px", "2px"],
+//   );
+//   const containerPadding = useTransform(
+//     scrollYProgress,
+//     [0, 0.02, 0.03, 0.04, 0.07, 0.09],
+//     ["0px", "0px", "60px", "60px", "0px", "0px"],
+//   );
+
+//   const textOpacity = useTransform(scrollYProgress, [0, 0.03, 0.07], [0, 1, 0]);
+//   const textY = useTransform(scrollYProgress, [0, 0.03, 0.07], [20, 0, 20]);
+//   // const textY = useTransform(
+//   //   scrollYProgress,
+//   //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],
+//   //   [20, 20, 15, 0, 15, 20],
+//   // );
+//   return (
+//     <motion.div className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]">
+//       {ABOUT_CONTENT.map((item, index) => (
+//         <motion.div
+//           key={item.key}
+//           className="h-[480px] border-white border-l-1 shadow-md  flex flex-col  overflow-hidden"
+//           style={{
+//             width: containerWidth,
+//             padding: containerPadding,
+//             overflow: "hidden",
+//           }}
+//           initial={{ opacity: 0 }}
+//           animate={{ opacity: 1 }}
+//           transition={{ duration: 0.4 }}
+//         >
+//           {/* 컨텐츠 */}
+
+//           <>
+//             <motion.div className={classNames(`flex flex-col flex-1 `)}>
+//               <motion.div
+//                 style={{
+//                   opacity: textOpacity,
+//                   y: textY,
+//                 }}
+//                 transition={{
+//                   delay: index * 0.2,
+//                   duration: 0.3,
+//                 }}
+//               >
+//                 <Text variant="h2" className="text-white text-[34px] font-thin">
+//                   {item.title}
+//                 </Text>
+//                 <Text variant="t2" className="text-white text-[44px] font-bold">
+//                   {item.key}
+//                 </Text>
+//               </motion.div>
+//               <motion.div
+//                 style={{ opacity: textOpacity, y: textY }}
+//                 transition={{
+//                   delay: index * 0.6,
+//                   duration: 0.3,
+//                 }}
+//                 className="mt-auto"
+//               >
+//                 <Text className="text-white !text-[24px] whitespace-pre-wrap">
+//                   {item.content}
+//                 </Text>
+//               </motion.div>
+//             </motion.div>
+//           </>
+//         </motion.div>
+//       ))}
+//     </motion.div>
+//   );
+// };
 // const AboutContent: React.FC = () => {
 //   const { scrollYProgress } = useScroll();
 

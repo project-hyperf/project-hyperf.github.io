@@ -13,7 +13,7 @@ export const IntegrationStepModal: React.FC<
 > = ({}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   return (
-    <ModalContent>
+    <>
       <ModalHeader className="flex justify-center item-center  pt-[50px] pb-[48px]">
         <AssistiveStyle
           variant="h1"
@@ -40,7 +40,7 @@ export const IntegrationStepModal: React.FC<
         </div>
         {/* <div className="border-dashed border-1 border-black" /> */}
       </ModalBody>
-    </ModalContent>
+    </>
   );
 };
 interface DividerProps {
