@@ -81,14 +81,14 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
     return `linear-gradient(180deg, rgb(${startR}, ${startG}, ${startB}), rgb(${endR}, ${endG}, ${endB}))`;
   };
   return (
-    <div className="max-w-[1552px] mx-auto flex flex-row-reverse gap-[96px] justify-center items-stretch">
+    <div className="max-w-[1552px] mx-auto flex flex-row-reverse flex-wrap-reverse gap-[96px] justify-center items-stretch">
       {selectedIndex !== -1 && (
         <motion.div
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -100, opacity: 0 }}
           transition={{ duration: 1, type: "spring", bounce: 0.3 }}
-          className="flex-1"
+          className="flex-1 max-w-[668px]"
           key={selectedIndex}
         >
           <RepresentativeCard representative={teams[selectedIndex]} />

@@ -3,7 +3,7 @@
 import { BorderButton } from "@/components/UI/Button/BorderButton";
 import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
-import { Divider } from "@nextui-org/react";
+import { Divider, Spacer } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
@@ -49,7 +49,9 @@ export const About: React.FC = () => {
         variant="h0"
         className="!text-[45px] !font-extrabold text-white text-center mb-20"
       >
-        다계층(multi-level),다목적(multi-objective) 오토튜닝프레임워크개발
+        다계층(multi-level),
+        <br className="md:hidden" /> 다목적(multi-objective)
+        오토튜닝프레임워크개발
       </Text>
       <div className="flex xl:flex-row flex-col gap-10 items-center">
         {DescriptionButtonList.map((button, idx) => (
@@ -101,7 +103,8 @@ const AboutTitle: React.FC = () => {
         variant="h0"
         className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap !leading-[65px]"
       >
-        엑사급 초고성능 컴퓨터의 잠재 성능을{" "}
+        엑사급 초고성능 컴퓨터의
+        <br className="md:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
           initial={false}
@@ -149,7 +152,9 @@ const AboutTitle: React.FC = () => {
           </AnimatePresence>
         </motion.span>
         활용하며
-        <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을{" "}
+        <br className="" />
+        <Spacer y={20} className="md:hidden" /> 응용별, 하드웨어 별 기반
+        <br className="md:hidden" /> SW 개발 노력을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
           initial={false}
@@ -212,12 +217,12 @@ const AboutContent: React.FC = () => {
   return (
     <motion.div
       ref={ref}
-      className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]"
+      className="flex md:flex-row flex-col gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]"
     >
       {ABOUT_CONTENT.map((item, index) => (
         <motion.div
           key={item.key}
-          className="h-[480px] border-white border-l-1 shadow-md flex flex-col overflow-hidden"
+          className="h-[480px] border-white max-md:border-t-1 md:border-l-1 shadow-md flex flex-col overflow-hidden"
           variants={{
             hidden: { width: "2px", padding: "0px" },
             visible: { width: "480px", padding: "60px" },

@@ -89,7 +89,7 @@ const Step1: React.FC = () => {
   return (
     <>
       {/* 단계 마름모 & Text*/}
-      <div className="w-full flex flex-row justify-center gap-[143px] items-end pb-3">
+      <div className="w-full flex flex-row flex-wrap justify-center gap-[143px] items-end pb-3">
         <div className="flex flex-col items-center gap-14">
           <Text
             variant="h4"
@@ -206,7 +206,7 @@ const StepBox: React.FC<{
 
 const Step2: React.FC = () => {
   return (
-    <div className="w-full flex flex-row justify-center gap-[143px] items-end pb-3">
+    <div className="w-full flex flex-wrap flex-row justify-center gap-[143px] items-end pb-3">
       <div className="flex flex-col items-center gap-14">
         <Text
           variant="h4"
