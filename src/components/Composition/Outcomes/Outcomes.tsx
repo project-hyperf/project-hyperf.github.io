@@ -46,7 +46,7 @@ export const Outcomes: React.FC = () => {
         style={{ height: "1250vh" }}
       >
         <div
-          className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[90]"
+          className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[20]"
           ref={stickyRef}
         >
           <div className="relative h-full">

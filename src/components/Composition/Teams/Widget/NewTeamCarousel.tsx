@@ -77,7 +77,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
     const endB = Math.round(
       startColor.b + (endColor.b - startColor.b) * endPosition,
     );
-    console.log(idx, startR, startG, startB, endR, endG, endB);
+
     return `linear-gradient(180deg, rgb(${startR}, ${startG}, ${startB}), rgb(${endR}, ${endG}, ${endB}))`;
   };
   return (
@@ -130,7 +130,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                   <div
                     className={classNames(
                       "w-[200px] aspect-square",
-                      selectedIndex === teamIndex ? "" : "mix-blend-luminosity",
+                      selectedIndex === teamIndex ? "" : "grayscale",
                     )}
                   >
                     <TeamCarouselThumb
@@ -145,7 +145,6 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                     style={{
                       background: sectionGradient,
                       // backgroundBlendMode: "overlay",
-                      mixBlendMode: "normal",
                     }}
                   />
                 </motion.div>
