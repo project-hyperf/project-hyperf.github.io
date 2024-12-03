@@ -15,11 +15,11 @@ export const Outcomes: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const step1Y = useTransform(scrollYProgress, [0.05, 0.25], [250, -300]);
-  const step1Opacity = useTransform(scrollYProgress, [0.3, 0.45], [1, 0]);
+  const step1Y = useTransform(scrollYProgress, [0.05, 0.15], [400, 350]);
+  const step1Opacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
 
-  const step2Y = useTransform(scrollYProgress, [0.3, 0.5], [200, 50]);
-  const step2Opacity = useTransform(scrollYProgress, [0.45, 0.8], [0, 1]);
+  const step2Y = useTransform(scrollYProgress, [0.2, 0.3], [200, 50]);
+  const step2Opacity = useTransform(scrollYProgress, [0.42, 0.6], [0, 1]);
   const smoothScrollY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 20,
@@ -113,43 +113,45 @@ const Step1: React.FC = () => {
 
         {/* 우측 Text & 박스 */}
         <div className=" max-w-[768px] grow shrink relative z-[90]">
-          <div className="w-full h-full pb-[49px] bg-white">
+          <div className="w-full h-full mb-6 bg-white">
             <Text variant="h4" className=" ">
               TVM 컴파일러를 HPC(고성능 컴퓨팅)를 사용해 확장
             </Text>
           </div>
-          <StepBox
-            title="HPC 프론트엔드(OpenMP/MPI C) 개발"
-            purpose="목적 : 반복문 병렬화 및 최적화를 통해 TVM의 실행 성능 향상"
-            tasks={[
-              "반복문 분리 및 개별 함수화",
-              "Tensor IR 기반 오토튜닝 및 코드생성",
-              "오브젝트 파일 생성",
-            ]}
-          />
-          <StepBox
-            title="희소 행렬 최적화"
-            purpose="목적 : 희소 행렬 포맷을 활용해 반복문 최적화 및 성능 개선"
-            tasks={["희소 행렬 포맷 적용", "Blocked CSR 최적화"]}
-          />
-          <StepBox
-            title="전력 예측 모델"
-            purpose="목적 : 전력 소비를 고려한 성능 최적화"
-            tasks={[
-              "성능 카운터 기반 전력 모델 개발",
-              "KNL 기반 모델 학습 및 최적화",
-              "TVM 탐색 모델 통합",
-            ]}
-          />
-          <StepBox
-            title="전력 예측 기반 다목적 오토튜닝"
-            purpose="목적 : 성능과 전력 소비의 균형을 맞춘 최적화를 달성"
-            tasks={[
-              "소비 전력 예측 모델 활용",
-              "연산 패턴 기반 전력 예측 기술 적용",
-              "TVM 탐색 모델 통합",
-            ]}
-          />
+          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+            <StepBox
+              title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
+              purpose={`반복문 병렬화 및 최적화를 통해\n TVM의 실행 성능 향상`}
+              tasks={[
+                "반복문 분리 및 개별 함수화",
+                "Tensor IR 기반 오토튜닝 및 코드생성",
+                "오브젝트 파일 생성",
+              ]}
+            />
+            <StepBox
+              title="희소 행렬 최적화"
+              purpose={`희소 행렬 포맷을 활용해\n 반복문 최적화 및 성능 개선`}
+              tasks={["희소 행렬 포맷 적용", "Blocked CSR 최적화"]}
+            />
+            <StepBox
+              title="전력 예측 모델"
+              purpose="전력 소비를 고려한 성능 최적화"
+              tasks={[
+                "성능 카운터 기반 전력 모델 개발",
+                "KNL 기반 모델 학습 및 최적화",
+                "TVM 탐색 모델 통합",
+              ]}
+            />
+            <StepBox
+              title={`전력 예측 기반\n 다목적 오토튜닝`}
+              purpose={`성능과 전력 소비의 균형을 맞춘\n 최적화를 달성`}
+              tasks={[
+                "소비 전력 예측 모델 활용",
+                "연산 패턴 기반 전력 예측 기술 적용",
+                "TVM 탐색 모델 통합",
+              ]}
+            />
+          </div>
         </div>
       </div>
     </>
@@ -163,41 +165,29 @@ const StepBox: React.FC<{
 }> = ({ title, purpose, tasks }) => {
   return (
     <>
-      <div className="py-6 px-[28px] bg-primary-bg mt-6 flex-col justify-center border-2 border-black">
-        <Text
-          variant="h4"
-          className="text-white pb-3 text-center !font-extrabold"
-        >
-          {title}
-        </Text>
+      <div className="pt-6 pb-[29px] px-[24px] bg-primary-bg flex flex-col gap-3 justify-center border-2 border-black">
+        <div className="flex-1 flex flex-col gap-3 justify-center items-center">
+          <Text
+            variant="h4"
+            className="text-white pb-3 whitespace-pre-wrap text-center !font-extrabold"
+          >
+            {title}
+          </Text>
 
-        <Text
-          variant="h5"
-          className="text-white pb-3 text-center !font-semibold"
-        >
-          {purpose}
-        </Text>
+          <Text
+            variant="b2"
+            className="text-white whitespace-pre-wrap text-center !font-semibold"
+          >
+            {purpose}
+          </Text>
+        </div>
 
-        <Text
-          variant="h5"
-          className="text-white pb-3 text-center !font-semibold !text-[16px]"
-        >
-          핵심작업
-        </Text>
-
-        <div
-          className={`grid gap-5 ${
-            tasks.length === 1 ? "grid-cols-1" : "grid-cols-2"
-          }`}
-        >
+        <div className="flex-1 flex flex-col items-center justify-center gap-3">
           {tasks.map((task, index) => (
             <div
               key={index}
               className={classNames(
-                `bg-white flex justify-center items-center border-2 border-black py-[12px] box-border`,
-                task.length % 2 === 0 && index === tasks.length - 1
-                  ? "col-span-2"
-                  : "",
+                `bg-white w-full flex flex-col justify-center items-center border-2 border-black py-[12px] box-border`,
               )}
             >
               <Text
