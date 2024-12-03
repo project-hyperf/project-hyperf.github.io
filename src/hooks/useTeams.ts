@@ -25,7 +25,10 @@ export type TeamItem = {
   }[];
 
   researchFields: string[];
-  representativeAchievements: string[];
+  representativeAchievements: {
+    label: string;
+    content: string[];
+  };
 };
 
 export const useTeams = () => {

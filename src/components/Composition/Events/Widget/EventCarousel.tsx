@@ -10,7 +10,7 @@ import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 import { Post } from "@/hooks/usePosts";
 
 interface EventCarouselProps {
-  posts?: any[];
+  posts?: Post[];
 }
 
 interface CarouselProps extends EmblaOptionsType {
@@ -91,7 +91,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                   </div>
                   <div className="flex items-center mt-auto">
                     {post.tags &&
-                      post.tags.map((tag: any, index: number) => (
+                      post.tags.map((tag: string, index: number) => (
                         <Tag key={index}>{tag}</Tag>
                       ))}
                   </div>

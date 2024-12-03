@@ -8,16 +8,18 @@ type PropType = {
   selected: boolean;
   team: TeamItem;
   onClick: () => void;
+  style?: React.CSSProperties;
 };
 
 export const TeamCarouselThumb: React.FC<PropType> = (props) => {
-  const { selected, team, onClick } = props;
+  const { selected, team, onClick, style } = props;
 
   return (
     <div
       className={"embla-thumbs__slide h-[200px] cursor-pointer".concat(
         selected ? " embla-thumbs__slide--selected" : "",
       )}
+      style={style}
     >
       <GeneralButton
         onClick={onClick}

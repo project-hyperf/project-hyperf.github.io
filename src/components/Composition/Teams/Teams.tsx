@@ -2,12 +2,11 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { UniversityCarousel } from "./Widget/UniversityCarousel";
 import { useTeams } from "@/hooks/useTeams";
-import { EmblaOptionsType } from "embla-carousel";
-import { createContext, createRef, useEffect, useRef, useState } from "react";
+
+import { createContext, useEffect, useRef, useState } from "react";
 import { NewTeamCarousel } from "./Widget/NewTeamCarousel";
-const OPTIONS: EmblaOptionsType = {};
+
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
   { name: "포항공과대학교", key: "pohang" },
@@ -25,7 +24,7 @@ export const Teams: React.FC = () => {
 
   const [currentTeam, setCurrentTeam] = useState<any>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  // const sectionRef = useRef<HTMLDivElement | null>(null);
+
   const stickyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -86,7 +85,7 @@ export const Teams: React.FC = () => {
         <br /> 초고성능컴퓨팅 정부책임기관(한국과학기술정보연구원){" "}
         <span className="text-black">이 참여하는 컨소시엄</span>
       </AssistiveStyle>
-      <div className="flex items-center flex-wrap gap-6 justify-center mb-[71px]">
+      <div className="flex items-center flex-wrap gap-6 justify-center mb-[141px]">
         {AGNECY_LIST.map((agency) => (
           <CustomImage
             src={`images/agency/${agency.key}.svg`}
@@ -97,7 +96,7 @@ export const Teams: React.FC = () => {
       </div>
       <CurrentTeamContext.Provider value={currentTeam}>
         <SetCurrentTeamContext.Provider value={setCurrentTeam}>
-          <NewTeamCarousel teams={teams} options={OPTIONS} />
+          <NewTeamCarousel teams={teams} />
         </SetCurrentTeamContext.Provider>
       </CurrentTeamContext.Provider>
     </div>

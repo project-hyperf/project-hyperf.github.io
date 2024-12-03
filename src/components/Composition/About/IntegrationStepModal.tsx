@@ -87,7 +87,6 @@ const Divider: React.FC<DividerProps> = ({
     };
   }, []);
 
-  //스크롤 시 title부분이 sticky가 된다 스크롤이 계속되어서 다음 title이 올라오면 현재 title은 fixed가 되며 그 바로 밑에 붙는다.
   useEffect(() => {
     const sticky = stickyTopRef.current;
     const scroll = scrollRef.current;

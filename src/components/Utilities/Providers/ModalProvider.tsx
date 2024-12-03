@@ -93,11 +93,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
           closeButton: "transform scale-[1.75] right-4 top-4",
         }}
       >
-        <ModalContent>
-          {(onClose) => (
-            <div className="overflow-scroll scrollbar-hide">{children}</div>
-          )}
-        </ModalContent>
+        <ModalContent>{(onClose) => <>{children}</>}</ModalContent>
       </Modal>
     </>
   );

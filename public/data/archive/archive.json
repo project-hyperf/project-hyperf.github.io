@@ -1,4 +1,7 @@
 [
-  { "name": "GitHub Repository", "link": "https://github.com/hyojin-sung/hyperf" },
+  {
+    "name": "GitHub Repository",
+    "link": "https://github.com/hyojin-sung/hyperf"
+  },
   { "name": "HYPERF Document", "link": "https:/docs.hyperf.com" }
 ]
