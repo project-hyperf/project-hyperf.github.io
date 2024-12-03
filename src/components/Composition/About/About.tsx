@@ -225,8 +225,8 @@ const AboutContent: React.FC = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           transition={{
-            duration: 0.5,
-            delay: index * 0.2,
+            duration: 0.8,
+            delay: index * 0.4,
           }}
         >
           <div className="flex flex-col flex-1">
@@ -238,8 +238,8 @@ const AboutContent: React.FC = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               transition={{
-                delay: index * 0.3,
-                duration: 0.4,
+                delay: index * 0.4,
+                duration: 1,
               }}
             >
               <Text variant="h2" className="text-white text-[34px] font-thin">
@@ -258,8 +258,8 @@ const AboutContent: React.FC = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               transition={{
-                delay: index * 0.4,
-                duration: 0.4,
+                delay: index * 0.5,
+                duration: 1.2,
               }}
               className="mt-auto"
             >
@@ -273,147 +273,7 @@ const AboutContent: React.FC = () => {
     </motion.div>
   );
 };
-// const AboutContent: React.FC = () => {
-//   const { scrollYProgress } = useScroll();
 
-//   const containerWidth = useTransform(
-//     scrollYProgress,
-//     [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-//     ["2px", "2px", "480px", "480px", "2px", "2px"],
-//   );
-//   const containerPadding = useTransform(
-//     scrollYProgress,
-//     [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-//     ["0px", "0px", "60px", "60px", "0px", "0px"],
-//   );
-
-//   const textOpacity = useTransform(scrollYProgress, [0, 0.03, 0.07], [0, 1, 0]);
-//   const textY = useTransform(scrollYProgress, [0, 0.03, 0.07], [20, 0, 20]);
-//   // const textY = useTransform(
-//   //   scrollYProgress,
-//   //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],
-//   //   [20, 20, 15, 0, 15, 20],
-//   // );
-//   return (
-//     <motion.div className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]">
-//       {ABOUT_CONTENT.map((item, index) => (
-//         <motion.div
-//           key={item.key}
-//           className="h-[480px] border-white border-l-1 shadow-md  flex flex-col  overflow-hidden"
-//           style={{
-//             width: containerWidth,
-//             padding: containerPadding,
-//             overflow: "hidden",
-//           }}
-//           initial={{ opacity: 0 }}
-//           animate={{ opacity: 1 }}
-//           transition={{ duration: 0.4 }}
-//         >
-//           {/* 컨텐츠 */}
-
-//           <>
-//             <motion.div className={classNames(`flex flex-col flex-1 `)}>
-//               <motion.div
-//                 style={{
-//                   opacity: textOpacity,
-//                   y: textY,
-//                 }}
-//                 transition={{
-//                   delay: index * 0.2,
-//                   duration: 0.3,
-//                 }}
-//               >
-//                 <Text variant="h2" className="text-white text-[34px] font-thin">
-//                   {item.title}
-//                 </Text>
-//                 <Text variant="t2" className="text-white text-[44px] font-bold">
-//                   {item.key}
-//                 </Text>
-//               </motion.div>
-//               <motion.div
-//                 style={{ opacity: textOpacity, y: textY }}
-//                 transition={{
-//                   delay: index * 0.6,
-//                   duration: 0.3,
-//                 }}
-//                 className="mt-auto"
-//               >
-//                 <Text className="text-white !text-[24px] whitespace-pre-wrap">
-//                   {item.content}
-//                 </Text>
-//               </motion.div>
-//             </motion.div>
-//           </>
-//         </motion.div>
-//       ))}
-//     </motion.div>
-//   );
-// };
-// const AboutContent: React.FC = () => {
-//   const { scrollYProgress } = useScroll();
-
-//   const containerWidth = useTransform(
-//     scrollYProgress,
-//     [0, 0.2, 0.3, 0.7],
-//     ["2px", "480px", "480px", "2px"],
-//   );
-
-//   return (
-//     <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
-//       {ABOUT_CONTENT.map((item, index) => (
-//         <motion.div
-//           key={item.key}
-//           className="h-[480px] border-white border-l-1 shadow-md p-[60px] flex flex-col justify-between"
-//           style={{
-//             width: containerWidth,
-//           }}
-//           transition={{ duration: 0.3 }}
-//         >
-//           {/* <div> */}
-//           <motion.div
-//             className="mb-4"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.2,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text variant="h2" className="text-white text-[34px] font-thin">
-//               {item.title}
-//             </Text>
-//           </motion.div>
-//           <motion.div
-//             className="mb-2"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.4,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text variant="t2" className="text-white text-[44px] font-bold">
-//               {item.key}
-//             </Text>
-//           </motion.div>
-//           {/* </div> */}
-//           <motion.div
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.6,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text className="text-white text-sm whitespace-pre-wrap">
-//               {item.content}
-//             </Text>
-//           </motion.div>
-//         </motion.div>
-//       ))}
-//     </motion.div>
-//   );
-// };
 const ABOUT_CONTENT = [
   {
     title: "다계층",
