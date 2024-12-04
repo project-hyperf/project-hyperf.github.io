@@ -45,7 +45,7 @@ export const GNB: React.FC = () => {
 
   return (
     <motion.header
-      className={classNames("px-5")}
+      className={classNames("px-5 max-md:h-[70px]")}
       ref={headerRef}
       animate={{
         backgroundColor: isBlackArea ? "#000000" : "#FFFFFF",
@@ -56,7 +56,7 @@ export const GNB: React.FC = () => {
         ease: "easeInOut",
       }}
     >
-      <div className="py-8 w-full mx-auto max-w-[1300px]">
+      <div className="md:py-8 py-5 w-full mx-auto max-w-[1300px]">
         <div className="flex items-center gap-5 md:justify-between">
           <div
             className="shrink-0"

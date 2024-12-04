@@ -1,5 +1,6 @@
 import { ReadMoreContainer } from "@/components/UI/Text/ReadMoreContainer";
 import {
+  button,
   Divider,
   Modal,
   ModalBody,
@@ -8,9 +9,10 @@ import {
   ModalProps,
 } from "@nextui-org/react";
 import classNames from "classnames";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { PictureGrid } from "./PictureGrid";
 import { Post } from "@/hooks/usePosts";
+import { title } from "process";
 interface EventModalProps {
   post: Post;
   modalProps?: Omit<ModalProps, "children">;
@@ -25,6 +27,7 @@ export const EventModal: React.FC<EventModalProps> = ({
   onClose,
 }) => {
   if (!post) return null;
+  const [isMobile, setIsMobile] = useState(false);
   const isPictureExists = post.picture?.length && post.picture.length > 0;
   const [selectedPictureIndex, setSelectedPictureIndex] = useState<
     number | null
@@ -43,6 +46,15 @@ export const EventModal: React.FC<EventModalProps> = ({
     [selectedPictureIndex],
   );
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   return (
     <Modal
       {...modalProps}
@@ -50,32 +62,34 @@ export const EventModal: React.FC<EventModalProps> = ({
       onClose={onClose}
       className={classNames(modalProps?.className)}
       classNames={{
-        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px] z-[100]",
+        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px] max-md:pt-[60px] z-[100] max-md:min-w-[320px]",
         wrapper: "z-[100]",
         backdrop: "z-[100]",
-        closeButton: "text-white text-[28px] right-[80px] top-[50px]",
+        closeButton:
+          "text-white text-[28px] right-[80px] max-md:right-[20px] top-[50px] max-md:top-[20px]",
         ...modalProps?.classNames,
       }}
       scrollBehavior={modalProps?.scrollBehavior ?? "inside"}
     >
       <ModalContent>
-        <ModalHeader className="block pb-0 px-[130px]">
+        <ModalHeader className="block pb-0 px-[130px] max-md:px-4">
           <div className="flex flex-col gap-5">
-            <div className="text-white text-[40px] font-normal font-['SUIT'] leading-[48px]">
+            <div className="text-white text-[40px] max-md:text-[28px] font-normal font-['SUIT'] leading-[48px]">
               {post.title}
             </div>
-            <div className="text-white text-2xl font-normal font-['SUIT'] leading-[28.80px]">
+            <div className="text-white text-2xl max-md:text-lg font-normal font-['SUIT'] leading-[28.80px]">
               {post.date}
             </div>
           </div>
           <Divider className="mt-8 bg-white" />
         </ModalHeader>
-        <ModalBody className="pb-[150px] pt-7 px-[130px]">
+
+        <ModalBody className="pb-[150px] max-md:pb-[50px] pt-7 px-[130px] max-md:px-4">
           <div className="flex flex-col gap-7">
-            <div className="flex gap-10 w-full">
+            <div className="flex max-md:flex-col gap-10 w-full">
               <div className="flex-1">
                 <ReadMoreContainer
-                  className="max-h-[470px]"
+                  className="max-h-[470px] max-md:max-h-[300px]"
                   MoreButton={({ onClick, children }) => (
                     <div className="w-full flex justify-end">
                       <button
@@ -87,18 +101,19 @@ export const EventModal: React.FC<EventModalProps> = ({
                     </div>
                   )}
                 >
-                  <div className="text-justify text-white text-2xl font-light font-['SUIT'] leading-[33.60px] break-keep">
+                  <div className="text-justify text-white text-2xl max-md:text-lg font-light font-['SUIT'] leading-[33.60px] break-keep">
                     {post.content}
                   </div>
                 </ReadMoreContainer>
               </div>
-              {isPictureExists && (
+
+              {isPictureExists && !isMobile && (
                 <>
                   <Divider
                     className="bg-white h-auto flex-none"
                     orientation="vertical"
                   />
-                  <div className="flex-1 w-1/2">
+                  <div className="flex-1 w-1/2 max-md:w-full">
                     {post.picture && (
                       <PictureGrid
                         isCurrentPicture={isCurrentPicture}
@@ -110,8 +125,21 @@ export const EventModal: React.FC<EventModalProps> = ({
                 </>
               )}
             </div>
+
+            {isPictureExists && isMobile && (
+              <div className="w-full">
+                {post.picture && (
+                  <PictureGrid
+                    isCurrentPicture={isCurrentPicture}
+                    picture={post.picture}
+                    setSelectedPictureIndex={setSelectedPictureIndex}
+                  />
+                )}
+              </div>
+            )}
+
             {selectedPicture && (
-              <div className="aspect-[1160/740] overflow-hidden w-full">
+              <div className="aspect-[1160/740] max-md:aspect-square overflow-hidden w-full">
                 <img
                   src={selectedPicture.src}
                   alt={selectedPicture.alt}

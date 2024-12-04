@@ -15,10 +15,10 @@ export const Outcomes: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const step1Y = useTransform(scrollYProgress, [0.05, 0.15], [400, 350]);
+  const step1Y = useTransform(scrollYProgress, [0.1, 0.25], [0, -100]);
   const step1Opacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
 
-  const step2Y = useTransform(scrollYProgress, [0.2, 0.3], [200, 50]);
+  const step2Y = useTransform(scrollYProgress, [0.2, 0.3], [150, 30]);
   const step2Opacity = useTransform(scrollYProgress, [0.42, 0.6], [0, 1]);
   const smoothScrollY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -46,10 +46,10 @@ export const Outcomes: React.FC = () => {
       <div
         className="w-full relative "
         ref={sectionRef}
-        style={{ height: "1250vh" }}
+        style={{ height: "4602px" }}
       >
         <div
-          className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[20]"
+          className="sticky w-100vw h-[994px] mt-[106px] -top-[0px] overflow-hidden  z-[20]"
           ref={stickyRef}
           id="real-outcomes"
         >
@@ -228,18 +228,18 @@ const Step2: React.FC = () => {
             <CustomImage
               src="images/icons/rectangle.svg"
               alt="Step 1"
-              className="absolute inset-0 z-10 overflow-hidden"
+              className="absolute w-full inset-0 z-10 overflow-hidden"
             />
             <CustomImage
               src="images/icons/rectangle-black.svg"
               alt="Step 2"
-              className="absolute inset-0 -mt-[60px]"
+              className="absolute w-full inset-0 -mt-[60px]"
               style={{
-                clipPath: "inset(150px 0 0 0)",
+                clipPath: "inset(171px 0 0 0)",
               }}
             />
           </div>
-          <div className="absolute inset-0 flex justify-center items-center z-20 -mt-[26px]">
+          <div className="absolute inset-0 flex justify-center items-center z-20 -mt-[16px]">
             <Text variant="h4" className="text-primary-normal">
               2단계
             </Text>
