@@ -19,7 +19,7 @@ export const CurrentTeamContext = createContext<any>(null);
 export const SetCurrentTeamContext = createContext<any>(null);
 export const Teams: React.FC = () => {
   const { data: teams } = useTeams();
-
+  const [isInView, setIsInView] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [currentTeam, setCurrentTeam] = useState<any>(null);
@@ -40,6 +40,8 @@ export const Teams: React.FC = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
+            console.log(entry);
+            setIsInView(true);
             const intersectionHeight = entry.intersectionRect.y;
             // console.log(intersectionHeight, sectionTop, sectionHeight);
             // const viewportHeight = window.innerHeight;
@@ -54,7 +56,7 @@ export const Teams: React.FC = () => {
         },
         {
           root: null,
-          threshold: 0.9,
+          threshold: 0.5,
         },
       );
       observer.observe(sticky);
@@ -68,7 +70,7 @@ export const Teams: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full pt-[93px] pb-[100px]">
+    <div className="w-full pt-[93px] pb-[100px]" ref={sectionRef}>
       <Text
         variant="t1"
         className="uppercase !text-[50px] text-primary-normal text-center mb-11"

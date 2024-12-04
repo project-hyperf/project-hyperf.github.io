@@ -29,14 +29,17 @@ export const Outcomes: React.FC = () => {
 
   return (
     <div className="pt-[104px] pb-[114px]">
-      <div className="">
+      <div>
         <Text
           variant="t1"
-          className="text-center uppercase text-primary-normal text-[50px]"
+          className="text-center uppercase text-primary-normal md:text-[50px] text-[30px]"
         >
           Outcomes
         </Text>
-        <Text variant="h4" className="text-center pt-12 text-primary-normal">
+        <Text
+          variant="h4"
+          className="text-center pt-12 text-primary-normal max-md:pt-6"
+        >
           예상성과
         </Text>
       </div>
@@ -48,6 +51,7 @@ export const Outcomes: React.FC = () => {
         <div
           className="sticky w-100vw h-[1447px] -top-[120px] overflow-hidden  z-[20]"
           ref={stickyRef}
+          id="real-outcomes"
         >
           <div className="relative h-full">
             <motion.div style={{ x }} className="absolute bottom-0 w-[4602px]">
@@ -88,12 +92,11 @@ export const Outcomes: React.FC = () => {
 const Step1: React.FC = () => {
   return (
     <>
-      {/* 단계 마름모 & Text*/}
-      <div className="w-full flex flex-row flex-wrap justify-center gap-[143px] items-end pb-3">
+      <div className="w-full flex md:flex-row flex-col md:gap-[143px] gap-10 items-center justify-center md:items-end pb-3 px-4">
         <div className="flex flex-col items-center gap-14">
           <Text
             variant="h4"
-            className="text-center text-primary-normal !leading-[33.6px] whitespace-nowrap"
+            className="text-center text-primary-normal !leading-[33.6px] whitespace-pre-wrap max-md:text-[18px]"
           >
             TVM의 기능적, 성능적 확장을
             <br />
@@ -112,13 +115,16 @@ const Step1: React.FC = () => {
         </div>
 
         {/* 우측 Text & 박스 */}
-        <div className=" max-w-[768px] grow shrink relative z-[90]">
-          <div className="w-full h-full mb-6 bg-white">
-            <Text variant="h4" className=" ">
+        <div className="max-w-[768px] grow shrink relative z-[90]">
+          <div className="w-full h-full mb-6 ">
+            <Text
+              variant="h4"
+              className="max-md:text-[18px] max-md:text-center"
+            >
               TVM 컴파일러를 HPC(고성능 컴퓨팅)를 사용해 확장
             </Text>
           </div>
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <StepBox
               title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
               purpose={`반복문 병렬화 및 최적화를 통해\n TVM의 실행 성능 향상`}
@@ -165,18 +171,17 @@ const StepBox: React.FC<{
 }> = ({ title, purpose, tasks }) => {
   return (
     <>
-      <div className="pt-6 pb-[29px] px-[24px] bg-primary-bg flex flex-col gap-3 justify-center border-2 border-black">
+      <div className="pt-6 pb-[29px] px-[24px] bg-primary-bg flex flex-col gap-3 justify-center border-2 border-black max-md:px-4">
         <div className="flex-1 flex flex-col gap-3 justify-center items-center">
           <Text
             variant="h4"
-            className="text-white pb-3 whitespace-pre-wrap text-center !font-extrabold"
+            className="text-white pb-3 whitespace-pre-wrap text-center !font-extrabold max-md:text-[16px]"
           >
             {title}
           </Text>
-
           <Text
             variant="b2"
-            className="text-white whitespace-pre-wrap text-center !font-semibold"
+            className="text-white whitespace-pre-wrap text-center !font-semibold max-md:text-[14px]"
           >
             {purpose}
           </Text>
@@ -206,7 +211,7 @@ const StepBox: React.FC<{
 
 const Step2: React.FC = () => {
   return (
-    <div className="w-full flex flex-wrap flex-row justify-center gap-[143px] items-end pb-3">
+    <div className="w-full flex flex-wrap flex-row justify-center gap-[143px] items-center pb-3">
       <div className="flex flex-col items-center gap-14">
         <Text
           variant="h4"
@@ -230,7 +235,7 @@ const Step2: React.FC = () => {
               alt="Step 2"
               className="absolute inset-0 -mt-[60px]"
               style={{
-                clipPath: "inset(150px 0 0 0)", // 위쪽 70px 숨김
+                clipPath: "inset(150px 0 0 0)",
               }}
             />
           </div>
@@ -253,10 +258,12 @@ const Step2: React.FC = () => {
         {SECOND_STEP_CONTENT.map((box, index) => (
           <div
             key={index}
-            //수정 필요
-            className="px-7 bg-primary-bg pt-6 mt-6 pb-3 max-w-[728px] flex flex-col justify-center border-2 border-black"
+            className="px-7 bg-primary-bg pt-6 mt-6 pb-3 max-w-[728px] flex flex-col justify-center border-2 border-black max-md:px-4"
           >
-            <Text variant="h4" className="text-white pb-3 text-center">
+            <Text
+              variant="h4"
+              className="text-white pb-3 text-center max-md:text-[16px]"
+            >
               {box.title}
             </Text>
             {box.contents.map((content, idx) => (
@@ -266,7 +273,7 @@ const Step2: React.FC = () => {
               >
                 <Text
                   variant="h5"
-                  className="text-black !font-normal py-[12px] text-[16px]"
+                  className="text-black !font-normal py-[12px] !text-[16px]"
                 >
                   {content}
                 </Text>

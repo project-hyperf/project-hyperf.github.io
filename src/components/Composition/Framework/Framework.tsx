@@ -8,14 +8,14 @@ export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
   return (
-    <div className="w-full bg-primary-bg pt-[104px] pb-[178px]">
+    <div className="w-full bg-primary-bg pt-[104px] pb-[178px] max-md:px-5">
       <Text
         variant="t1"
-        className="text-white uppercase text-center text-[50px] mb-[116px]"
+        className="text-white uppercase text-center md:!text-[50px] !text-[30px] mb-[116px]"
       >
         hYPERF
       </Text>
-      <div className="flex md:flex-row flex-col items-center justify-center gap-10 ">
+      <div className="flex md:flex-row md:flex-wrap flex-col items-center justify-center gap-10 ">
         {archiveList?.map((archive) => (
           <ArchiveLink
             key={archive.name}
@@ -42,7 +42,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   return (
     <motion.div
       ref={ref}
-      className="py-7 border-t-1 border-b-1 border-white"
+      className="py-7 md:max-w-[480px] border-t-1 w-full border-b-1 border-white"
       variants={{
         hidden: { height: "90px", opacity: 0.7 },
         visible: { height: "142px", opacity: 1 },
@@ -58,7 +58,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
       <div className="flex items-center">
         <Text
           variant="t1"
-          className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
+          className="cursor-pointer uppercase text-white md:!text-[44px] !text-[28px] mb-[14px] flex-1"
         >
           {title}
         </Text>
@@ -80,7 +80,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
           delay: 0.2,
         }}
       >
-        <Text variant="h4" className="text-white">
+        <Text variant="h4" className="text-white max-md:!text-[20px]">
           {link}
         </Text>
       </motion.div>

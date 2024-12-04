@@ -60,43 +60,42 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
   onClose,
 }) => {
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        placement="center"
-        className="min-w-[800px] max-w-[1440px] h-[844px]"
-        scrollBehavior="inside"
-        motionProps={{
-          variants: {
-            enter: {
-              y: 0,
-              opacity: 1,
-              transition: {
-                duration: 0.6,
-                ease: "easeOut",
-              },
-            },
-            exit: {
-              y: 50,
-              opacity: 0,
-              transition: {
-                duration: 0.5,
-                ease: "easeIn",
-              },
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="center"
+      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] min-w-[320px] max-h-[90vh]"
+      scrollBehavior="inside"
+      motionProps={{
+        variants: {
+          enter: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              duration: 0.6,
+              ease: "easeOut",
             },
           },
-        }}
-        classNames={{
-          wrapper: "items-end sm:items-center",
-          base: "m-0 sm:m-auto",
-          closeButton: "transform scale-[1.75] right-4 top-4",
-        }}
-      >
-        <ModalContent>{(onClose) => <>{children}</>}</ModalContent>
-      </Modal>
-    </>
+          exit: {
+            y: 50,
+            opacity: 0,
+            transition: {
+              duration: 0.5,
+              ease: "easeIn",
+            },
+          },
+        },
+      }}
+      classNames={{
+        // wrapper 클래스 수정
+        wrapper: "items-center", // sm: 제거하고 항상 center로
+        base: "m-auto", // sm: 제거하고 항상 auto margin
+        backdrop: "bg-black/50",
+        closeButton: "transform scale-[1.75] right-4 top-4",
+      }}
+    >
+      <ModalContent>{(onClose) => <>{children}</>}</ModalContent>
+    </Modal>
   );
 };
-
 export default ModalsProvider;

@@ -3,7 +3,7 @@ import { Text } from "../../../UI/Text/Text";
 import { GeneralButton } from "../../../UI/Button/GeneralButton";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { sectionRef as teamSectionRef } from "@/components/Composition/Teams/Teams";
+
 interface MenuButtonProps {
   title: string;
   menuKey: string;
@@ -14,11 +14,13 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
   menuKey,
   isBlackArea,
 }) => {
+  const newMenuKey = menuKey === "outcomes" ? "real-outcomes" : menuKey;
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    const target = document.getElementById(menuKey);
-
+    const target = document.getElementById(newMenuKey);
+    // const realTarget = menuKey === "outcomes" ? "real"
+    console.log(target);
     if (!target) return;
 
     const observer = new IntersectionObserver(
@@ -36,7 +38,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
     return () => {
       observer.disconnect();
     };
-  }, [menuKey]);
+  }, [newMenuKey]);
   const handleScroll = () => {
     const target = document.getElementById(menuKey);
 

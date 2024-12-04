@@ -151,20 +151,20 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
 interface TagsProps {
   tags: string[];
 }
-const Tags: React.FC<TagsProps> = ({ tags }) => {
+export const Tags: React.FC<TagsProps> = ({ tags }) => {
   return (
-    <div className="flex gap-5 items-center">
+    <div className="flex gap-5 items-center max-md:flex-wrap max-md:gap-1">
       {tags.map((tag) => (
         <div
           key={tag}
           className={classNames(
-            "h-auto min-h-[68px] w-[204px] px-4 py-3 rounded-[20px] flex items-center justify-center",
+            "h-auto md:min-h-[68px] min-h-[31px] md:w-[204px] md:px-4 md:py-3 px-2.5 py-1.5 md:rounded-[20px] rounded-[8px] flex items-center justify-center",
           )}
           style={{ background: "rgba(13, 0, 181, 0.20)" }}
         >
           <div
             className={classNames(
-              "text-base font-bold font-['SUIT'] text-center leading-snug text-primary-normal break-keep",
+              "md:text-base text-[14px] font-bold font-['SUIT'] text-center md:leading-snug leading-3 text-primary-normal break-keep max-md:whitespace-nowrap ",
             )}
           >
             {tag}
@@ -178,7 +178,7 @@ interface RepresentativeKeywordsrops {
   keyword: string;
   idx: number;
 }
-const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
+export const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
   keyword,
   idx,
 }) => {

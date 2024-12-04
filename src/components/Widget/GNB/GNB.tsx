@@ -45,7 +45,7 @@ export const GNB: React.FC = () => {
 
   return (
     <motion.header
-      className={classNames("w-full h-[120px] px-5 py-8")}
+      className={classNames("px-5")}
       ref={headerRef}
       animate={{
         backgroundColor: isBlackArea ? "#000000" : "#FFFFFF",
@@ -56,28 +56,30 @@ export const GNB: React.FC = () => {
         ease: "easeInOut",
       }}
     >
-      <div className="flex items-center cursor-pointer max-w-[1300px] mx-auto justify-between">
-        <div
-          className="shrink-0"
-          onClick={() => {
-            scrollToTop();
-          }}
-        >
-          {isBlackArea ? (
-            <CustomImage src="images/logo/logo-white.svg" alt="로고 이미지" />
-          ) : (
-            <CustomImage src="images/logo/logo-color.svg" alt="로고 이미지" />
-          )}
-        </div>
-        <div className="flex items-center justify-evenly grow h-full pt-3 max-lg:hidden">
-          {menus?.map((menu) => (
-            <MenuButton
-              key={menu.key}
-              title={menu.label}
-              menuKey={menu.key}
-              isBlackArea={isBlackArea}
-            />
-          ))}
+      <div className="py-8 w-full mx-auto max-w-[1300px]">
+        <div className="flex items-center gap-5 md:justify-between">
+          <div
+            className="shrink-0"
+            onClick={() => {
+              scrollToTop();
+            }}
+          >
+            {isBlackArea ? (
+              <CustomImage src="images/logo/logo-white.svg" alt="로고 이미지" />
+            ) : (
+              <CustomImage src="images/logo/logo-color.svg" alt="로고 이미지" />
+            )}
+          </div>
+          <div className="flex items-center max-w-[839px] justify-between grow h-full pt-3 max-lg:hidden">
+            {menus?.map((menu) => (
+              <MenuButton
+                key={menu.key}
+                title={menu.label}
+                menuKey={menu.key}
+                isBlackArea={isBlackArea}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </motion.header>

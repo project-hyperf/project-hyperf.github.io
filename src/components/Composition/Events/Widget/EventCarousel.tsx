@@ -49,7 +49,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <motion.div
-          className="embla__container flex h-full w-full "
+          className="embla__container flex h-full w-full backface-hidden"
           initial={{ width: "100%" }}
         >
           {posts?.map((post, index) => (

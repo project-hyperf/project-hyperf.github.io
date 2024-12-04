@@ -5,24 +5,44 @@ import { TeamItem } from "@/hooks/useTeams";
 import classNames from "classnames";
 import { motion, useInView } from "framer-motion";
 import { RepresentativeCard } from "./RepresentativeCard";
+import { useDisclosure } from "@nextui-org/react";
+import { RepresentativeModal } from "./RepresentativeModal";
 
 interface TeamCarouselType {
   teams?: TeamItem[];
 }
-
+const MOBILELENGTH = 8;
+const DESKTOPLENGTH = 9;
 export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const representative = useDisclosure();
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const isInView = useInView(containerRef, { once: true, amount: "some" });
-  useEffect(() => {
-    if (isInView) {
-      console.log(isInView);
-    }
-  }, [isInView]);
-  const onThumbClick = (index: number) => {
-    setSelectedIndex(index);
-  };
 
+  useEffect(() => {
+    if (!representative.isOpen) {
+      setSelectedIndex(-1);
+    }
+  }, [representative.isOpen]);
+
+  const onThumbClick = (index: number) => {
+    if (isMobile) {
+      setSelectedIndex(index);
+      representative.onOpen();
+    } else {
+      setSelectedIndex(index);
+    }
+  };
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   if (!teams) return null;
 
   const gridVariants = {
@@ -88,7 +108,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -100, opacity: 0 }}
           transition={{ duration: 1, type: "spring", bounce: 0.3 }}
-          className="flex-1 max-w-[668px]"
+          className="flex-1 max-w-[668px] max-md:hidden"
           key={selectedIndex}
         >
           <RepresentativeCard representative={teams[selectedIndex]} />
@@ -103,9 +123,14 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
         ref={containerRef}
       >
         <div className="">
-          <motion.div className="max-w-[632px] aspect-square grid grid-cols-3 grid-rows-3 gap-4 relative">
-            {Array.from({ length: 9 }).map((_, idx) => {
-              const buttonPositions = [1, 2, 3, 4, 6, 8];
+          <motion.div className="max-w-[632px] md:aspect-square grid grid-cols-3 grid-rows-3 gap-4 relative max-md:grid-cols-2 max-md:w-full">
+            {Array.from({
+              length: isMobile ? MOBILELENGTH : DESKTOPLENGTH,
+            }).map((_, idx) => {
+              const buttonPositions = isMobile
+                ? [0, 1, 3, 4, 6, 7]
+                : [1, 2, 3, 4, 6, 8];
+
               const teamIndex = buttonPositions.indexOf(idx);
 
               const sectionGradient = calculateGradientColors(idx);
@@ -115,7 +140,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                   <motion.div
                     key={idx}
                     variants={itemVariants}
-                    className="bg-[#F4F4F4] aspect-square"
+                    className="bg-[#F4F4F4] aspect-square max-md:w-[152px]"
                   />
                 );
               }
@@ -129,7 +154,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                 >
                   <div
                     className={classNames(
-                      "w-[200px] aspect-square",
+                      "md:w-[200px] w-[152px] aspect-square hover:grayscale-0",
                       selectedIndex === teamIndex ? "" : "grayscale",
                     )}
                   >
@@ -138,21 +163,26 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                       onClick={() => onThumbClick(teamIndex)}
                       selected={teamIndex === selectedIndex}
                       team={teams[teamIndex]}
+                      hoverEffect={sectionGradient}
                     />
                   </div>
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.26] transition-opacity duration-300 pointer-events-none"
+                  {/* <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.26] transition-opacity duration-300 pointer-events-none max-md:hidden"
                     style={{
                       background: sectionGradient,
                       // backgroundBlendMode: "overlay",
                     }}
-                  />
+                  /> */}
                 </motion.div>
               );
             })}
           </motion.div>
         </div>
       </motion.div>
+      <RepresentativeModal
+        representative={teams[selectedIndex]}
+        {...representative}
+      />
     </div>
   );
 };

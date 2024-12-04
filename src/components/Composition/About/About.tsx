@@ -38,27 +38,33 @@ export const About: React.FC = () => {
   ];
   return (
     <div
-      className="bg-black  pb-[146px] flex flex-col items-center px-5"
+      className="bg-black  pb-[146px] w-full flex flex-col items-center px-5"
       id="about"
     >
+      <Text
+        variant="t2"
+        className="text-white !text-[30px] md:hidden text-center pt-[40px]"
+      >
+        About
+      </Text>
       <AboutTitle />
 
       <AboutContent />
 
       <Text
         variant="h0"
-        className="!text-[45px] !font-extrabold text-white text-center mb-20"
+        className="!text-[45px] max-md:!text-[30px] !font-extrabold text-white text-center mb-20"
       >
         다계층(multi-level),
         <br className="md:hidden" /> 다목적(multi-objective)
         오토튜닝프레임워크개발
       </Text>
-      <div className="flex xl:flex-row flex-col gap-10 items-center">
+      <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton
               onClick={button.onClick}
-              className="hover:!bg-white group"
+              className="hover:!bg-white group max-md:w-full"
               endContent={
                 <div className="flex w-[60px] justify-between">
                   <Divider
@@ -98,13 +104,13 @@ const AboutTitle: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       <Text
         variant="h0"
-        className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap !leading-[65px]"
+        className="md:!text-[50px] !text-[20px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px] "
       >
         엑사급 초고성능 컴퓨터의
-        <br className="md:hidden" /> 잠재 성능을{" "}
+        <br className="lg:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
           initial={false}
@@ -127,13 +133,13 @@ const AboutTitle: React.FC = () => {
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="md:mx-1 transform max-md:scale-[0.65]"
                 />
                 대
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="md:mx-1 transform max-md:scale-[0.65]"
                 />
                 한
               </motion.div>
@@ -153,8 +159,10 @@ const AboutTitle: React.FC = () => {
         </motion.span>
         활용하며
         <br className="" />
-        <Spacer y={20} className="md:hidden" /> 응용별, 하드웨어 별 기반
-        <br className="md:hidden" /> SW 개발 노력을{" "}
+        <Spacer y={5} className="max-lg:block" />
+        <Spacer y={20} className="lg:hidden max-md:hidden" /> 응용별, 하드웨어
+        별 기반
+        <br className="lg:hidden" /> SW 개발 노력을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
           initial={false}
@@ -207,34 +215,137 @@ const AboutTitle: React.FC = () => {
   );
 };
 
+// const AboutContent: React.FC = () => {
+//   const ref = useRef(null);
+//   const isInView = useInView(ref, {
+//     amount: 0.3,
+//     once: false,
+//   });
+
+//   return (
+//     <motion.div
+//       ref={ref}
+//       className="flex md:flex-row flex-col gap-4 w-full max-w-[1440px] max-xl:w-full mx-auto mb-[61px]"
+//     >
+//       {ABOUT_CONTENT.map((item, index) => (
+//         <motion.div
+//           key={item.key}
+//           className="h-[480px] border-white max-md:border-t-1 md:border-l-1 shadow-md flex flex-col overflow-hidden"
+//           variants={{
+//             hidden: { width: "2px", padding: "0px" },
+//             visible: { width: "480px", padding: "60px" },
+//           }}
+//           initial="hidden"
+//           animate={isInView ? "visible" : "hidden"}
+//           transition={{
+//             duration: 0.8,
+//             delay: index * 0.4,
+//           }}
+//         >
+//           <div className="flex flex-col flex-1">
+//             <motion.div
+//               variants={{
+//                 hidden: { opacity: 0, y: 20 },
+//                 visible: { opacity: 1, y: 0 },
+//               }}
+//               initial="hidden"
+//               animate={isInView ? "visible" : "hidden"}
+//               transition={{
+//                 delay: index * 0.4,
+//                 duration: 1,
+//               }}
+//             >
+//               <Text variant="h2" className="text-white text-[34px] font-thin">
+//                 {item.title}
+//               </Text>
+//               <Text variant="t2" className="text-white text-[44px] font-bold">
+//                 {item.key}
+//               </Text>
+//             </motion.div>
+
+//             <motion.div
+//               variants={{
+//                 hidden: { opacity: 0, y: 20 },
+//                 visible: { opacity: 1, y: 0 },
+//               }}
+//               initial="hidden"
+//               animate={isInView ? "visible" : "hidden"}
+//               transition={{
+//                 delay: index * 0.5,
+//                 duration: 1.2,
+//               }}
+//               className="mt-auto"
+//             >
+//               <Text className="text-white !text-[24px] whitespace-pre-wrap">
+//                 {item.content}
+//               </Text>
+//             </motion.div>
+//           </div>
+//         </motion.div>
+//       ))}
+//     </motion.div>
+//   );
+// };
 const AboutContent: React.FC = () => {
   const ref = useRef(null);
+
   const isInView = useInView(ref, {
     amount: 0.3,
     once: false,
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  const variants = {
+    desktop: {
+      container: {},
+      item: {
+        hidden: { width: "2px", padding: "0px", opacity: 0 },
+        visible: { width: "480px", padding: "60px", opacity: 1 },
+      },
+    },
+    mobile: {
+      container: {},
+      item: {
+        hidden: { y: 100, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+      },
+    },
+  };
+
   return (
     <motion.div
       ref={ref}
-      className="flex md:flex-row flex-col gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]"
+      className="flex md:flex-row flex-col gap-4 w-full max-w-[1440px] max-xl:w-full mx-auto mb-[61px]"
     >
       {ABOUT_CONTENT.map((item, index) => (
         <motion.div
           key={item.key}
-          className="h-[480px] border-white max-md:border-t-1 md:border-l-1 shadow-md flex flex-col overflow-hidden"
-          variants={{
-            hidden: { width: "2px", padding: "0px" },
-            visible: { width: "480px", padding: "60px" },
-          }}
+          className={classNames(
+            "md:h-[480px] h-[204px] max-md:min-w-full border-white",
+            "max-md:border-t-1 md:border-l-1 shadow-md flex flex-col",
+            "overflow-hidden max-md:!py-8",
+            isMobile ? "w-full" : "",
+          )}
+          variants={isMobile ? variants.mobile.item : variants.desktop.item}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           transition={{
             duration: 0.8,
             delay: index * 0.4,
+            ease: "easeOut",
           }}
         >
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col max-md:gap-5 max-md:px-5 flex-1">
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 20 },
@@ -243,14 +354,20 @@ const AboutContent: React.FC = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               transition={{
-                delay: index * 0.4,
-                duration: 1,
+                delay: index * 0.4 + 0.2,
+                duration: 0.8,
               }}
             >
-              <Text variant="h2" className="text-white text-[34px] font-thin">
+              <Text
+                variant="h2"
+                className="text-white md:!text-[34px] !text-[21px] font-thin"
+              >
                 {item.title}
               </Text>
-              <Text variant="t2" className="text-white text-[44px] font-bold">
+              <Text
+                variant="t2"
+                className="text-white !md:text-[44px] !text-[31px] font-bold"
+              >
                 {item.key}
               </Text>
             </motion.div>
@@ -263,12 +380,12 @@ const AboutContent: React.FC = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               transition={{
-                delay: index * 0.5,
-                duration: 1.2,
+                delay: index * 0.4 + 0.4,
+                duration: 0.8,
               }}
               className="mt-auto"
             >
-              <Text className="text-white !text-[24px] whitespace-pre-wrap">
+              <Text className="text-white md:!text-[24px] text-sm whitespace-pre-wrap">
                 {item.content}
               </Text>
             </motion.div>
@@ -278,7 +395,6 @@ const AboutContent: React.FC = () => {
     </motion.div>
   );
 };
-
 const ABOUT_CONTENT = [
   {
     title: "다계층",

@@ -8,23 +8,22 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface IntegrationStepModalProps {}
 
-export const IntegrationStepModal: React.FC<
-  IntegrationStepModalProps
-> = ({}) => {
+export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
-      <ModalHeader className="flex justify-center item-center  pt-[50px] pb-[48px]">
+      <ModalHeader className="flex justify-center item-center pt-[50px] pb-[48px] max-md:pt-[30px] max-md:pb-[30px]">
         <AssistiveStyle
           variant="h1"
-          className="text-[51px] font-light leading-[61.20px]"
+          className="text-[51px] font-light leading-[61.20px] max-md:text-[32px] max-md:leading-[42px]"
         >
           연구 통합 단계
         </AssistiveStyle>
       </ModalHeader>
-      <ModalBody className="px-[70px] ">
+      <ModalBody className="px-[70px] max-md:px-[20px]">
         <div
-          className="w-full h-full  overflow-scroll scrollbar-hide wrapper"
+          className="w-full h-full overflow-scroll scrollbar-hide wrapper"
           ref={scrollRef}
         >
           {RESEARCH_TIME_LINE.map((item, idx) => (
@@ -38,7 +37,6 @@ export const IntegrationStepModal: React.FC<
             />
           ))}
         </div>
-        {/* <div className="border-dashed border-1 border-black" /> */}
       </ModalBody>
     </>
   );
@@ -112,35 +110,44 @@ const Divider: React.FC<DividerProps> = ({
   return (
     // <div key={year}>
     //   <div className="flex flex-col">
+
     <React.Fragment key={year}>
       <div
-        className={classNames("sticky bg-white overflow-hidden ")}
+        className={classNames(
+          "sticky bg-white overflow-hidden",
+          "max-md:static",
+        )}
         ref={stickyTopRef}
-        style={{ top: `${idx * 106.97}px` || 0 }}
+        style={{
+          top: `${idx * (window.innerWidth >= 768 ? 106.97 : 80)}px` || 0,
+        }}
       >
         <div className="border-dashed border-1 border-black" />
-        <div className="flex items-center">
+        <div className="flex items-center max-md:flex-col max-md:items-start">
           <Text
             variant="b2"
-            className="pl-[18px] !text-[24px] !font-bold mt-3 "
+            className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[20px] max-md:pl-[10px]"
           >
             {year}
           </Text>
           <Text
             variant="h4"
-            className="text-[38px] !font-light px-[115px] tracking-tight mt-3 whitespace-pre-wrap"
+            className="text-[38px] !font-light px-[115px] tracking-tight mt-3 whitespace-pre-wrap
+                       max-md:text-[24px] max-md:px-[10px] max-md:mt-2"
           >
             {summary}
           </Text>
         </div>
       </div>
       <div
-        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px] min-h-[180px]"
+        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px] min-h-[180px]
+                   max-md:pl-[10px] max-md:pr-[10px] max-md:mt-[30px] max-md:mb-[40px]"
         ref={contentRef}
       >
         {list?.map((item) => renderList(item.id, item.content))}
       </div>
     </React.Fragment>
+
     //   </div>
     // </div>
   );
@@ -154,11 +161,13 @@ function renderList(
   return (
     <div
       key={id}
-      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[12px] !min-h-[50px] box-border flex items-center"
+      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[12px] !min-h-[50px] box-border flex items-center
+                 max-md:h-auto max-md:py-[15px] max-md:rounded-[25px]"
     >
       <Text
         variant="h4"
-        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]"
+        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]
+                   max-md:text-[16px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px]"
       >
         {id} {`{`}
         <span className={highlightColor}>{content}</span>

@@ -48,9 +48,12 @@
       "컴파일러 및 런타임 시스템 컴퓨터 구조 (AI 가속기, Processing-in-Memory (PIM), cache coherence protocol)",
       "기계학습/딥러닝 기반 컴파일러 최적화 및 오토튜닝 메커니즘"
     ],
-    "representativeAchievements": [
-      "ASPLOS, PACT (best paper award 수상), MICRO Top Picks, CGO, CC등 컴퓨터 구조와 컴파일러 분야의 (최)우수학회 논문 다수 보유"
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "ASPLOS, PACT (best paper award 수상), MICRO Top Picks, CGO, CC등 컴퓨터 구조와 컴파일러 분야의 (최)우수학회 논문 다수 보유"
+      ]
+    }
   },
   {
     "university": "포항공과대학교",
@@ -87,12 +90,12 @@
       "저장장치 기반 근접 데이터 처리",
       "메모리/스토리지 시스템 보안"
     ],
-    "representativeAchievements": [
-      {
-        "label": "대표 연구실적",
-        "content": "ISCA ‘23, MICRO ‘22, ISCA ‘22, ASPLOS ‘22, FAST ’22, ASPLOS ‘21"
-      }
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "ISCA ‘23, MICRO ‘22, ISCA ‘22, ASPLOS ‘22, FAST ’22, ASPLOS ‘21"
+      ]
+    }
   },
   {
     "university": "건국대학교",
@@ -124,16 +127,14 @@
       "고속 인터커넥트를 위한 프로토콜 최적화",
       "MPI 병렬 프로그래밍 모델의 프로세스 간 통신 라이브러리 최적화"
     ],
-    "representativeAchievements": [
-      {
-        "label": "수상 이력",
-        "content": [
-          "과학기술정보통신부 장관표창 (2021)",
-          " 한국공학한림원의 미래 100대 기술 및 차세대 주역 선정 (2017)",
-          "한국정보과학회 학술대회 최우수 논문상 (2016)"
-        ]
-      }
-    ]
+    "representativeAchievements": {
+      "label": "수상 이력",
+      "content": [
+        "과학기술정보통신부 장관표창 (2021)",
+        " 한국공학한림원의 미래 100대 기술 및 차세대 주역 선정 (2017)",
+        "한국정보과학회 학술대회 최우수 논문상 (2016)"
+      ]
+    }
   },
 
   {
@@ -174,12 +175,12 @@
       "초고성능 컴퓨팅 기반 다양한 수준의 잡 스케줄링 관련 최적화",
       "대규모 기계학습 모델의 학습 및 추론 최적화"
     ],
-    "representativeAchievements": [
-      {
-        "label": "대표 연구 논문",
-        "content": "최근 3년간 TPDS, JPDC 포함 SCI 국제학술논문지 14편, ICPP, IPDPS 포함 국제학술대회 발표 9건"
-      }
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구 논문",
+      "content": [
+        "최근 3년간 TPDS, JPDC 포함 SCI 국제학술논문지 14편, ICPP, IPDPS 포함 국제학술대회 발표 9건"
+      ]
+    }
   },
   {
     "university": "연세대학교",
@@ -220,12 +221,12 @@
       "이종 프로세서 컴퓨팅, GPU 구조, 메모리 시스템",
       "전력/에너지/발열/신뢰성 모델링 및 관리 기술"
     ],
-    "representativeAchievements": [
-      {
-        "label": "대표 연구실적",
-        "content": "MICRO, HPCA 등 (최)우수학술대회 논문 9편, TPDS, TC, CAL 등 CS 분야 주요 저널 논문 12편"
-      }
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "MICRO, HPCA 등 (최)우수학술대회 논문 9편, TPDS, TC, CAL 등 CS 분야 주요 저널 논문 12편"
+      ]
+    }
   },
   {
     "university": "KISTI",
@@ -266,11 +267,11 @@
       "전산유체역학, 천체물리, 전산구조해석 등 계산 과학 분야 알고리즘의 병렬화 및 최적화",
       "국가슈퍼컴퓨터 5호기를 벤치마크하여 BFS 세계 9위, SSSP 세계 3위 달성"
     ],
-    "representativeAchievements": [
-      {
-        "label": "수상 이력",
-        "content": "KISTI 슈퍼컴퓨터 5호기 구축을 위한 응용프로그램 벤치마크 및 성능 평가 (과학기술정보통신부 장관상 2019)"
-      }
-    ]
+    "representativeAchievements": {
+      "label": "수상 이력",
+      "content": [
+        "KISTI 슈퍼컴퓨터 5호기 구축을 위한 응용프로그램 벤치마크 및 성능 평가 (과학기술정보통신부 장관상 2019)"
+      ]
+    }
   }
 ]
