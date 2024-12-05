@@ -4,16 +4,16 @@ import React, { PropsWithChildren } from "react";
 //TODO: 애니메이션 변경
 export const KeyVisual: React.FC = () => {
   return (
-    <section className="w-full pb-[104px] mb-[80px] max-w-[1456px] mx-auto min-h-[417px] md:min-h-[750px] flex items-end relative overflow-hidden">
+    <section className="w-full md:pb-[104px] md:mb-[80px] max-w-[1456px] mx-auto min-h-[417px] md:min-h-[750px] flex items-end relative overflow-hidden">
       <video
         autoPlay
         muted
         loop
-        className="absolute inset-0 w-full h-full object-cover transform lg:scale-[1.3] -translate-x-[60px] max-md:translate-x-0 bg-black"
+        className="absolute md:inset-0 max-md:-top-24 max-md:-ml-[250px] max-md:min-w-[700px] max-md:h-[500px] object-cover transform lg:scale-[1.3] md:-translate-x-[60px] max-md:scale-80 flex-1 bg-black"
       >
         <source src="/images/hyperf_main.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 flex items-end md:pb-[30px] pb-[54px] max-md:mx-10">
+      <div className="absolute inset-0 flex items-end md:pb-[30px] pb-[54px] max-md:mx-0">
         <KeyTitle />
       </div>
     </section>
@@ -29,7 +29,7 @@ const KeyTitle: React.FC = () => {
       >
         초고성능컴퓨팅 SW 생태계조성사업
       </Text>
-      <Text variant="h0" className="md:!text-[64px] !text-[28px] mb-3">
+      <Text variant="h0" className="md:!text-[64px] !text-[28px] md:mb-3">
         엑사급
         <br className="md:hidden" /> 초고성능 컴퓨터를 위한
         <br />

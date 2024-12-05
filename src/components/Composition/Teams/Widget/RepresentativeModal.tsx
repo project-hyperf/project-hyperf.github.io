@@ -193,8 +193,9 @@ export const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
   return (
     <div
       className={classNames(
-        "bg-[#F0F0F0] p-2 px-14 rounded-[12px] text-center max-md:text-[14px]",
+        "bg-[#F0F0F0] p-2 px-10 rounded-[12px] text-center max-md:text-[12px]",
       )}
+      role="button"
     >
       {keyword}
     </div>
