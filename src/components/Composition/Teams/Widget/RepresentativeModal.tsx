@@ -26,15 +26,15 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
       onClose={onClose}
       scrollBehavior="inside"
       placement="center"
-      className="min-w-[320px]"
+      className="w-[360px] rounded-none"
     >
-      <ModalContent>
+      <ModalContent className="px-0">
         {(onClose) => (
           <>
-            <ModalHeader />
-            <ModalBody className="px-5">
+            <ModalHeader className="pt-8" />
+            <ModalBody className="px-5 scrollbar-hide">
               <div>
-                <div className="tag mb-4">
+                <div className="tag mb-4 px-0">
                   <Tags tags={representative.tags} />
                 </div>
 

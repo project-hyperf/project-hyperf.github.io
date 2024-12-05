@@ -91,7 +91,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
         wrapper: "items-center", // sm: 제거하고 항상 center로
         base: "m-auto", // sm: 제거하고 항상 auto margin
         backdrop: "bg-black/50",
-        closeButton: "transform scale-[1.75] right-4 top-4",
+        closeButton: "transform md:scale-[1.75] md:right-4 md:top-4",
       }}
     >
       <ModalContent>{(onClose) => <>{children}</>}</ModalContent>

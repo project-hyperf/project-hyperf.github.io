@@ -61,7 +61,7 @@ export const Outcomes: React.FC = () => {
         </Text>
       </div>
       {isMobile ? (
-        <div className="pt-10">
+        <div className="pt-2">
           <div className="btn-group flex justify-center">
             <GeneralButton
               className={classNames(
@@ -291,10 +291,10 @@ const StepBox: React.FC<{
 const Step2: React.FC = () => {
   return (
     <div className="w-full flex flex-wrap flex-row justify-center md:gap-[143px] gap-10 items-center pb-3 max-md:px-4">
-      <div className="flex flex-col items-center gap-14">
+      <div className="flex flex-col items-center md:gap-14 max-md:gap-10">
         <Text
           variant="h4"
-          className="text-center text-primary-normal !leading-[33.6px] flex-wrap max-md:text-[18px]"
+          className="text-center text-primary-normal !leading-[33.6px] flex-wrap max-md:!text-[20px] max-md:!leading-7"
         >
           오토튜닝의 실행 흐름과 피드백을
           <br /> 통합 관리하는 프레임워크로,
@@ -329,17 +329,19 @@ const Step2: React.FC = () => {
       <div className="max-w-[728px] shrink grow flex-wrap">
         <Text
           variant="h4"
-          className="!leading-[33.6px] max-md:text-[18px] max-md:text-center"
+          className="md:!leading-[33.6px] max-md:text-[18px] max-md:text-center !leading-[22.4px] mb-7"
         >
-          오토튜닝 패스 및 구성 요소 간 피드백을 관리하는 인터페이스 설계
-          <br className="max-md:hidden" />
-          해당 인터렉션은 구성, 실행 순서, 오토튜닝 시간 등을 사용자의
+          오토튜닝 패스 및 구성 요소 간<br className="md:hidden" /> 피드백을
+          관리하는 인터페이스 설계
+          <br className="" />
+          해당 인터렉션은 구성, 실행 순서,
+          <br className="md:hidden" /> 오토튜닝 시간 등을 사용자의
           <br className="max-md:hidden" />
           요구 사항을 반영해 전체적으로 관리한다.
         </Text>
 
         {/* 모바일에서 캐러셀 */}
-        <div className="md:block max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto snap-x snap-mandatory">
+        <div className="md:block max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide">
           <div className="md:block flex ">
             {SECOND_STEP_CONTENT.map((box, index) => (
               <div

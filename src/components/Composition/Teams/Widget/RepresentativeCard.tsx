@@ -164,7 +164,7 @@ export const Tags: React.FC<TagsProps> = ({ tags }) => {
         >
           <div
             className={classNames(
-              "md:text-base text-[14px] font-bold font-['SUIT'] text-center md:leading-snug leading-3 text-primary-normal break-keep max-md:whitespace-nowrap ",
+              "md:text-base text-[12px] font-bold font-['SUIT'] text-center md:leading-snug leading-3 text-primary-normal break-keep max-md:whitespace-nowrap tracking-tighter",
             )}
           >
             {tag}
