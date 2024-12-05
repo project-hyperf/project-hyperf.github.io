@@ -1,3 +1,4 @@
+"use client";
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
@@ -9,11 +10,21 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 interface MethodModalProps {
   onClose?: () => void;
   isOpen?: boolean;
 }
 export const MethodModal: React.FC<MethodModalProps> = ({}) => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   return (
     <>
       <ModalHeader className="">
@@ -31,10 +42,17 @@ export const MethodModal: React.FC<MethodModalProps> = ({}) => {
             적용하여 비용을 절감 
           </Text>
           <div className="flex">
-            <CustomImage
-              src="images/modal/method/method-content.png"
-              alt="추진 방법 도식화"
-            />
+            {isMobile ? (
+              <CustomImage
+                src="images/modal/method/mobile-method-content.png"
+                alt="추진 방법 도식화"
+              />
+            ) : (
+              <CustomImage
+                src="images/modal/method/method-content.png"
+                alt="추진 방법 도식화"
+              />
+            )}
           </div>
         </div>
       </ModalBody>

@@ -58,10 +58,11 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
       <motion.div
         className="embla overflow-hidden mx-auto h-[720px] max-lg:h-[500px] w-auto"
         ref={emblaRef}
-        animate={{ width: isMobile ? "100%" : isHovered ? "1440px" : "1194px" }}
+        whileHover={{ width: "1440px" }}
         transition={{ duration: 0.3 }}
+        initial={{ width: "1194px" }}
       >
-        <motion.div className="embla__container flex h-full w-full backface-hidden">
+        <motion.div className="embla__container flex h-full w-full ">
           {posts?.map((post, index) => (
             <motion.div
               key={index}
@@ -75,7 +76,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
               }}
             >
               <motion.div
-                className="absolute inset-0 px-[37px] max-lg:px-5 cursor-pointer pt-[50px] pb-5"
+                className="absolute inset-0 px-[37px] max-lg:px-5 flex flex-col cursor-pointer pt-[50px] pb-5 text-white"
                 style={{
                   background: isMobile
                     ? ""
@@ -85,12 +86,17 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                 whileHover={isMobile ? {} : { opacity: 1 }}
                 onClick={() => openDetailModal(post)}
               >
-                <Text variant="h2" className="break-all max-lg:text-2xl">
-                  {post.title}
-                </Text>
-                <Text variant="h4" className="mt-2 font-medium max-lg:text-lg">
-                  {post.date}
-                </Text>
+                <div className="flex-1">
+                  <Text variant="h2" className="break-all max-lg:text-2xl">
+                    {post.title}
+                  </Text>
+                  <Text
+                    variant="h4"
+                    className="mt-2 font-medium max-lg:text-lg"
+                  >
+                    {post.date}
+                  </Text>
+                </div>
                 <div className="flex items-center mt-auto gap-2 flex-wrap">
                   {post.tags?.map((tag, idx) => (
                     <Tag key={idx}>{tag}</Tag>

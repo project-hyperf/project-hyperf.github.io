@@ -17,7 +17,7 @@ export const Events: React.FC = () => {
       >
         Events
       </Text>
-      <EventCarousel posts={posts} />
+      {/* <EventCarousel posts={posts} /> */}
     </div>
   );
 };

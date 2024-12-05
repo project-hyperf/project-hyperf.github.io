@@ -64,7 +64,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       placement="center"
-      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] min-w-[320px] max-h-[90vh]"
+      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] h-[700px] min-w-[340px] max-w-[360px] max-h-[90vh] rounded-none"
       scrollBehavior="inside"
       motionProps={{
         variants: {

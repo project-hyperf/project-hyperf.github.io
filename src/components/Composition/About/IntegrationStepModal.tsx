@@ -114,34 +114,32 @@ const Divider: React.FC<DividerProps> = ({
     <React.Fragment key={year}>
       <div
         className={classNames(
-          "sticky bg-white overflow-hidden",
-          "max-md:static",
+          "sticky max-md:h-[84px]  bg-white overflow-hidden",
         )}
         ref={stickyTopRef}
         style={{
-          top: `${idx * (window.innerWidth >= 768 ? 106.97 : 80)}px` || 0,
+          top: `${idx * (window.innerWidth >= 768 ? 106.97 : 84)}px` || 0,
         }}
       >
-        <div className="border-dashed border-1 border-black" />
+        <div className="border-dashed border-1 max-md:border-[0.5px] border-black" />
         <div className="flex items-center max-md:flex-col max-md:items-start">
           <Text
             variant="b2"
-            className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[20px] max-md:pl-[10px]"
+            className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[14px] max-md:pl-[10px]"
           >
             {year}
           </Text>
           <Text
             variant="h4"
-            className="text-[38px] !font-light px-[115px] tracking-tight mt-3 whitespace-pre-wrap
-                       max-md:text-[24px] max-md:px-[10px] max-md:mt-2"
+            className="!text-[38px] !font-light px-[115px] tracking-[0px] mt-3 whitespace-pre-wrap max-md:!text-[15px] max-md:px-[10px] max-md:mt-2"
           >
             {summary}
           </Text>
         </div>
       </div>
       <div
-        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px] min-h-[180px]
-                   max-md:pl-[10px] max-md:pr-[10px] max-md:mt-[30px] max-md:mb-[40px]"
+        className="w-full box-border md:mt-[60px] pl-[211px] pr-[178px] md:mb-[88px] md:min-h-[180px]
+                   max-md:pl-[0px] max-md:pr-[0px] max-md:mt-[30px] max-md:mb-[12px] h-fit"
         ref={contentRef}
       >
         {list?.map((item) => renderList(item.id, item.content))}
@@ -161,13 +159,13 @@ function renderList(
   return (
     <div
       key={id}
-      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[12px] !min-h-[50px] box-border flex items-center
-                 max-md:h-auto max-md:py-[15px] max-md:rounded-[25px]"
+      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[5px] md:mb-[12px] md:!min-h-[50px] box-border flex items-center
+                 max-md:h-auto max-md:py-[6px] max-md:rounded-[25px]"
     >
       <Text
         variant="h4"
         className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]
-                   max-md:text-[16px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px]"
+                   max-md:!text-[11px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px] max-md:whitespace-nowrap"
       >
         {id} {`{`}
         <span className={highlightColor}>{content}</span>

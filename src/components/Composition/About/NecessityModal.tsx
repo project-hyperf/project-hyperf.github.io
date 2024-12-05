@@ -42,27 +42,29 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
         <div className="w-full bg-primary-bg">
           <Text
             variant="b3"
-            className="text-center text-white pt-[34px] pb-[34px] !text-[26px] max-md:!text-[18px] max-md:py-5 px-4"
+            className="text-center text-white pt-[34px] pb-[34px] !text-[26px] max-md:!text-[14px] max-md:py-5 px-4 max-md:px-[13px]"
           >
-            반복적인 최적화 개발을 최소화하면서도 확장과 적응이 용이한
-            "프레임워크" 형태의 최적화 메커니즘이 요구됨.
+            반복적인 최적화 개발을 최소화하면서도 확장
+            <br className="md:hidden" />과 적응이 용이한 "프레임워크" 형태의
+            최적화
+            <br className="md:hidden" /> 메커니즘이 요구됨.
           </Text>
         </div>
 
         <Text
           variant="h4"
-          className="text-center text-primary-normal pt-[41px] text-[26px] max-md:text-[20px] max-md:pt-6"
+          className="text-center text-primary-normal pt-[41px] !text-[26px] max-md:!text-[17px] max-md:pt-4"
         >
           최적화 프레임워크 개발에 필요한 요구사항
         </Text>
 
-        <div className="flex justify-center md:flex-nowrap flex-wrap items-center pt-6 gap-[18px] max-md:gap-3">
+        <div className="flex justify-center md:flex-nowrap flex-wrap items-center pt-6 gap-[18px] max-md:gap-3 max-md:pt-3">
           {[
             "기반 SW 통합",
             "다계층 최적화",
             "확장형\n 오토튜닝\n 메커니즘",
             "성능/전력\n 동시 최적화",
-            "성능/전력\n 동시 최적화",
+            "고차원 표현형",
           ].map((text, index) => (
             <RequirementCard key={index} text={text} />
           ))}
@@ -89,10 +91,12 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
         <div className="w-full bg-primary-assistive mb-[82px] max-md:mb-10">
           <Text
             variant="h5"
-            className="!text-[26px] text-center text-white pt-[34px] pb-[34px] max-md:!text-[18px] max-md:py-5 px-4"
+            className="!text-[26px] text-center text-white pt-[34px] pb-[34px] max-md:!text-[20px] max-md:py-9 px-4 max-md:px-[15px]"
           >
-            엑사급 초고성능 컴퓨터의 잠재성능을 최대한 활용하면서 응용별,
-            하드웨어별 기반 SW의 개발 노력을 최소화
+            엑사급 초고성능 컴퓨터의
+            <br className="md:hidden" /> 잠재성능을 최대한 활용하면서
+            <br className="md:hidden" /> 응용별, 하드웨어별 기반 SW의
+            <br className="md:hidden" /> 개발 노력을 최소화
           </Text>
         </div>
       </ModalBody>
@@ -101,10 +105,10 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
 };
 
 const RequirementCard = ({ text }: { text: string }) => (
-  <div className="bg-[#f0f0f0] basis-1/5 h-[215px] flex justify-center items-center whitespace-pre-line max-md:basis-[45%] max-md:h-[120px]">
+  <div className="bg-[#f0f0f0] basis-1/5 h-[215px] flex justify-center items-center md:whitespace-pre-line max-md:basis-[45%] max-md:h-[69px]">
     <Text
       variant="h4"
-      className="text-inverse-primary p-4 text-center text-[26px] max-md:text-[16px] max-md:leading-snug"
+      className="text-inverse-primary p-4 max-md:px-6 text-center !text-[26px] max-md:!text-[14px] max-md:leading-snug"
     >
       {text}
     </Text>
@@ -116,7 +120,7 @@ const FeatureCard = ({ text }: { text: string }) => (
     <GradientBox>
       <AssistiveStyle
         variant="h4"
-        className="text-center text-[24px] max-md:text-[16px] max-md:leading-relaxed"
+        className="text-center !text-[24px] max-md:!text-[17px] max-md:leading-snug"
       >
         {text}
       </AssistiveStyle>

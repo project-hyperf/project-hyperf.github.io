@@ -53,13 +53,13 @@ export const About: React.FC = () => {
 
       <Text
         variant="h0"
-        className="!text-[45px] max-md:!text-[30px] !font-extrabold text-white text-center mb-20"
+        className="!text-[45px] max-md:!text-[20px] !font-extrabold text-white text-center max-md:font-bold mb-20"
       >
         다계층(multi-level),
         <br className="md:hidden" /> 다목적(multi-objective)
         오토튜닝프레임워크개발
       </Text>
-      <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full">
+      <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full max-md:px-5">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton
@@ -79,7 +79,7 @@ export const About: React.FC = () => {
             >
               <Text
                 variant="h3"
-                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px]"
+                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px] max-md:!text-[20px]"
               >
                 {button.label}
               </Text>
