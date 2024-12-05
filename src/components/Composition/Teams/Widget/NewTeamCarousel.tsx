@@ -154,8 +154,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                 >
                   <div
                     className={classNames(
-                      "md:w-[200px] w-[152px] aspect-square hover:grayscale-0",
-                      selectedIndex === teamIndex ? "" : "grayscale",
+                      "md:w-[200px] w-[152px] aspect-square",
                     )}
                   >
                     <TeamCarouselThumb

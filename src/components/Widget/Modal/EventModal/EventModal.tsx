@@ -1,3 +1,4 @@
+"use client";
 import { ReadMoreContainer } from "@/components/UI/Text/ReadMoreContainer";
 import {
   button,
@@ -26,9 +27,9 @@ export const EventModal: React.FC<EventModalProps> = ({
   modalProps,
   onClose,
 }) => {
-  if (!post) return null;
   const [isMobile, setIsMobile] = useState(false);
-  const isPictureExists = post.picture?.length && post.picture.length > 0;
+  const isPictureExists =
+    post && post.picture && post.picture?.length && post.picture.length > 0;
   const [selectedPictureIndex, setSelectedPictureIndex] = useState<
     number | null
   >(isPictureExists ? 0 : null);
@@ -37,7 +38,7 @@ export const EventModal: React.FC<EventModalProps> = ({
     if (selectedPictureIndex === null) return null;
     if (!post.picture) return null;
     return post?.picture[selectedPictureIndex];
-  }, [selectedPictureIndex, post.picture]);
+  }, [selectedPictureIndex, post?.picture]);
 
   const isCurrentPicture = useCallback(
     (index: number) => {
@@ -55,6 +56,7 @@ export const EventModal: React.FC<EventModalProps> = ({
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+  if (!post) return null;
   return (
     <Modal
       {...modalProps}
@@ -62,8 +64,8 @@ export const EventModal: React.FC<EventModalProps> = ({
       onClose={onClose}
       className={classNames(modalProps?.className)}
       classNames={{
-        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px] max-md:pt-[60px] z-[100] max-md:min-w-[320px]",
-        wrapper: "z-[100]",
+        base: "rounded-none bg-black max-w-[1460px] text-white px-5 pt-[112px] max-md:pt-[60px] z-[100] max-md:min-w-[320px] max-md:h-auto max-md:my-auto",
+        wrapper: "z-[100] max-md:items-center",
         backdrop: "z-[100]",
         closeButton:
           "text-white text-[28px] right-[80px] max-md:right-[20px] top-[50px] max-md:top-[20px]",
@@ -126,20 +128,25 @@ export const EventModal: React.FC<EventModalProps> = ({
               )}
             </div>
 
-            {isPictureExists && isMobile && (
-              <div className="w-full">
-                {post.picture && (
-                  <PictureGrid
-                    isCurrentPicture={isCurrentPicture}
-                    picture={post.picture}
-                    setSelectedPictureIndex={setSelectedPictureIndex}
-                  />
-                )}
+            {isMobile && isPictureExists && (
+              <div className="flex flex-col gap-4">
+                {post.picture?.map((picture, index) => (
+                  <div
+                    key={index}
+                    className="w-full aspect-square overflow-hidden"
+                  >
+                    <img
+                      src={picture.src}
+                      alt={picture.alt}
+                      className="object-center object-cover w-full h-full"
+                    />
+                  </div>
+                ))}
               </div>
             )}
 
-            {selectedPicture && (
-              <div className="aspect-[1160/740] max-md:aspect-square overflow-hidden w-full">
+            {!isMobile && selectedPicture && (
+              <div className="aspect-[1160/740] overflow-hidden w-full">
                 <img
                   src={selectedPicture.src}
                   alt={selectedPicture.alt}

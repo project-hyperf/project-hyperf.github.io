@@ -14,8 +14,9 @@ export type TeamItem = {
   tags: string[];
   major: string;
   description: string[];
-  image: string;
+  defaultImage: string;
   hoverImage: string;
+  activeImage: string;
   education: {
     duration: string;
     university: string;
@@ -41,8 +42,9 @@ export const useTeams = () => {
 
       const dataWithImage = data.map((team) => ({
         ...team,
-        image: `/data/teams/image/${team.university}_${team.name}.png`,
+        defaultImage: `/data/teams/image/${team.university}_${team.name}_default.jpg`,
         hoverImage: `/data/teams/image/${team.university}_${team.name}_hover.jpg`,
+        activeImage: `/data/teams/image/${team.university}_${team.name}_active.jpg`,
       }));
       return dataWithImage;
     },

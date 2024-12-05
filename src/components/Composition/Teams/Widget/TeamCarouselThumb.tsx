@@ -31,7 +31,13 @@ export const TeamCarouselThumb: React.FC<PropType> = (props) => {
         onMouseLeave={() => setIsHover(false)}
       >
         <Image
-          src={isHover ? team.hoverImage : team.image}
+          src={
+            selected
+              ? team.activeImage
+              : isHover
+              ? team.hoverImage
+              : team.defaultImage
+          }
           alt={team.name}
           className="rounded-none cursor-pointer aspect-square object-fill "
         />
