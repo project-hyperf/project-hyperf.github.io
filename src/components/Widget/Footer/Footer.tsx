@@ -4,9 +4,9 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
   { name: "포항공과대학교", key: "pohang" },
-  { name: "연세대학교", key: "yeonsei" },
   { name: "건국대학교", key: "konkuk" },
   { name: "아주대학교", key: "ajou" },
+  { name: "연세대학교", key: "yeonsei" },
   { name: "키스트", key: "kisti" },
 ];
 
@@ -15,12 +15,13 @@ export const Footer: React.FC = () => {
     <footer className=" py-14 px-5 w-full h-[180px]">
       <div className="max-w-[1440px] mx-auto flex justify-between items-start">
         <div className="flex flex-col gap-4">
-          <div className="flex items-center flex-wrap gap-6">
+          <div className="flex items-center flex-wrap md:gap-6 gap-1 max-md:-ml-4">
             {AGNECY_LIST.map((agency) => (
               <CustomImage
-                src={`images/agency/${agency.key}.svg`}
+                src={`images/agency/${agency.key}.png`}
                 alt={agency.name}
                 key={agency.key}
+                className="max-md:trasform max-md:scale-[0.6] w-fit md:scale-110"
               />
             ))}
           </div>

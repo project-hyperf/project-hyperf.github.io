@@ -35,17 +35,23 @@ interface ArchiveProps {
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "-100px", // viewport에서 100px 안쪽으로 들어와야 트리거
-    amount: 0.5, // 요소의 50%가 보일 때
+    margin: "-100px",
+    amount: 0.5,
   });
 
   return (
     <motion.div
       ref={ref}
-      className="py-7 md:max-w-[480px] border-t-1 w-full border-b-1 border-white"
+      className="py-7 max-md:py-4 md:max-w-[480px] border-t-1 w-full border-b-1 border-white"
       variants={{
-        hidden: { height: "90px", opacity: 0.7 },
-        visible: { height: "142px", opacity: 1 },
+        hidden: {
+          height: window.innerWidth >= 768 ? "90px" : "60px",
+          opacity: 0.7,
+        },
+        visible: {
+          height: window.innerWidth >= 768 ? "142px" : "92px",
+          opacity: 1,
+        },
       }}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -58,7 +64,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
       <div className="flex items-center">
         <Text
           variant="t1"
-          className="cursor-pointer uppercase text-white md:!text-[44px] !text-[28px] mb-[14px] flex-1"
+          className="cursor-pointer uppercase text-white md:!text-[44px] !text-[28px] md:mb-[14px]  flex-1"
         >
           {title}
         </Text>
@@ -80,7 +86,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
           delay: 0.2,
         }}
       >
-        <Text variant="h4" className="text-white max-md:!text-[20px]">
+        <Text variant="h4" className="text-white max-md:!text-[18px]">
           {link}
         </Text>
       </motion.div>
