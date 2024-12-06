@@ -4,11 +4,16 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ScrollShadow,
 } from "@nextui-org/react";
 import { Tags } from "./RepresentativeCard";
 import { Text } from "@/components/UI/Text/Text";
 import classNames from "classnames";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { motion, animate, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { exit, title } from "process";
+import { FC, useState } from "react";
 
 interface RepresentativeModalProps {
   representative: any;
@@ -20,20 +25,21 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  console.log(representative);
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       scrollBehavior="inside"
       placement="center"
-      className="w-[360px] rounded-none"
+      className="w-[360px] rounded-none h-[560px]"
     >
-      <ModalContent className="px-0">
+      <ModalContent className="px-0 ">
         {(onClose) => (
           <>
             <ModalHeader className="pt-8" />
-            <ModalBody className="px-5 scrollbar-hide">
-              <div>
+            <ModalBody className="px-5 scrollbar-hide bg-primary-bg-modal">
+              <ScrollShadow className="scrollbar-hide">
                 <div className="tag mb-4 px-0">
                   <Tags tags={representative.tags} />
                 </div>
@@ -63,7 +69,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                 <div className="descriptio mb-[13px]">
                   <div className="flex flex-col gap-1">
                     {representative.description?.map(
-                      (keyword: string, idx: number) => (
+                      (keyword: any, idx: number) => (
                         <RespresentativeKeywords
                           keyword={keyword}
                           key={idx}
@@ -173,31 +179,63 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                     )}
                   </ul>
                 </div>
-              </div>
+              </ScrollShadow>
             </ModalBody>
-            <ModalFooter />
+            <ModalFooter className="p-0" />
           </>
         )}
       </ModalContent>
     </Modal>
   );
 };
-interface RepresentativeKeywordsrops {
-  keyword: string;
+interface Keyword {
+  title: string;
+  content: string;
+}
+
+interface RepresentativeKeywordsProps {
+  keyword: Keyword;
   idx: number;
 }
-export const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
+
+export const RespresentativeKeywords: React.FC<RepresentativeKeywordsProps> = ({
   keyword,
   idx,
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <div
-      className={classNames(
-        "bg-[#F0F0F0] p-2 px-10 rounded-[12px] text-center max-md:text-[12px]",
-      )}
-      role="button"
+    <motion.div
+      animate={{
+        height: isExpanded ? "auto" : "fit-content",
+        transition: { duration: 0.3 },
+      }}
+      className="bg-[#F0F0F0] rounded-[12px] overflow-hidden"
+      onClick={() => setIsExpanded(!isExpanded)}
     >
-      {keyword}
-    </div>
+      <div className="flex items-center justify-between p-2 px-6 cursor-pointer">
+        <span className="max-md:text-[12px] font-bold text-center">
+          {keyword.title}
+        </span>
+        <ChevronDown
+          className={classNames("w-4 h-4 transition-transform", {
+            "transform rotate-180": isExpanded,
+          })}
+        />
+      </div>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="pt-[10px] px-2.5 pb-2 text-[12px] font-normal leading-snug whitespace-pre-wrap tracking-[0] break-all"
+          >
+            {keyword.content}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };

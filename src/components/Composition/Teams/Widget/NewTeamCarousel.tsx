@@ -100,6 +100,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
 
     return `linear-gradient(180deg, rgb(${startR}, ${startG}, ${startB}), rgb(${endR}, ${endG}, ${endB}))`;
   };
+  console.log("teams", teams);
   return (
     <div className="max-w-[1552px] mx-auto flex flex-row-reverse flex-wrap-reverse gap-[96px] justify-center items-stretch">
       {selectedIndex !== -1 && (

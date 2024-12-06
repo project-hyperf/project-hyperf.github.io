@@ -4,6 +4,14 @@ import { images } from "@/assets/images/images";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { TeamItem } from "@/hooks/useTeams";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import classNames from "classnames";
 
 interface RepresentativeCardProps {
@@ -32,7 +40,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
           isolation: "isolate",
         }}
       />
-      <div className="max-w-[668px] mr-auto pr-[18px] flex flex-col items-start gap-5 ">
+      <div className="max-w-[668px] mr-auto pr-[18px] flex flex-col items-start gap-5 relative z-20">
         <div className="tags w-full">
           <Tags tags={representative?.tags} />
         </div>
@@ -51,15 +59,13 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
               </Text>
             </div>
             <div>
-              {representative.description?.map(
-                (keyword: string, idx: number) => (
-                  <RespresentativeKeywords
-                    keyword={keyword}
-                    key={idx}
-                    idx={idx}
-                  />
-                ),
-              )}
+              {representative.description?.map((keyword: any, idx: number) => (
+                <RespresentativeKeywords
+                  keyword={keyword}
+                  key={idx}
+                  idx={idx}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -175,26 +181,78 @@ export const Tags: React.FC<TagsProps> = ({ tags }) => {
   );
 };
 interface RepresentativeKeywordsrops {
-  keyword: string;
+  keyword: {
+    title: string;
+    content: string;
+  };
   idx: number;
+  onClick?: () => void;
 }
 export const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
   keyword,
   idx,
+  onClick,
+}) => {
+  const detailModal = useDisclosure();
+  return (
+    <>
+      <div
+        className={classNames(
+          "border-b-1 border-[#949494] bg-[#F0F0F0] p-2 flex justify-between items-center cursor-pointer",
+          idx === 0 ? "border-t-1" : "",
+        )}
+        role="button"
+        onClick={detailModal.onOpen}
+      >
+        {keyword.title}
+        <CustomImage
+          src="images/icons/r-t-arrow-gray.svg"
+          alt="화살표"
+          className="-mt-1.5"
+        />
+      </div>
+      <DetailModal
+        isOpen={detailModal.isOpen}
+        onClose={detailModal.onClose}
+        keyword={keyword}
+      />
+    </>
+  );
+};
+interface DetailModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  keyword: {
+    title: string;
+    content: string;
+  };
+}
+const DetailModal: React.FC<DetailModalProps> = ({
+  isOpen,
+  onClose,
+  keyword,
 }) => {
   return (
-    <div
-      className={classNames(
-        "border-b-1 border-[#949494] bg-[#F0F0F0] p-2 flex justify-between items-center",
-        idx === 0 ? "border-t-1" : "",
-      )}
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="center"
+      className="w-[470px] min-h-[306px] rounded-none bg-[#F0F0F0] text-black"
     >
-      {keyword}
-      <CustomImage
-        src="images/icons/r-t-arrow-gray.svg"
-        alt="화살표"
-        className="-mt-1.5"
-      />
-    </div>
+      <ModalContent>
+        <>
+          <ModalHeader className="p-0" />
+          <ModalBody className="px-6 pb-6 pt-11 flex flex-col items-center gap-5">
+            <div className="text-[18px] font-bold text-center px-4 break-keep">
+              {keyword.title}
+            </div>
+            <div className="text-[14px] font-normal whitespace-pre-wrap">
+              {keyword.content}
+            </div>
+          </ModalBody>
+          <ModalFooter className="p-0" />
+        </>
+      </ModalContent>
+    </Modal>
   );
 };

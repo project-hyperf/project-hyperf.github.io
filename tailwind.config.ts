@@ -53,6 +53,8 @@ export default {
         "primary-assistive-vertical":
           "linear-gradient(180deg, #0D00B5 0%, #C81CCC 100%)",
         "primary-bg": "linear-gradient(180deg, #6541F2 0%, #0D00B5 100%)",
+        "primary-bg-modal":
+          "linear-gradient(180deg, rgba(13, 0, 181, 0.00) 0%, rgba(13, 0, 181, 0.09) 100%)",
       },
       border: {
         primary: "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",

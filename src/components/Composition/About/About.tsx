@@ -5,7 +5,7 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider, Spacer } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 import {
@@ -15,10 +15,13 @@ import {
   useMotionValueEvent,
   AnimatePresence,
   useInView,
+  animate,
 } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { on } from "events";
+import { exit } from "process";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -92,10 +95,24 @@ export const About: React.FC = () => {
 };
 
 const AboutTitle: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMaxExpanded, setIsMaxExpanded] = useState(false);
+  const [isMinExpanded, setIsMinExpanded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
-    setIsExpanded(window.scrollY > 100);
+    const scrollPosition = window.scrollY;
+    const triggerPosition = window.innerHeight * 0.4;
+
+    if (scrollPosition > triggerPosition) {
+      setIsMaxExpanded(true);
+
+      setTimeout(() => {
+        setIsMinExpanded(true);
+      }, 500);
+    } else {
+      setIsMaxExpanded(false);
+      setIsMinExpanded(false);
+    }
   };
 
   useEffect(() => {
@@ -104,30 +121,29 @@ const AboutTitle: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full" ref={ref}>
       <Text
         variant="h0"
-        className="md:!text-[50px] !text-[20px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px] "
+        className="md:!text-[50px] !text-[26px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
       >
         엑사급 초고성능 컴퓨터의
         <br className="lg:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
-          initial={false}
           animate={{
-            letterSpacing: isExpanded ? "0.1em" : "0em",
+            letterSpacing: isMaxExpanded ? "0.1em" : "0em",
             transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
           <AnimatePresence mode="wait">
-            {isExpanded ? (
+            {isMaxExpanded ? (
               <motion.div
                 key="expanded"
                 className="flex bg-primary-assistive bg-clip-text text-transparent"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 최
                 <CustomImage
@@ -147,10 +163,9 @@ const AboutTitle: React.FC = () => {
               <motion.div
                 key="collapsed"
                 className="bg-primary-normal px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1 }}
               >
                 최대한
               </motion.div>
@@ -165,44 +180,43 @@ const AboutTitle: React.FC = () => {
         <br className="lg:hidden" /> SW 개발 노력을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
-          initial={false}
           animate={{
-            letterSpacing: isExpanded ? "0.1em" : "0em",
+            letterSpacing: isMinExpanded ? "0.1em" : "0em",
             transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
           <AnimatePresence mode="wait">
-            {!isExpanded ? (
+            {!isMinExpanded ? (
               <motion.div
                 key="expanded"
                 className="flex bg-primary-strong px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1 }}
               >
                 최
                 <CustomImage
                   src="images/icons/square-dot.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="mx-1 max-md:hidden"
                 />
+                <span className="md:hidden">·</span>
                 소
                 <CustomImage
                   src="images/icons/square-dot.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="mx-1 max-md:hidden"
                 />
-                화
+                <span className="md:hidden">·</span>화
               </motion.div>
             ) : (
               <motion.div
                 key="collapsed"
                 className="bg-primary-assistive px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 최소화
               </motion.div>
@@ -215,77 +229,6 @@ const AboutTitle: React.FC = () => {
   );
 };
 
-// const AboutContent: React.FC = () => {
-//   const ref = useRef(null);
-//   const isInView = useInView(ref, {
-//     amount: 0.3,
-//     once: false,
-//   });
-
-//   return (
-//     <motion.div
-//       ref={ref}
-//       className="flex md:flex-row flex-col gap-4 w-full max-w-[1440px] max-xl:w-full mx-auto mb-[61px]"
-//     >
-//       {ABOUT_CONTENT.map((item, index) => (
-//         <motion.div
-//           key={item.key}
-//           className="h-[480px] border-white max-md:border-t-1 md:border-l-1 shadow-md flex flex-col overflow-hidden"
-//           variants={{
-//             hidden: { width: "2px", padding: "0px" },
-//             visible: { width: "480px", padding: "60px" },
-//           }}
-//           initial="hidden"
-//           animate={isInView ? "visible" : "hidden"}
-//           transition={{
-//             duration: 0.8,
-//             delay: index * 0.4,
-//           }}
-//         >
-//           <div className="flex flex-col flex-1">
-//             <motion.div
-//               variants={{
-//                 hidden: { opacity: 0, y: 20 },
-//                 visible: { opacity: 1, y: 0 },
-//               }}
-//               initial="hidden"
-//               animate={isInView ? "visible" : "hidden"}
-//               transition={{
-//                 delay: index * 0.4,
-//                 duration: 1,
-//               }}
-//             >
-//               <Text variant="h2" className="text-white text-[34px] font-thin">
-//                 {item.title}
-//               </Text>
-//               <Text variant="t2" className="text-white text-[44px] font-bold">
-//                 {item.key}
-//               </Text>
-//             </motion.div>
-
-//             <motion.div
-//               variants={{
-//                 hidden: { opacity: 0, y: 20 },
-//                 visible: { opacity: 1, y: 0 },
-//               }}
-//               initial="hidden"
-//               animate={isInView ? "visible" : "hidden"}
-//               transition={{
-//                 delay: index * 0.5,
-//                 duration: 1.2,
-//               }}
-//               className="mt-auto"
-//             >
-//               <Text className="text-white !text-[24px] whitespace-pre-wrap">
-//                 {item.content}
-//               </Text>
-//             </motion.div>
-//           </div>
-//         </motion.div>
-//       ))}
-//     </motion.div>
-//   );
-// };
 const AboutContent: React.FC = () => {
   const ref = useRef(null);
 
@@ -295,6 +238,15 @@ const AboutContent: React.FC = () => {
   });
 
   const [isMobile, setIsMobile] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      setTimeout(() => {
+        setStartAnimation(true);
+      }, 2000);
+    }
+  }, [isInView]);
 
   useEffect(() => {
     const checkMobile = () => {

@@ -13,7 +13,10 @@ export type TeamItem = {
   title: string;
   tags: string[];
   major: string;
-  description: string[];
+  description: {
+    title: string;
+    content: string;
+  }[];
   defaultImage: string;
   hoverImage: string;
   activeImage: string;
