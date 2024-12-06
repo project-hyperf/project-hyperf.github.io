@@ -13,8 +13,13 @@ export type TeamItem = {
   title: string;
   tags: string[];
   major: string;
-  description: string[];
-  image: string;
+  description: {
+    title: string;
+    content: string;
+  }[];
+  defaultImage: string;
+  hoverImage: string;
+  activeImage: string;
   education: {
     duration: string;
     university: string;
@@ -25,7 +30,10 @@ export type TeamItem = {
   }[];
 
   researchFields: string[];
-  representativeAchievements: string[];
+  representativeAchievements: {
+    label: string;
+    content: string[];
+  };
 };
 
 export const useTeams = () => {
@@ -37,7 +45,9 @@ export const useTeams = () => {
 
       const dataWithImage = data.map((team) => ({
         ...team,
-        image: `/data/teams/image/${team.university}_${team.name}.png`,
+        defaultImage: `/data/teams/image/${team.university}_${team.name}_default.jpg`,
+        hoverImage: `/data/teams/image/${team.university}_${team.name}_hover.jpg`,
+        activeImage: `/data/teams/image/${team.university}_${team.name}_active.jpg`,
       }));
       return dataWithImage;
     },

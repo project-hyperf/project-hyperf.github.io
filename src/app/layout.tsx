@@ -3,6 +3,7 @@ import "./globals.css";
 import { QueryProvider } from "@/components/Utilities/Providers/QueryProvider";
 import { NextUiProvider } from "@/components/Utilities/Providers/NextUiProvider";
 import ModalsProvider from "@/components/Utilities/Providers/ModalProvider";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "HYPERF",
@@ -20,7 +21,9 @@ export default function RootLayout({
       <body className="bg-white">
         <QueryProvider>
           <NextUiProvider>
-            <ModalsProvider>{children}</ModalsProvider>
+            <ModalsProvider>
+              <Suspense>{children}</Suspense>
+            </ModalsProvider>
           </NextUiProvider>
         </QueryProvider>
       </body>

@@ -3,9 +3,9 @@
 import { BorderButton } from "@/components/UI/Button/BorderButton";
 import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
-import { Divider } from "@nextui-org/react";
+import { Divider, Spacer } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
 import {
@@ -14,10 +14,14 @@ import {
   useScroll,
   useMotionValueEvent,
   AnimatePresence,
+  useInView,
+  animate,
 } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { on } from "events";
+import { exit } from "process";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -37,25 +41,33 @@ export const About: React.FC = () => {
   ];
   return (
     <div
-      className="bg-black  pb-[146px] flex flex-col items-center px-5"
+      className="bg-black  pb-[146px] w-full flex flex-col items-center px-5"
       id="about"
     >
+      <Text
+        variant="t2"
+        className="text-white !text-[30px] md:hidden text-center pt-[40px]"
+      >
+        About
+      </Text>
       <AboutTitle />
 
       <AboutContent />
 
       <Text
         variant="h0"
-        className="!text-[45px] !font-extrabold text-white text-center mb-20"
+        className="!text-[45px] max-md:!text-[20px] !font-extrabold text-white text-center max-md:font-bold mb-20"
       >
-        다계층(multi-level),다목적(multi-objective) 오토튜닝프레임워크개발
+        다계층(multi-level),
+        <br className="md:hidden" /> 다목적(multi-objective)
+        오토튜닝프레임워크개발
       </Text>
-      <div className="flex xl:flex-row flex-col gap-10 items-center">
+      <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full max-md:px-5">
         {DescriptionButtonList.map((button, idx) => (
           <React.Fragment key={idx}>
             <BorderButton
               onClick={button.onClick}
-              className="hover:!bg-white group"
+              className="hover:!bg-white group max-md:w-full"
               endContent={
                 <div className="flex w-[60px] justify-between">
                   <Divider
@@ -70,7 +82,7 @@ export const About: React.FC = () => {
             >
               <Text
                 variant="h3"
-                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px]"
+                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px] max-md:!text-[20px]"
               >
                 {button.label}
               </Text>
@@ -83,10 +95,24 @@ export const About: React.FC = () => {
 };
 
 const AboutTitle: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMaxExpanded, setIsMaxExpanded] = useState(false);
+  const [isMinExpanded, setIsMinExpanded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
-    setIsExpanded(window.scrollY > 100);
+    const scrollPosition = window.scrollY;
+    const triggerPosition = window.innerHeight * 0.4;
+
+    if (scrollPosition > triggerPosition) {
+      setIsMaxExpanded(true);
+
+      setTimeout(() => {
+        setIsMinExpanded(true);
+      }, 500);
+    } else {
+      setIsMaxExpanded(false);
+      setIsMinExpanded(false);
+    }
   };
 
   useEffect(() => {
@@ -95,41 +121,41 @@ const AboutTitle: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full" ref={ref}>
       <Text
         variant="h0"
-        className="!text-[50px] text-white text-center mb-[84px] pt-[115px] whitespace-nowrap !leading-[65px]"
+        className="md:!text-[50px] !text-[26px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
       >
-        엑사급 초고성능 컴퓨터의 잠재 성능을{" "}
+        엑사급 초고성능 컴퓨터의
+        <br className="lg:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
-          initial={false}
           animate={{
-            letterSpacing: isExpanded ? "0.1em" : "0em",
+            letterSpacing: isMaxExpanded ? "0.1em" : "0em",
             transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
           <AnimatePresence mode="wait">
-            {isExpanded ? (
+            {isMaxExpanded ? (
               <motion.div
                 key="expanded"
                 className="flex bg-primary-assistive bg-clip-text text-transparent"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 최
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="md:mx-1 transform max-md:scale-[0.65]"
                 />
                 대
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="md:mx-1 transform max-md:scale-[0.65]"
                 />
                 한
               </motion.div>
@@ -137,10 +163,9 @@ const AboutTitle: React.FC = () => {
               <motion.div
                 key="collapsed"
                 className="bg-primary-normal px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1 }}
               >
                 최대한
               </motion.div>
@@ -148,47 +173,50 @@ const AboutTitle: React.FC = () => {
           </AnimatePresence>
         </motion.span>
         활용하며
-        <br /> 응용별, 하드웨어 별 기반 SW 개발 노력을{" "}
+        <br className="" />
+        <Spacer y={5} className="max-lg:block" />
+        <Spacer y={20} className="lg:hidden max-md:hidden" /> 응용별, 하드웨어
+        별 기반
+        <br className="lg:hidden" /> SW 개발 노력을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"
-          initial={false}
           animate={{
-            letterSpacing: isExpanded ? "0.1em" : "0em",
+            letterSpacing: isMinExpanded ? "0.1em" : "0em",
             transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
           <AnimatePresence mode="wait">
-            {!isExpanded ? (
+            {!isMinExpanded ? (
               <motion.div
                 key="expanded"
                 className="flex bg-primary-strong px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1 }}
               >
                 최
                 <CustomImage
                   src="images/icons/square-dot.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="mx-1 max-md:hidden"
                 />
+                <span className="md:hidden">·</span>
                 소
                 <CustomImage
                   src="images/icons/square-dot.svg"
                   alt="slash"
-                  className="mx-1"
+                  className="mx-1 max-md:hidden"
                 />
-                화
+                <span className="md:hidden">·</span>화
               </motion.div>
             ) : (
               <motion.div
                 key="collapsed"
                 className="bg-primary-assistive px-2 pt-1.5"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 최소화
               </motion.div>
@@ -202,146 +230,123 @@ const AboutTitle: React.FC = () => {
 };
 
 const AboutContent: React.FC = () => {
-  const { scrollYProgress } = useScroll();
+  const ref = useRef(null);
 
-  const containerWidth = useTransform(
-    scrollYProgress,
-    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-    ["2px", "2px", "480px", "480px", "2px", "2px"],
-  );
-  const containerPadding = useTransform(
-    scrollYProgress,
-    [0, 0.02, 0.03, 0.04, 0.07, 0.09],
-    ["0px", "0px", "60px", "60px", "0px", "0px"],
-  );
+  const isInView = useInView(ref, {
+    amount: 0.3,
+    once: false,
+  });
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.03, 0.07], [0, 1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.03, 0.07], [20, 0, 20]);
-  // const textY = useTransform(
-  //   scrollYProgress,
-  //   [0, 0.05, 0.19, 0.23, 0.41, 0.5],
-  //   [20, 20, 15, 0, 15, 20],
-  // );
+  const [isMobile, setIsMobile] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      setTimeout(() => {
+        setStartAnimation(true);
+      }, 2000);
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  const variants = {
+    desktop: {
+      container: {},
+      item: {
+        hidden: { width: "2px", padding: "0px", opacity: 0 },
+        visible: { width: "480px", padding: "60px", opacity: 1 },
+      },
+    },
+    mobile: {
+      container: {},
+      item: {
+        hidden: { y: 100, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+      },
+    },
+  };
+
   return (
-    <motion.div className="flex gap-4 w-[1440px] max-xl:w-full mx-auto mb-[61px]">
+    <motion.div
+      ref={ref}
+      className="flex md:flex-row flex-col gap-4 w-full max-w-[1440px] max-xl:w-full mx-auto mb-[61px]"
+    >
       {ABOUT_CONTENT.map((item, index) => (
         <motion.div
           key={item.key}
-          className="h-[480px] border-white border-l-1 shadow-md  flex flex-col  overflow-hidden"
-          style={{
-            width: containerWidth,
-            padding: containerPadding,
-            overflow: "hidden",
+          className={classNames(
+            "md:h-[480px] h-[204px] max-md:min-w-full border-white",
+            "max-md:border-t-1 md:border-l-1 shadow-md flex flex-col",
+            "overflow-hidden max-md:!py-8",
+            isMobile ? "w-full" : "",
+          )}
+          variants={isMobile ? variants.mobile.item : variants.desktop.item}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{
+            duration: 0.8,
+            delay: index * 0.4,
+            ease: "easeOut",
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
         >
-          {/* 컨텐츠 */}
-
-          <>
-            <motion.div className={classNames(`flex flex-col flex-1 `)}>
-              <motion.div
-                style={{
-                  opacity: textOpacity,
-                  y: textY,
-                }}
-                transition={{
-                  delay: index * 0.2,
-                  duration: 0.3,
-                }}
+          <div className="flex flex-col max-md:gap-5 max-md:px-5 flex-1">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{
+                delay: index * 0.4 + 0.2,
+                duration: 0.8,
+              }}
+            >
+              <Text
+                variant="h2"
+                className="text-white md:!text-[34px] !text-[21px] font-thin"
               >
-                <Text variant="h2" className="text-white text-[34px] font-thin">
-                  {item.title}
-                </Text>
-                <Text variant="t2" className="text-white text-[44px] font-bold">
-                  {item.key}
-                </Text>
-              </motion.div>
-              <motion.div
-                style={{ opacity: textOpacity, y: textY }}
-                transition={{
-                  delay: index * 0.6,
-                  duration: 0.3,
-                }}
-                className="mt-auto"
+                {item.title}
+              </Text>
+              <Text
+                variant="t2"
+                className="text-white !md:text-[44px] !text-[31px] font-bold"
               >
-                <Text className="text-white !text-[24px] whitespace-pre-wrap">
-                  {item.content}
-                </Text>
-              </motion.div>
+                {item.key}
+              </Text>
             </motion.div>
-          </>
+
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{
+                delay: index * 0.4 + 0.4,
+                duration: 0.8,
+              }}
+              className="mt-auto"
+            >
+              <Text className="text-white md:!text-[24px] text-sm whitespace-pre-wrap">
+                {item.content}
+              </Text>
+            </motion.div>
+          </div>
         </motion.div>
       ))}
     </motion.div>
   );
 };
-// const AboutContent: React.FC = () => {
-//   const { scrollYProgress } = useScroll();
-
-//   const containerWidth = useTransform(
-//     scrollYProgress,
-//     [0, 0.2, 0.3, 0.7],
-//     ["2px", "480px", "480px", "2px"],
-//   );
-
-//   return (
-//     <motion.div className="flex gap-4 w-[1440px] mx-auto mb-[61px]">
-//       {ABOUT_CONTENT.map((item, index) => (
-//         <motion.div
-//           key={item.key}
-//           className="h-[480px] border-white border-l-1 shadow-md p-[60px] flex flex-col justify-between"
-//           style={{
-//             width: containerWidth,
-//           }}
-//           transition={{ duration: 0.3 }}
-//         >
-//           {/* <div> */}
-//           <motion.div
-//             className="mb-4"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.2,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text variant="h2" className="text-white text-[34px] font-thin">
-//               {item.title}
-//             </Text>
-//           </motion.div>
-//           <motion.div
-//             className="mb-2"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.4,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text variant="t2" className="text-white text-[44px] font-bold">
-//               {item.key}
-//             </Text>
-//           </motion.div>
-//           {/* </div> */}
-//           <motion.div
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{
-//               delay: index * 0.6,
-//               duration: 0.3,
-//             }}
-//           >
-//             <Text className="text-white text-sm whitespace-pre-wrap">
-//               {item.content}
-//             </Text>
-//           </motion.div>
-//         </motion.div>
-//       ))}
-//     </motion.div>
-//   );
-// };
 const ABOUT_CONTENT = [
   {
     title: "다계층",

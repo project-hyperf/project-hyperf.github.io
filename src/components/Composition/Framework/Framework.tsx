@@ -2,19 +2,20 @@
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useInView } from "framer-motion";
+import { useRef } from "react";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
   return (
-    <div className="w-full bg-primary-bg pt-[104px] pb-[178px]">
+    <div className="w-full bg-primary-bg pt-[104px] pb-[178px] max-md:px-5">
       <Text
         variant="t1"
-        className="text-white uppercase text-center text-[50px] mb-[116px]"
+        className="text-white uppercase text-center md:!text-[50px] !text-[30px] mb-[116px]"
       >
         hYPERF
       </Text>
-      <div className="flex md:flex-row flex-col items-center justify-center gap-10 ">
+      <div className="flex md:flex-row md:flex-wrap flex-col items-center justify-center gap-10 ">
         {archiveList?.map((archive) => (
           <ArchiveLink
             key={archive.name}
@@ -32,56 +33,60 @@ interface ArchiveProps {
 }
 
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
-  const { scrollYProgress } = useScroll();
-  const containerHeight = useTransform(
-    scrollYProgress,
-    [0.36, 0.38, 0.39, 0.41],
-    ["90px", "142px", "142px", "90px"],
-  );
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0.36, 0.38, 0.39, 0.41],
-    [0, 1, 1, 0],
-  );
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    margin: "-100px",
+    amount: 0.5,
+  });
+
   return (
     <motion.div
-      className="py-7 border-t-1 border-b-1 border-white"
-      style={{
-        height: containerHeight,
-        overflow: "hidden",
+      ref={ref}
+      className="py-7 max-md:py-4 md:max-w-[480px] border-t-1 w-full border-b-1 border-white"
+      variants={{
+        hidden: {
+          height: window.innerWidth >= 768 ? "90px" : "60px",
+          opacity: 0.7,
+        },
+        visible: {
+          height: window.innerWidth >= 768 ? "142px" : "92px",
+          opacity: 1,
+        },
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      transition={{
+        duration: 0.6,
+        ease: "easeInOut",
+      }}
       onClick={() => window.open(link, "_blank")}
     >
-      <motion.div>
-        <div className="flex items-center">
-          <Text
-            variant="t1"
-            className="cursor-pointer uppercase text-white text-[44px] mb-[14px]"
-          >
-            {title}
-          </Text>
-          <div className="relative w-10 h-[58px] -mt-4">
-            <CustomImage
-              src="images/icons/right-top-arrow.svg"
-              alt="화살표"
-              fill
-            />
-          </div>
+      <div className="flex items-center">
+        <Text
+          variant="t1"
+          className="cursor-pointer uppercase text-white md:!text-[44px] !text-[28px] md:mb-[14px]  flex-1"
+        >
+          {title}
+        </Text>
+        <div className="relative w-10 h-[58px] -mt-4">
+          <CustomImage
+            src="images/icons/right-top-arrow.svg"
+            alt="화살표"
+            fill
+          />
         </div>
-      </motion.div>
+      </div>
       <motion.div
-        style={{
-          opacity: textOpacity,
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1 },
         }}
         transition={{
+          duration: 0.4,
           delay: 0.2,
-          duration: 0.3,
         }}
       >
-        <Text variant="h4" className="text-white">
+        <Text variant="h4" className="text-white max-md:!text-[18px]">
           {link}
         </Text>
       </motion.div>

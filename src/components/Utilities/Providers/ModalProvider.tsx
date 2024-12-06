@@ -1,7 +1,8 @@
 "use client";
 import React, { createContext, useState, PropsWithChildren } from "react";
-import { Modal, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
 import { CloseButton } from "@/components/UI/Button/CloseButton";
+import { motion } from "framer-motion";
 
 interface ModalProps {
   Component: React.FC<any>;
@@ -59,26 +60,42 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
   onClose,
 }) => {
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        placement="center"
-        className="min-w-[800px] max-w-[1440px] h-[844px]"
-        scrollBehavior="inside"
-        classNames={{
-          closeButton: "transform scale-[1.75] right-4 top-4",
-        }}
-        // classNames={{
-        //   base: "relative",
-        //   closeButton: "absolute top-4 right-4",
-        // }}
-        // closeButton={<CloseButton onClick={onClose} />}
-      >
-        {children}
-      </Modal>
-    </>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="center"
+      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] h-[700px] min-w-[340px] max-w-[360px] max-h-[90vh] rounded-none"
+      scrollBehavior="inside"
+      motionProps={{
+        variants: {
+          enter: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              duration: 0.6,
+              ease: "easeOut",
+            },
+          },
+          exit: {
+            y: 50,
+            opacity: 0,
+            transition: {
+              duration: 0.5,
+              ease: "easeIn",
+            },
+          },
+        },
+      }}
+      classNames={{
+        // wrapper 클래스 수정
+        wrapper: "items-center", // sm: 제거하고 항상 center로
+        base: "m-auto", // sm: 제거하고 항상 auto margin
+        backdrop: "bg-black/50",
+        closeButton: "transform md:scale-[1.75] md:right-4 md:top-4",
+      }}
+    >
+      <ModalContent>{(onClose) => <>{children}</>}</ModalContent>
+    </Modal>
   );
 };
-
 export default ModalsProvider;

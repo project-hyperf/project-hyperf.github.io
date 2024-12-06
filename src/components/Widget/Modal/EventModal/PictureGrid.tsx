@@ -1,6 +1,9 @@
+"use client";
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
+import { button } from "@nextui-org/react";
 import classNames from "classnames";
-import { AnimatePresence, motion } from "framer-motion";
+import { animate, AnimatePresence, motion } from "framer-motion";
+import { exit } from "process";
 import { useState } from "react";
 import { Swiper as SW } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -44,7 +47,7 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
     <div className="w-full relative">
       <div
         className={classNames(
-          "top-1/2 -translate-y-1/2 absolute left-0 -translate-x-3/4 z-10",
+          "top-1/2 -translate-y-1/2 absolute left-0 -translate-x-3/4 z-10 max-md:-translate-x-1/2",
           {
             hidden: isBeginning,
           },
@@ -56,7 +59,7 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
       </div>
       <div
         className={classNames(
-          "top-1/2 -translate-y-1/2 absolute right-0 translate-x-3/4 z-10",
+          "top-1/2 -translate-y-1/2 absolute right-0 translate-x-3/4 z-10 max-md:translate-x-1/2",
           {
             hidden: isEnd,
           },
@@ -75,11 +78,11 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
       >
         {slicedPicture.map((picture, groupIndex) => (
           <SwiperSlide key={groupIndex}>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(40%,1fr))] gap-7">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(40%,1fr))] max-md:grid-cols-2 gap-7 max-md:gap-4">
               {picture.map((image, index) => (
                 <GeneralButton
                   key={image.src}
-                  className="w-auto h-auto rounded-none p-0 aspect-square relative "
+                  className="w-auto h-auto rounded-none p-0 aspect-square relative"
                   onClick={() => {
                     setSelectedPictureIndex(index + groupIndex * 4);
                   }}
@@ -97,12 +100,8 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
                         animate="visible"
                         exit="hidden"
                         variants={{
-                          hidden: {
-                            opacity: 0,
-                          },
-                          visible: {
-                            opacity: 0.5,
-                          },
+                          hidden: { opacity: 0 },
+                          visible: { opacity: 0.5 },
                         }}
                         className="absolute inset-0 z-10 bg-gradient-to-b from-[#6541f2] to-[#0d00b5]"
                       />
@@ -117,7 +116,6 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
     </div>
   );
 };
-
 const LeftIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

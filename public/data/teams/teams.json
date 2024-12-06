@@ -10,10 +10,16 @@
       "HPC 연산을 위한 오토튜닝 프레임워크 개발",
       "병렬 프로그래밍 모델 및 파일 시스템 최적화 개발"
     ],
-    "major": "데이터사이언스 학과",
+    "major": "데이터사이언스",
     "description": [
-      "학습 기반 컴파일러 최적화 및 AI 오토튜닝 프레임워크 연구 경험 풍부",
-      "초고성능컴퓨터를 위한 컴파일러와 런타임 전문가"
+      {
+        "title": "학습 기반 컴파일러 최적화 및 AI 오토튜닝 프레임워크 연구 경험 풍부",
+        "content": "다양한 학습 기반 컴파일러 최적화와 런타임 자원 관리 기법을 활발히 연구해 왔다. 2019년 PACT에서 OpenMP 커널의 CPU/GPU 스케줄링 결정을 학습 기반 성능 모델로 동적으로 수행하는 연구를 발표했으며, 이 방식은 OpenMP 벤치마크와 마이크로커널 성능을 최대 66%까지 향상시켰다.\n2022년에는 TVM 컴파일러의 오토튜닝 메커니즘인 AutoTVM을 개선하여, 오토튜닝 탐색 과정의 오버헤드를 줄이고 성능을 향상시키는 연구를 수행했다. 성능 예측 모델을 사전 학습(pre-training)하여 탐색 과정을 최대 67배 감소시켰다."
+      },
+      {
+        "title": "초고성능컴퓨터를 위한 컴파일러와 런타임 전문가",
+        "content": "IBM T. J. Watson 연구소 연구원으로서, CORAL 1 프로젝트에 참여해 Summit과 Sierra 슈퍼컴퓨터를 위한 OpenMP 컴파일러와 런타임 설계 및 구현에 기여했다. OpenMP clang 프론트엔드 코드 생성기 구현, NVIDIA GPU 병렬화 최적화, 통합 메모리 지원을 수행하며, 슈퍼컴퓨터를 활용한 성능 검증을 진행했다. 2020년부터 ETRI 주도의 슈퍼컴퓨터 개발 사업에 참여해 AB21 슈퍼컴퓨팅 칩의 OpenCL 컴파일러와 런타임 구현을 맡았다. RISCV 기반 가속기 코어를 지원하기 위해 clang-LLVM과 OpenCL 런타임을 확장했다."
+      }
     ],
     "image": "",
     "education": [
@@ -48,16 +54,20 @@
       "컴파일러 및 런타임 시스템 컴퓨터 구조 (AI 가속기, Processing-in-Memory (PIM), cache coherence protocol)",
       "기계학습/딥러닝 기반 컴파일러 최적화 및 오토튜닝 메커니즘"
     ],
-    "representativeAchievements": [
-      "ASPLOS, PACT (best paper award 수상), MICRO Top Picks, CGO, CC 컴퓨터 구조와 컴파일러 분야의 (최)우수학회 논문 다수 보유"
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "ASPLOS, PACT (best paper award 수상), MICRO Top Picks, CGO, CC등 컴퓨터 구조와 컴파일러 분야의 (최)우수학회 논문 다수 보유"
+      ]
+    }
   },
   {
     "university": "포항공과대학교",
     "agency": "1 공동기관",
     "role": "참여연구원",
+    "title": "교수",
     "name": "박지성",
-    "tags": ["컨소시엄 총괄", "병령 I/O 최적화"],
+    "tags": ["1 공동기관", "병령 I/O 최적화"],
     "major": "전기컴퓨터",
     "description": [],
     "image": "",
@@ -86,9 +96,12 @@
       "저장장치 기반 근접 데이터 처리",
       "메모리/스토리지 시스템 보안"
     ],
-    "representativeAchievements": [
-      "ISGA '23, MICRO '22, ASPLOS '22, FAST '22, ASPLOS '21"
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "ISCA ‘23, MICRO ‘22, ISCA ‘22, ASPLOS ‘22, FAST ’22, ASPLOS ‘21"
+      ]
+    }
   },
   {
     "university": "건국대학교",
@@ -96,7 +109,7 @@
     "role": "연구책임자",
     "title": "교수",
     "name": "진현욱",
-    "tags": ["병렬 프로세스 간 데이터 이동 및 통신 최적화"],
+    "tags": ["2 공동기관", "병렬 프로세스 간 데이터 이동 및 통신 최적화"],
     "major": "통신시스템",
     "description": [],
     "image": "",
@@ -120,9 +133,14 @@
       "고속 인터커넥트를 위한 프로토콜 최적화",
       "MPI 병렬 프로그래밍 모델의 프로세스 간 통신 라이브러리 최적화"
     ],
-    "representativeAchievements": [
-      "과학기술정보통신부 장관표창 (2021), 한국공학한림원의 미래 100대 기술 및 차세대 주역 선정 (2017), 한국정보과학회 학술대회 최우수 논문상 (2016)"
-    ]
+    "representativeAchievements": {
+      "label": "수상 이력",
+      "content": [
+        "과학기술정보통신부 장관표창 (2021)",
+        " 한국공학한림원의 미래 100대 기술 및 차세대 주역 선정 (2017)",
+        "한국정보과학회 학술대회 최우수 논문상 (2016)"
+      ]
+    }
   },
 
   {
@@ -131,32 +149,44 @@
     "role": "연구책임자",
     "name": "오상윤",
     "title": "교수",
-    "tags": [],
+    "tags": ["3 공동기관", "잡스케줄링 최적화"],
     "major": "컴퓨터공학",
     "description": [],
     "image": "",
     "education": [
       {
         "duration": "",
-        "university": "고려대학교 학사/석사/박사"
+        "university": "Indiana University Bloomington 박사"
+      },
+      {
+        "duration": "",
+        "university": "Syracuse University 석사"
+      },
+      {
+        "duration": "",
+        "university": "성균관대학교 기계공학 학사"
       }
     ],
     "career": [
       {
-        "duration": "2006 - 현재",
-        "university": "포항공과대학교 조교소"
+        "duration": "2007 - 현재",
+        "university": "아주대학교 교수"
       },
       {
-        "duration": "2019 - 2022",
-        "university": "취리히연방공과대학박사후연구원 및 강사"
+        "duration": "2006 – 2007",
+        "university": "SK 텔레콤 Intelligence 연구소   "
       }
     ],
     "researchFields": [
-      "AI 최적화 및 병렬 연산",
-      "분산 컴퓨팅 시스템",
-      "HPC를 활용한 데이터 분석"
+      "초고성능 컴퓨팅 기반 다양한 수준의 잡 스케줄링 관련 최적화",
+      "대규모 기계학습 모델의 학습 및 추론 최적화"
     ],
-    "representativeAchievements": ["SC, HPDC, PPoPP 논문 발표"]
+    "representativeAchievements": {
+      "label": "대표 연구 논문",
+      "content": [
+        "최근 3년간 TPDS, JPDC 포함 SCI 국제학술논문지 14편, ICPP, IPDPS 포함 국제학술대회 발표 9건"
+      ]
+    }
   },
   {
     "university": "연세대학교",
@@ -164,7 +194,7 @@
     "role": "연구책임자",
     "name": "송진호",
     "title": "교수",
-    "tags": [],
+    "tags": ["4 공동기관", "성능/전력 동시 최적화를 위한 전력 모델링"],
     "major": "전기컴퓨터",
     "description": [],
     "image": "",
@@ -197,9 +227,12 @@
       "이종 프로세서 컴퓨팅, GPU 구조, 메모리 시스템",
       "전력/에너지/발열/신뢰성 모델링 및 관리 기술"
     ],
-    "representativeAchievements": [
-      "MICRO, HPCA 등 (최)우수학술대회 논문 9편, TPDS, TC, CAL 등 CS 분야 주요 저널 논문 12편"
-    ]
+    "representativeAchievements": {
+      "label": "대표 연구실적",
+      "content": [
+        "MICRO, HPCA 등 (최)우수학술대회 논문 9편, TPDS, TC, CAL 등 CS 분야 주요 저널 논문 12편"
+      ]
+    }
   },
   {
     "university": "KISTI",
@@ -208,6 +241,7 @@
     "title": "박사",
     "name": "권오경",
     "tags": [
+      "5 공동기관",
       "데이터 레이아웃 최적화 구현 선택 최적화",
       "HPC 연산자 표현형 설계"
     ],
@@ -239,8 +273,11 @@
       "전산유체역학, 천체물리, 전산구조해석 등 계산 과학 분야 알고리즘의 병렬화 및 최적화",
       "국가슈퍼컴퓨터 5호기를 벤치마크하여 BFS 세계 9위, SSSP 세계 3위 달성"
     ],
-    "representativeAchievements": [
-      "KISTI 슈퍼컴퓨터 5호기 구축을 위한 응용프로그램 벤치마크 및 성능 평가 (과학기술정보통신부 장관상 2019)"
-    ]
+    "representativeAchievements": {
+      "label": "수상 이력",
+      "content": [
+        "KISTI 슈퍼컴퓨터 5호기 구축을 위한 응용프로그램 벤치마크 및 성능 평가 (과학기술정보통신부 장관상 2019)"
+      ]
+    }
   }
 ]

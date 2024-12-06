@@ -5,26 +5,26 @@ import classNames from "classnames";
 import { useScroll } from "framer-motion";
 import { disconnect } from "process";
 import React, { useEffect, useRef, useState } from "react";
+import style from "styled-jsx/style";
 
 interface IntegrationStepModalProps {}
 
-export const IntegrationStepModal: React.FC<
-  IntegrationStepModalProps
-> = ({}) => {
+export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
-    <ModalContent>
-      <ModalHeader className="flex justify-center item-center  pt-[50px] pb-[48px]">
+    <>
+      <ModalHeader className="flex justify-center item-center pt-[50px] pb-[48px] max-md:pt-[30px] max-md:pb-[30px]">
         <AssistiveStyle
           variant="h1"
-          className="text-[51px] font-light leading-[61.20px]"
+          className="text-[51px] font-light leading-[61.20px] max-md:text-[32px] max-md:leading-[42px]"
         >
           연구 통합 단계
         </AssistiveStyle>
       </ModalHeader>
-      <ModalBody className="px-[70px] ">
+      <ModalBody className="px-[70px] max-md:px-[20px]">
         <div
-          className="w-full h-full  overflow-scroll scrollbar-hide wrapper"
+          className="w-full h-full overflow-scroll scrollbar-hide wrapper"
           ref={scrollRef}
         >
           {RESEARCH_TIME_LINE.map((item, idx) => (
@@ -38,9 +38,8 @@ export const IntegrationStepModal: React.FC<
             />
           ))}
         </div>
-        {/* <div className="border-dashed border-1 border-black" /> */}
       </ModalBody>
-    </ModalContent>
+    </>
   );
 };
 interface DividerProps {
@@ -65,7 +64,7 @@ const Divider: React.FC<DividerProps> = ({
     const updateTitleHeight = () => {
       if (stickyTopRef.current) {
         const rect = stickyTopRef.current.getBoundingClientRect();
-        console.log(idx, rect.height);
+
         setTitleHeight(rect.height);
       }
     };
@@ -87,7 +86,6 @@ const Divider: React.FC<DividerProps> = ({
     };
   }, []);
 
-  //스크롤 시 title부분이 sticky가 된다 스크롤이 계속되어서 다음 title이 올라오면 현재 title은 fixed가 되며 그 바로 밑에 붙는다.
   useEffect(() => {
     const sticky = stickyTopRef.current;
     const scroll = scrollRef.current;
@@ -97,51 +95,67 @@ const Divider: React.FC<DividerProps> = ({
     const { top: stickyTop, bottom: stickyBottom } =
       sticky.getBoundingClientRect();
     const { top: scrollTop } = scroll.getBoundingClientRect();
-    console.log(stickyTop, stickyBottom, scrollTop);
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        console.log(entry, stickyTop, scrollTop);
-      },
-      {
-        root: scroll,
-        threshold: 1,
-      },
-    );
+
+    const observer = new IntersectionObserver(([entry]) => {}, {
+      root: scroll,
+      threshold: 1,
+    });
     observer.observe(sticky);
   }, [scrollRef]);
-
+  console.log(idx, year);
   return (
     // <div key={year}>
     //   <div className="flex flex-col">
+
     <React.Fragment key={year}>
       <div
-        className={classNames("sticky bg-white overflow-hidden ")}
+        className={classNames(
+          "sticky max-md:static bg-white overflow-hidden flex flex-col",
+          `max-md:!min-h-${
+            idx === 0 ? "[108px]" : idx === 3 ? "[204px]" : "[104px]"
+          }`,
+        )}
         ref={stickyTopRef}
-        style={{ top: `${idx * 106.97}px` || 0 }}
+        style={{
+          top: `${
+            idx *
+            (window.innerWidth >= 768
+              ? 106.97
+              : idx === 1
+              ? 104
+              : idx === 3
+              ? 30
+              : 96)
+          }px`,
+        }}
       >
-        <div className="border-dashed border-1 border-black" />
-        <div className="flex items-center">
+        <div className="border-dashed border-1 max-md:border-[0.5px] border-black" />
+        <div className="flex flex-1 items-center max-md:flex-col max-md:items-start">
           <Text
             variant="b2"
-            className="pl-[18px] !text-[24px] !font-bold mt-3 "
+            className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[14px] max-md:pl-[10px]"
           >
             {year}
           </Text>
           <Text
             variant="h4"
-            className="text-[38px] !font-light px-[115px] tracking-tight mt-3 whitespace-pre-wrap"
+            className="!text-[38px] !font-light px-[115px] tracking-[0px] mt-3 whitespace-pre-wrap max-md:!text-[15px] max-md:px-[10px] max-md:mt-2"
           >
             {summary}
           </Text>
         </div>
       </div>
       <div
-        className="w-full box-border mt-[60px] pl-[211px] pr-[178px] mb-[88px] min-h-[180px]"
+        className={classNames(
+          "w-full box-border md:mt-[60px] pl-[211px] pr-[178px] md:mb-[88px] md:min-h-[180px] max-md:pl-[0px] max-md:pr-[0px] max-md:mt-[16px] max-md:mb-[12px] ",
+          idx === 3 ? "max-md:min-h-[0px]" : "max-md:h-fit",
+        )}
         ref={contentRef}
       >
         {list?.map((item) => renderList(item.id, item.content))}
       </div>
     </React.Fragment>
+
     //   </div>
     // </div>
   );
@@ -155,11 +169,11 @@ function renderList(
   return (
     <div
       key={id}
-      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[12px] !min-h-[50px] box-border flex items-center"
+      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[5px] md:mb-[12px] md:!min-h-[50px] box-border flex items-center max-md:h-auto max-md:py-[6px] max-md:rounded-[25px]"
     >
       <Text
         variant="h4"
-        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]"
+        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px] max-md:!text-[11px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px] max-md:whitespace-nowrap"
       >
         {id} {`{`}
         <span className={highlightColor}>{content}</span>

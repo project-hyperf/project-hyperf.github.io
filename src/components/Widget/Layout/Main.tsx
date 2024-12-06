@@ -8,7 +8,7 @@ export const Main: React.FC<PropsWithChildren<MainProps>> = ({ children }) => {
   const { GNBHeight } = useHeaderMargin();
 
   return (
-    <main className={classNames(`min-h-screen`)}>
+    <main className={classNames()}>
       <div style={{ height: `${GNBHeight}px`, width: "100%" }} />
       {children}
     </main>
