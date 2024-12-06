@@ -1,11 +1,9 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
-import { ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalHeader } from "@nextui-org/react";
 import classNames from "classnames";
-import { useScroll } from "framer-motion";
-import { disconnect } from "process";
+
 import React, { useEffect, useRef, useState } from "react";
-import style from "styled-jsx/style";
 
 interface IntegrationStepModalProps {}
 

@@ -228,15 +228,6 @@ const AboutContent: React.FC = () => {
   });
 
   const [isMobile, setIsMobile] = useState(false);
-  const [startAnimation, setStartAnimation] = useState(false);
-
-  useEffect(() => {
-    if (isInView) {
-      setTimeout(() => {
-        setStartAnimation(true);
-      }, 2000);
-    }
-  }, [isInView]);
 
   useEffect(() => {
     const checkMobile = () => {
