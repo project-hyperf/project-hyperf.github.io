@@ -1,10 +1,9 @@
 import { Text } from "@/components/UI/Text/Text";
 import React, { PropsWithChildren } from "react";
-//TODO: 모바일 모달
-//TODO: 애니메이션 변경
+
 export const KeyVisual: React.FC = () => {
   return (
-    <section className="w-full md:pb-[104px] md:mb-[80px] max-w-[1456px] mx-auto min-h-[417px] md:min-h-[750px] flex items-end relative overflow-hidden">
+    <section className="w-full md:pb-[104px] md:mb-[80px] max-w-[1456px] mx-auto min-h-[417px] md:min-h-[750px] flex items-end relative overflow-hidden max-md:pt-[40px]">
       <video
         autoPlay
         muted
