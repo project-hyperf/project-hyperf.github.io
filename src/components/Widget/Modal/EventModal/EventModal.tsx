@@ -13,7 +13,7 @@ import classNames from "classnames";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PictureGrid } from "./PictureGrid";
 import { Post } from "@/hooks/usePosts";
-import { title } from "process";
+
 interface EventModalProps {
   post: Post;
   modalProps?: Omit<ModalProps, "children">;

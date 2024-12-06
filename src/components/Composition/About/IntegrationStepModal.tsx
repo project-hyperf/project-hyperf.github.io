@@ -110,9 +110,9 @@ const Divider: React.FC<DividerProps> = ({
     <React.Fragment key={year}>
       <div
         className={classNames(
-          "sticky bg-white overflow-hidden",
-          `max-md:h-${
-            idx === 0 ? "[104px]" : idx === 3 ? "[204px]" : "[104px]"
+          "sticky max-md:static bg-white overflow-hidden flex flex-col",
+          `max-md:!min-h-${
+            idx === 0 ? "[108px]" : idx === 3 ? "[204px]" : "[104px]"
           }`,
         )}
         ref={stickyTopRef}
@@ -124,13 +124,13 @@ const Divider: React.FC<DividerProps> = ({
               : idx === 1
               ? 104
               : idx === 3
-              ? 34
-              : 97)
+              ? 30
+              : 96)
           }px`,
         }}
       >
         <div className="border-dashed border-1 max-md:border-[0.5px] border-black" />
-        <div className="flex items-center max-md:flex-col max-md:items-start">
+        <div className="flex flex-1 items-center max-md:flex-col max-md:items-start">
           <Text
             variant="b2"
             className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[14px] max-md:pl-[10px]"
@@ -148,7 +148,7 @@ const Divider: React.FC<DividerProps> = ({
       <div
         className={classNames(
           "w-full box-border md:mt-[60px] pl-[211px] pr-[178px] md:mb-[88px] md:min-h-[180px] max-md:pl-[0px] max-md:pr-[0px] max-md:mt-[16px] max-md:mb-[12px] ",
-          idx === 3 ? "max-md:min-h-[250px]" : "max-md:h-fit",
+          idx === 3 ? "max-md:min-h-[0px]" : "max-md:h-fit",
         )}
         ref={contentRef}
       >
