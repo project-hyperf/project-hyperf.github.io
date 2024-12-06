@@ -1,11 +1,13 @@
 "use client";
 
+import { images } from "@/assets/images/images";
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import classNames from "classnames";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import style from "styled-jsx/style";
 
 export const Outcomes: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -62,7 +64,7 @@ export const Outcomes: React.FC = () => {
       </div>
       {isMobile ? (
         <div className="pt-2">
-          <div className="btn-group flex justify-center">
+          <div className="btn-group flex justify-center bg-transparent">
             <GeneralButton
               className={classNames(
                 "bg-transparent relative w-[120px] h-[100px]",
@@ -99,7 +101,7 @@ export const Outcomes: React.FC = () => {
             </GeneralButton>
           </div>
           <div className="step">
-            <div>
+            <div className="">
               {selectedStep === 1 && <Step1 />}
               {selectedStep === 2 && <Step2 />}
             </div>
@@ -182,6 +184,7 @@ const Step1: React.FC = () => {
         </div>
 
         {/* 우측 Text & 박스 */}
+
         <div className="max-w-[768px] grow shrink relative z-[90]">
           <div className="w-full h-full mb-6">
             <Text
@@ -193,8 +196,31 @@ const Step1: React.FC = () => {
             </Text>
           </div>
           {/* 스크롤 컨테이너 */}
-          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide">
-            <div className="flex gap-4 md:contents ">
+          {/* 배경 추가 */}
+          {/* <div
+              className="absolute inset-0 bg-gray-100 z-0"
+              style={{ height: "200%" }}
+            ></div> */}
+
+          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
+            <div className="flex gap-4 md:contents h-[638px] items-end relative">
+              <div
+                style={{
+                  position: "absolute",
+                  top: "80px",
+                  left: "-10px",
+                  width: "1443px",
+                  height: "311px",
+                  backgroundImage: `url(${
+                    images[`images/bg/bg-logo.png`].src
+                  })`,
+                  backgroundSize: "1443px 311px",
+                  backgroundRepeat: "no-repeat",
+                  opacity: "0.1", // 불투명도 조절 (0부터 1 사이의 값)
+                  zIndex: "-1",
+                }}
+                className="md:hidden"
+              />
               <div className="md:contents flex-none w-[320px] snap-center">
                 <StepBox
                   title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
@@ -290,7 +316,7 @@ const StepBox: React.FC<{
 
 const Step2: React.FC = () => {
   return (
-    <div className="w-full flex flex-wrap flex-row justify-center md:gap-[143px] gap-10 items-center pb-3 max-md:px-4">
+    <div className="w-full flex flex-wrap flex-row justify-center md:gap-[143px] gap-10 items-end pb-3 max-md:px-4">
       <div className="flex flex-col items-center md:gap-14 max-md:gap-10">
         <Text
           variant="h4"
@@ -341,14 +367,29 @@ const Step2: React.FC = () => {
         </Text>
 
         {/* 모바일에서 캐러셀 */}
-        <div className="md:block max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-          <div className="md:block flex ">
+        <div className="md:block max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide max-md:items-end max-md:-mt-[300px] max-md:relative ">
+          <div className="md:block flex items-end max-md:h-[638px]">
+            <div
+              style={{
+                position: "absolute",
+                top: "80px",
+                left: "40px",
+                width: "950px",
+                height: "311px",
+                backgroundImage: `url(${images[`images/bg/bg-logo.png`].src})`,
+                backgroundSize: "1443px 311px",
+                backgroundRepeat: "no-repeat",
+                opacity: "0.1",
+                zIndex: "-1",
+              }}
+              className="md:hidden"
+            />
             {SECOND_STEP_CONTENT.map((box, index) => (
               <div
                 key={index}
                 className="md:mt-6 flex-none md:w-auto w-[320px] snap-center"
               >
-                <div className="px-7 bg-primary-bg pt-6 pb-3 flex flex-col justify-between max-md:justify-center border-2 border-black max-md:px-4 h-[320px] max-md:gap-5 max-md:mr-4 ">
+                <div className="px-7 bg-primary-bg pt-6 pb-3 flex flex-col justify-between max-md:justify-center border-2 border-black max-md:px-4 max-md:h-[320px] max-md:gap-5 max-md:mr-4 ">
                   <Text
                     variant="h4"
                     className="text-white pb-3 text-center max-md:text-[16px]"
@@ -363,7 +404,7 @@ const Step2: React.FC = () => {
                       >
                         <Text
                           variant="h5"
-                          className="text-black !font-normal py-[12px] !text-[16px] px-4 text-center"
+                          className="text-black !font-normal py-[12px] !text-[16px] px-4 text-center max-md:!text-[14px]"
                         >
                           {content}
                         </Text>
