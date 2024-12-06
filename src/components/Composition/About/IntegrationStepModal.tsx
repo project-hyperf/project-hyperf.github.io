@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { useScroll } from "framer-motion";
 import { disconnect } from "process";
 import React, { useEffect, useRef, useState } from "react";
+import style from "styled-jsx/style";
 
 interface IntegrationStepModalProps {}
 
@@ -63,7 +64,7 @@ const Divider: React.FC<DividerProps> = ({
     const updateTitleHeight = () => {
       if (stickyTopRef.current) {
         const rect = stickyTopRef.current.getBoundingClientRect();
-        console.log(idx, rect.height);
+
         setTitleHeight(rect.height);
       }
     };
@@ -94,19 +95,14 @@ const Divider: React.FC<DividerProps> = ({
     const { top: stickyTop, bottom: stickyBottom } =
       sticky.getBoundingClientRect();
     const { top: scrollTop } = scroll.getBoundingClientRect();
-    console.log(stickyTop, stickyBottom, scrollTop);
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        console.log(entry, stickyTop, scrollTop);
-      },
-      {
-        root: scroll,
-        threshold: 1,
-      },
-    );
+
+    const observer = new IntersectionObserver(([entry]) => {}, {
+      root: scroll,
+      threshold: 1,
+    });
     observer.observe(sticky);
   }, [scrollRef]);
-
+  console.log(idx, year);
   return (
     // <div key={year}>
     //   <div className="flex flex-col">
@@ -114,11 +110,23 @@ const Divider: React.FC<DividerProps> = ({
     <React.Fragment key={year}>
       <div
         className={classNames(
-          "sticky max-md:h-[84px]  bg-white overflow-hidden",
+          "sticky bg-white overflow-hidden",
+          `max-md:h-${
+            idx === 0 ? "[104px]" : idx === 3 ? "[204px]" : "[104px]"
+          }`,
         )}
         ref={stickyTopRef}
         style={{
-          top: `${idx * (window.innerWidth >= 768 ? 106.97 : 84)}px` || 0,
+          top: `${
+            idx *
+            (window.innerWidth >= 768
+              ? 106.97
+              : idx === 1
+              ? 104
+              : idx === 3
+              ? 34
+              : 97)
+          }px`,
         }}
       >
         <div className="border-dashed border-1 max-md:border-[0.5px] border-black" />
@@ -138,8 +146,10 @@ const Divider: React.FC<DividerProps> = ({
         </div>
       </div>
       <div
-        className="w-full box-border md:mt-[60px] pl-[211px] pr-[178px] md:mb-[88px] md:min-h-[180px]
-                   max-md:pl-[0px] max-md:pr-[0px] max-md:mt-[30px] max-md:mb-[12px] h-fit"
+        className={classNames(
+          "w-full box-border md:mt-[60px] pl-[211px] pr-[178px] md:mb-[88px] md:min-h-[180px] max-md:pl-[0px] max-md:pr-[0px] max-md:mt-[16px] max-md:mb-[12px] ",
+          idx === 3 ? "max-md:min-h-[250px]" : "max-md:h-fit",
+        )}
         ref={contentRef}
       >
         {list?.map((item) => renderList(item.id, item.content))}
@@ -159,13 +169,11 @@ function renderList(
   return (
     <div
       key={id}
-      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[5px] md:mb-[12px] md:!min-h-[50px] box-border flex items-center
-                 max-md:h-auto max-md:py-[6px] max-md:rounded-[25px]"
+      className="w-full h-16 bg-[#f2f2f2] rounded-[50px] mb-[5px] md:mb-[12px] md:!min-h-[50px] box-border flex items-center max-md:h-auto max-md:py-[6px] max-md:rounded-[25px]"
     >
       <Text
         variant="h4"
-        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px]
-                   max-md:!text-[11px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px] max-md:whitespace-nowrap"
+        className="text-[24px] !font-normal font-[D2Coding] leading-[33.6px] ml-[29px] max-md:!text-[11px] max-md:leading-[24px] max-md:ml-[15px] max-md:pr-[15px] max-md:whitespace-nowrap"
       >
         {id} {`{`}
         <span className={highlightColor}>{content}</span>

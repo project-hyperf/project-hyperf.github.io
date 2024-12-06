@@ -15,7 +15,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
       <ModalHeader className="justify-center px-4">
         <AssistiveStyle
           variant="t1"
-          className="text-center pt-4 font-light max-md:text-[32px]"
+          className="text-center pt-4 !font-light max-md:!text-[36px]"
         >
           연구필요성
         </AssistiveStyle>
@@ -23,12 +23,13 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
       <ModalBody className="md:px-[110px] px-5 scrollbar-hide">
         <Text
           variant="h4"
-          className="text-center font-normal max-md:text-[18px] max-md:leading-relaxed"
+          className="text-center font-normal max-md:!text-[16px] max-md:!leading-snug tracking-[0px]"
         >
           고성능 컴퓨팅 영역이 확장됨에 따라, 엑사급FLOPS를 제공하는
           초고성능컴퓨터의 수요가 커지고 있고,
-          <br className="max-md:hidden" />
-          점점 병렬 프로그래밍과 자원 관리, 성능 최적화가 필수적으로 요구된다.
+          <br />
+          점점 병렬 프로그래밍과 자원 관리,
+          <br className="md:hidden" /> 성능 최적화가 필수적으로 요구된다.
         </Text>
 
         <div className="flex justify-center items-center my-4">
