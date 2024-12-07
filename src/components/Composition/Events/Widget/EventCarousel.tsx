@@ -1,13 +1,14 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
-import { animate, motion } from "framer-motion";
-import { button, Button, useDisclosure } from "@nextui-org/react";
+import { motion } from "framer-motion";
+import { Button, useDisclosure } from "@nextui-org/react";
 import { Text } from "@/components/UI/Text/Text";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 import { Post } from "@/hooks/usePosts";
+import style from "styled-jsx/style";
 
 interface EventCarouselProps {
   posts?: Post[];
@@ -22,13 +23,22 @@ interface CarouselProps extends EmblaOptionsType {
 //! 호버 이벤트 에러 있는 것 같음 (해결 필요)
 export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState<any>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    useMemo(
+      () => ({
+        loop: true,
+        axis: "x",
+        align: "start",
+      }),
+      [],
+    ),
+  );
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkMobile();
@@ -36,86 +46,114 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    axis: "x",
-    align: "start",
-    slidesToScroll: isMobile ? 1 : undefined,
-  } as CarouselProps);
-
-  useEffect(() => {
-    if (emblaApi && isMobile) {
-      emblaApi.on("select", () => {
-        setActiveIndex(emblaApi.selectedScrollSnap());
-      });
-    }
-  }, [emblaApi, isMobile]);
-
   const eventModal = useDisclosure();
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    const container = document.querySelector(".scroll-container");
+    if (container) {
+      const scrollAmount = container.clientWidth;
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    }
+  }, []);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    const container = document.querySelector(".scroll-container");
+    if (container) {
+      const scrollAmount = container.clientWidth;
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  }, []);
 
   const openDetailModal = (post: Post) => {
     setSelectedPost(post);
     eventModal.onOpen();
   };
 
+  // 모바일에서 스크롤 위치 감지
+  useEffect(() => {
+    if (isMobile) {
+      const handleScroll = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute("data-index"));
+            setActiveIndex(index);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(handleScroll, {
+        threshold: 0.5,
+        root: null,
+      });
+
+      const slides = document.querySelectorAll(".event-slide");
+      slides.forEach((slide) => observer.observe(slide));
+
+      return () => {
+        slides.forEach((slide) => observer.unobserve(slide));
+      };
+    }
+  }, [isMobile, posts]);
+
   return (
     <div className="w-[90%] mx-auto relative">
       {isMobile ? (
         <>
-          <motion.div
-            className="embla overflow-hidden mx-auto h-[500px] w-full"
-            ref={emblaRef}
-          >
-            <motion.div className="embla__container flex h-full w-full">
+          <div className="scroll-container md:block max-md:w-screen max-md:-mx-4 max-md:px-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide max-md:items-end relative">
+            <div className="md:block flex items-end">
               {posts?.map((post, index) => (
-                <motion.div
+                <div
                   key={index}
-                  className={`embla__slide h-full cursor-pointer flex-shrink-0 relative w-full ${
-                    activeIndex === index ? "active" : ""
-                  }`}
+                  data-index={index}
+                  className="event-slide snap-center flex-shrink-0 h-[500px] w-[90%] min-w-[274px] mr-4 relative cursor-pointer"
                   style={{
                     backgroundImage: `url(${post.thumbnail})`,
                     backgroundPosition: "center",
                     backgroundSize: "cover",
                   }}
                 >
-                  <motion.div
-                    className="absolute inset-0 px-5 flex flex-col cursor-pointer pt-[50px] pb-5 text-white"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(101, 65, 242, 0.57) 0%, rgba(13, 0, 181, 0.57) 100%)",
-                      opacity: 0,
-                    }}
-                    onClick={() => openDetailModal(post)}
-                  >
-                    <div className="flex-1">
-                      <Text variant="h2" className="break-all text-2xl">
-                        {post.title}
-                      </Text>
-                      <Text variant="h4" className="mt-2 font-medium text-lg">
-                        {post.date}
-                      </Text>
-                    </div>
-                    <div className="flex items-center mt-auto gap-2 flex-wrap">
-                      {post.tags?.map((tag, idx) => (
-                        <Tag key={idx}>{tag}</Tag>
-                      ))}
-                    </div>
-                  </motion.div>
-                </motion.div>
+                  {activeIndex === index && (
+                    <>
+                      <motion.div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(101, 65, 242, 0.57) 0%, rgba(13, 0, 181, 0.57) 100%)",
+                          opacity: 0.8,
+                        }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 px-5 z-[80] flex flex-col cursor-pointer pt-[50px] pb-5 text-white"
+                        onClick={() => openDetailModal(post)}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex-1">
+                          <Text variant="h2" className="break-all text-2xl">
+                            {post.title}
+                          </Text>
+                          <Text
+                            variant="h4"
+                            className="mt-2 font-medium text-lg"
+                          >
+                            {post.date}
+                          </Text>
+                        </div>
+                        <div className="flex items-center mt-auto gap-2 flex-wrap">
+                          {post.tags?.map((tag, idx) => (
+                            <Tag key={idx}>{tag}</Tag>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
           {posts && posts.length > 1 && (
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4 gap-4">
               <Button
                 className="bg-transparent w-5 h-5"
                 isIconOnly

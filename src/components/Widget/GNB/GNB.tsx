@@ -45,7 +45,7 @@ export const GNB: React.FC = () => {
 
   return (
     <motion.header
-      className={classNames("px-5 max-md:h-[70px]")}
+      className={classNames("px-5 max-md:h-[90px]")}
       ref={headerRef}
       animate={{
         backgroundColor: isBlackArea ? "#000000" : "#FFFFFF",

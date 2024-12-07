@@ -185,7 +185,7 @@ const Step1: React.FC = () => {
 
         {/* 우측 Text & 박스 */}
 
-        <div className="max-w-[768px] grow shrink relative z-[90]">
+        <div className="max-w-[768px] grow shrink relative z-[40]">
           <div className="w-full h-full mb-6">
             <Text
               variant="h4"
@@ -202,8 +202,8 @@ const Step1: React.FC = () => {
               style={{ height: "200%" }}
             ></div> */}
 
-          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
-            <div className="flex gap-4 md:contents h-[638px] items-end relative">
+          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-y-auto overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
+            <div className="flex gap-4  h-[638px] items-end ">
               <div
                 style={{
                   position: "absolute",
@@ -216,6 +216,7 @@ const Step1: React.FC = () => {
                   })`,
                   backgroundSize: "1443px 311px",
                   backgroundRepeat: "no-repeat",
+                  backgroundPositionX: "left 33px",
                   opacity: "0.1", // 불투명도 조절 (0부터 1 사이의 값)
                   zIndex: "-1",
                 }}
