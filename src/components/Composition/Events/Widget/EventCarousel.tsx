@@ -203,7 +203,7 @@ export const EventCarousel: React.FC<EventCarouselProps> = ({ posts }) => {
                     whileHover={{ opacity: 1 }}
                     onClick={() => openDetailModal(post)}
                   >
-                    <div className="flex-1">
+                    <div className="flex-1 text-white">
                       <Text variant="h2" className="break-all">
                         {post.title}
                       </Text>
