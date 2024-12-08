@@ -1,32 +1,26 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0,
-  });
+export const useWindowSize = (query: string) => {
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+    const mediaQuery = window.matchMedia(query);
+    setMatches(mediaQuery.matches);
 
-      setWindowSize({
-        width,
-        height,
-      });
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
     };
 
-    window.addEventListener("resize", handleResize);
-    handleResize(); // 초기 사이즈 설정
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [query]);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  const isMobile = windowSize.width >= 360 && windowSize.width <= 768;
-  const isDesktop = windowSize.width >= 769;
+  return matches;
+};
 
-  return { ...windowSize, isMobile, isDesktop };
+// 자주 사용하는 미디어쿼리를 위한 훅
+export const useIsMobile = () => {
+  return useWindowSize("(max-width: 768px)");
 };

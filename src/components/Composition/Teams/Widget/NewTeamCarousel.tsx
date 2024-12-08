@@ -7,6 +7,7 @@ import { motion, useInView } from "framer-motion";
 import { RepresentativeCard } from "./RepresentativeCard";
 import { useDisclosure } from "@nextui-org/react";
 import { RepresentativeModal } from "./RepresentativeModal";
+import { useIsMobile } from "@/hooks/useWindowSize";
 
 interface TeamCarouselType {
   teams?: TeamItem[];
@@ -17,7 +18,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const representative = useDisclosure();
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const isInView = useInView(containerRef, { once: true, amount: "some" });
 
   useEffect(() => {
@@ -34,15 +35,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
       setSelectedIndex(index);
     }
   };
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
   if (!teams) return null;
 
   const gridVariants = {

@@ -67,7 +67,6 @@ const Divider: React.FC<DividerProps> = ({
       }
     };
 
-    // ResizeObserver로 요소 크기 변경 감지
     const resizeObserver = new ResizeObserver(() => {
       updateTitleHeight();
     });
@@ -90,17 +89,13 @@ const Divider: React.FC<DividerProps> = ({
 
     if (!sticky || !scroll) return;
 
-    const { top: stickyTop, bottom: stickyBottom } =
-      sticky.getBoundingClientRect();
-    const { top: scrollTop } = scroll.getBoundingClientRect();
-
     const observer = new IntersectionObserver(([entry]) => {}, {
       root: scroll,
       threshold: 1,
     });
     observer.observe(sticky);
   }, [scrollRef]);
-  console.log(idx, year);
+
   return (
     // <div key={year}>
     //   <div className="flex flex-col">

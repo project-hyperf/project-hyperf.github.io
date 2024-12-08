@@ -12,6 +12,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { useIsMobile } from "@/hooks/useWindowSize";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -227,17 +228,8 @@ const AboutContent: React.FC = () => {
     once: false,
   });
 
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
   const variants = {
     desktop: {
       container: {},

@@ -4,14 +4,15 @@ import { images } from "@/assets/images/images";
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { useIsMobile } from "@/hooks/useWindowSize";
 import classNames from "classnames";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export const Outcomes: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [selectedStep, setSelectedStep] = useState(1);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -34,16 +35,6 @@ export const Outcomes: React.FC = () => {
   });
 
   const x = useTransform(smoothScrollY, [0, 1], [0, -2600]);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   return (
     <div className="pt-[104px] pb-[114px]">
