@@ -194,7 +194,7 @@ const Step1: React.FC<StepProps> = ({ isMobile = false }) => {
                   style={{
                     position: "absolute",
                     top: "80px",
-                    left: "-10px",
+                    left: "50px",
                     width: "1443px",
                     height: "311px",
                     backgroundImage: `url(${
