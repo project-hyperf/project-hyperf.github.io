@@ -8,7 +8,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 import { Post } from "@/hooks/usePosts";
-import style from "styled-jsx/style";
 
 interface EventCarouselProps {
   posts?: Post[];
