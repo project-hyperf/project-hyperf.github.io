@@ -2,6 +2,7 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { useIsMobile } from "@/hooks/useWindowSize";
 import {
   Modal,
   ModalContent,
@@ -16,15 +17,8 @@ interface MethodModalProps {
   isOpen?: boolean;
 }
 export const MethodModal: React.FC<MethodModalProps> = ({}) => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
+
   return (
     <>
       <ModalHeader className="pt-10">

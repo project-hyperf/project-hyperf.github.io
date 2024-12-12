@@ -13,6 +13,7 @@ import classNames from "classnames";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PictureGrid } from "./PictureGrid";
 import { Post } from "@/hooks/usePosts";
+import { useIsMobile } from "@/hooks/useWindowSize";
 
 interface EventModalProps {
   post: Post;
@@ -27,7 +28,7 @@ export const EventModal: React.FC<EventModalProps> = ({
   modalProps,
   onClose,
 }) => {
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const isPictureExists =
     post && post.picture && post.picture?.length && post.picture.length > 0;
   const [selectedPictureIndex, setSelectedPictureIndex] = useState<
@@ -47,15 +48,6 @@ export const EventModal: React.FC<EventModalProps> = ({
     [selectedPictureIndex],
   );
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
   if (!post) return null;
   return (
     <Modal

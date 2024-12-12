@@ -9,7 +9,7 @@ export const KeyVisual: React.FC = () => {
         muted
         loop
         playsInline
-        className="absolute md:inset-0 max-md:-top-24 max-md:-ml-[250px] max-md:min-w-[700px] max-md:h-[500px] object-cover transform lg:scale-[1.3] md:-translate-x-[60px] max-md:scale-80 flex-1 "
+        className="absolute md:inset-0 max-md:-top-24 max-sm:-ml-[250px] max-md:-ml-[100px] max-md:min-w-[700px] max-md:h-[500px] object-cover transform lg:scale-[1.3] md:-translate-x-[60px] max-sm:scale-80 flex-1 "
       >
         <source src="/images/hyperf_main.mp4" type="video/mp4" />
       </video>

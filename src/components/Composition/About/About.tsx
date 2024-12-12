@@ -5,23 +5,14 @@ import GradientIcon from "@/components/UI/Icon/GradientIcon";
 import { Text } from "@/components/UI/Text/Text";
 import { Divider, Spacer } from "@nextui-org/react";
 import { NecessityModal } from "./NecessityModal";
-import React, { FC, useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
-import {
-  useTransform,
-  motion,
-  useScroll,
-  useMotionValueEvent,
-  AnimatePresence,
-  useInView,
-  animate,
-} from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
 import classNames from "classnames";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { on } from "events";
-import { exit } from "process";
+import { useIsMobile } from "@/hooks/useWindowSize";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -237,26 +228,8 @@ const AboutContent: React.FC = () => {
     once: false,
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [startAnimation, setStartAnimation] = useState(false);
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    if (isInView) {
-      setTimeout(() => {
-        setStartAnimation(true);
-      }, 2000);
-    }
-  }, [isInView]);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
   const variants = {
     desktop: {
       container: {},

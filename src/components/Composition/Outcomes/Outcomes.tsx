@@ -4,15 +4,15 @@ import { images } from "@/assets/images/images";
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import { useIsMobile } from "@/hooks/useWindowSize";
 import classNames from "classnames";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import style from "styled-jsx/style";
+import { useRef, useState } from "react";
 
 export const Outcomes: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [selectedStep, setSelectedStep] = useState(1);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -35,16 +35,6 @@ export const Outcomes: React.FC = () => {
   });
 
   const x = useTransform(smoothScrollY, [0, 1], [0, -2600]);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   return (
     <div className="pt-[104px] pb-[114px]">
@@ -102,7 +92,7 @@ export const Outcomes: React.FC = () => {
           </div>
           <div className="step">
             <div className="">
-              {selectedStep === 1 && <Step1 />}
+              {selectedStep === 1 && <Step1 isMobile />}
               {selectedStep === 2 && <Step2 />}
             </div>
           </div>
@@ -157,8 +147,10 @@ export const Outcomes: React.FC = () => {
     </div>
   );
 };
-
-const Step1: React.FC = () => {
+interface StepProps {
+  isMobile?: boolean;
+}
+const Step1: React.FC<StepProps> = ({ isMobile = false }) => {
   return (
     <>
       <div className="w-full max-md:overflow-hidden flex md:flex-row md:flex-wrap flex-col md:gap-[143px] gap-10 items-center justify-center md:items-end pb-3 px-4">
@@ -185,7 +177,7 @@ const Step1: React.FC = () => {
 
         {/* 우측 Text & 박스 */}
 
-        <div className="max-w-[768px] grow shrink relative z-[90]">
+        <div className="max-w-[768px] grow shrink relative z-[40]">
           <div className="w-full h-full mb-6">
             <Text
               variant="h4"
@@ -195,73 +187,112 @@ const Step1: React.FC = () => {
               <br className="max-md:block " /> HPC(고성능 컴퓨팅)를 사용해 확장
             </Text>
           </div>
-          {/* 스크롤 컨테이너 */}
-          {/* 배경 추가 */}
-          {/* <div
-              className="absolute inset-0 bg-gray-100 z-0"
-              style={{ height: "200%" }}
-            ></div> */}
-
-          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
-            <div className="flex gap-4 md:contents h-[638px] items-end relative">
-              <div
-                style={{
-                  position: "absolute",
-                  top: "80px",
-                  left: "-10px",
-                  width: "1443px",
-                  height: "311px",
-                  backgroundImage: `url(${
-                    images[`images/bg/bg-logo.png`].src
-                  })`,
-                  backgroundSize: "1443px 311px",
-                  backgroundRepeat: "no-repeat",
-                  opacity: "0.1", // 불투명도 조절 (0부터 1 사이의 값)
-                  zIndex: "-1",
-                }}
-                className="md:hidden"
-              />
-              <div className="md:contents flex-none w-[320px] snap-center">
-                <StepBox
-                  title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
-                  purpose={`반복문 병렬화 및 최적화를 통해\n TVM의 실행 성능 향상`}
-                  tasks={[
-                    "반복문 분리 및 개별 함수화",
-                    "Tensor IR 기반 오토튜닝 및 코드생성",
-                    "오브젝트 파일 생성",
-                  ]}
+          <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-y-auto overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
+            {isMobile ? (
+              <div className="flex gap-4 h-[638px] items-end ">
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "80px",
+                    left: "50px",
+                    width: "1443px",
+                    height: "311px",
+                    backgroundImage: `url(${
+                      images[`images/bg/bg-logo.png`].src
+                    })`,
+                    backgroundSize: "1443px 311px",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPositionX: "left 33px",
+                    opacity: "0.1",
+                    zIndex: "-1",
+                  }}
+                  className="md:hidden"
                 />
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
+                    purpose={`반복문 병렬화 및 최적화를 통해\n TVM의 실행 성능 향상`}
+                    tasks={[
+                      "반복문 분리 및 개별 함수화",
+                      "Tensor IR 기반 오토튜닝 및 코드생성",
+                      "오브젝트 파일 생성",
+                    ]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title="희소 행렬 최적화"
+                    purpose={`희소 행렬 포맷을 활용해\n 반복문 최적화 및 성능 개선`}
+                    tasks={["희소 행렬 포맷 적용", "Blocked CSR 최적화"]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title="전력 예측 모델"
+                    purpose="전력 소비를 고려한 성능 최적화"
+                    tasks={[
+                      "성능 카운터 기반 전력 모델 개발",
+                      "KNL 기반 모델 학습 및 최적화",
+                      "TVM 탐색 모델 통합",
+                    ]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title={`전력 예측 기반\n 다목적 오토튜닝`}
+                    purpose={`성능과 전력 소비의 균형을 맞춘\n 최적화를 달성`}
+                    tasks={[
+                      "소비 전력 예측 모델 활용",
+                      "연산 패턴 기반 전력 예측 기술 적용",
+                      "TVM 탐색 모델 통합",
+                    ]}
+                  />
+                </div>
               </div>
-              <div className="md:contents flex-none w-[320px] snap-center">
-                <StepBox
-                  title="희소 행렬 최적화"
-                  purpose={`희소 행렬 포맷을 활용해\n 반복문 최적화 및 성능 개선`}
-                  tasks={["희소 행렬 포맷 적용", "Blocked CSR 최적화"]}
-                />
-              </div>
-              <div className="md:contents flex-none w-[320px] snap-center">
-                <StepBox
-                  title="전력 예측 모델"
-                  purpose="전력 소비를 고려한 성능 최적화"
-                  tasks={[
-                    "성능 카운터 기반 전력 모델 개발",
-                    "KNL 기반 모델 학습 및 최적화",
-                    "TVM 탐색 모델 통합",
-                  ]}
-                />
-              </div>
-              <div className="md:contents flex-none w-[320px] snap-center">
-                <StepBox
-                  title={`전력 예측 기반\n 다목적 오토튜닝`}
-                  purpose={`성능과 전력 소비의 균형을 맞춘\n 최적화를 달성`}
-                  tasks={[
-                    "소비 전력 예측 모델 활용",
-                    "연산 패턴 기반 전력 예측 기술 적용",
-                    "TVM 탐색 모델 통합",
-                  ]}
-                />
-              </div>
-            </div>
+            ) : (
+              <>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title={`HPC 프론트엔드\n  (OpenMP/MPI C) 개발`}
+                    purpose={`반복문 병렬화 및 최적화를 통해\n TVM의 실행 성능 향상`}
+                    tasks={[
+                      "반복문 분리 및 개별 함수화",
+                      "Tensor IR 기반 오토튜닝 및 코드생성",
+                      "오브젝트 파일 생성",
+                    ]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title="희소 행렬 최적화"
+                    purpose={`희소 행렬 포맷을 활용해\n 반복문 최적화 및 성능 개선`}
+                    tasks={["희소 행렬 포맷 적용", "Blocked CSR 최적화"]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title="전력 예측 모델"
+                    purpose="전력 소비를 고려한 성능 최적화"
+                    tasks={[
+                      "성능 카운터 기반 전력 모델 개발",
+                      "KNL 기반 모델 학습 및 최적화",
+                      "TVM 탐색 모델 통합",
+                    ]}
+                  />
+                </div>
+                <div className="md:contents flex-none w-[320px] snap-center">
+                  <StepBox
+                    title={`전력 예측 기반\n 다목적 오토튜닝`}
+                    purpose={`성능과 전력 소비의 균형을 맞춘\n 최적화를 달성`}
+                    tasks={[
+                      "소비 전력 예측 모델 활용",
+                      "연산 패턴 기반 전력 예측 기술 적용",
+                      "TVM 탐색 모델 통합",
+                    ]}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

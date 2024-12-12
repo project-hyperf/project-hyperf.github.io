@@ -1,5 +1,7 @@
+import { images } from "@/assets/images/images";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
+import Image from "next/image";
 
 const AGNECY_LIST = [
   { name: "서울대학교", key: "seoul" },
@@ -17,12 +19,16 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center flex-wrap md:gap-6 gap-1 max-md:-ml-4">
             {AGNECY_LIST.map((agency) => (
-              <CustomImage
-                src={`images/agency/${agency.key}.png`}
-                alt={agency.name}
-                key={agency.key}
-                className="max-md:trasform max-md:scale-[0.6] w-fit md:scale-110"
-              />
+              <div key={agency.key} className="relative w-[60px] h-[20px]">
+                <Image
+                  src={`${images[`images/agency/${agency.key}.svg`].src}`}
+                  alt={agency.name}
+                  key={agency.key}
+                  className="max-md:trasform max-md:scale-[0.6] shrink md:scale-110"
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
             ))}
           </div>
           <Text

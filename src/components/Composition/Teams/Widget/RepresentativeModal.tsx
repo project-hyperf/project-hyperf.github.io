@@ -9,14 +9,15 @@ import {
 import { Tags } from "./RepresentativeCard";
 import { Text } from "@/components/UI/Text/Text";
 import classNames from "classnames";
-import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { motion, animate, AnimatePresence } from "framer-motion";
+
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { exit, title } from "process";
-import { FC, useState } from "react";
+
+import { useState } from "react";
+import { TeamItem } from "@/hooks/useTeams";
 
 interface RepresentativeModalProps {
-  representative: any;
+  representative: TeamItem;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -39,7 +40,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
           <>
             <ModalHeader className="pt-8" />
             <ModalBody className="px-5 scrollbar-hide bg-primary-bg-modal">
-              <ScrollShadow className="scrollbar-hide">
+              <ScrollShadow className="scrollbar-hide pb-7">
                 <div className="tag mb-4 px-0">
                   <Tags tags={representative.tags} />
                 </div>
