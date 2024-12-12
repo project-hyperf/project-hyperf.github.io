@@ -50,8 +50,8 @@ export const About: React.FC = () => {
         className="!text-[45px] max-md:!text-[20px] !font-extrabold text-white text-center max-md:font-bold mb-20"
       >
         다계층(multi-level),
-        <br className="md:hidden" /> 다목적(multi-objective)
-        오토튜닝프레임워크개발
+        <br className="md:hidden" /> 다목적(multi-objective) 오토튜닝 프레임워크
+        개발
       </Text>
       <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full max-md:px-5">
         {DescriptionButtonList.map((button, idx) => (
@@ -117,7 +117,7 @@ const AboutTitle: React.FC = () => {
         variant="h0"
         className="md:!text-[50px] !text-[26px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
       >
-        엑사급 초고성능 컴퓨터의
+        엑사급 초고성능컴퓨터의
         <br className="lg:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 pt-1.5 h-[64px] inline-block"

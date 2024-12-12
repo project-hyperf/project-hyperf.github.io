@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TeamCarouselThumb } from "./TeamCarouselThumb";
 import { TeamItem } from "@/hooks/useTeams";
 import classNames from "classnames";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { RepresentativeCard } from "./RepresentativeCard";
 import { useDisclosure } from "@nextui-org/react";
 import { RepresentativeModal } from "./RepresentativeModal";
@@ -15,24 +15,38 @@ interface TeamCarouselType {
 const MOBILELENGTH = 8;
 const DESKTOPLENGTH = 9;
 export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const isMobile = useIsMobile();
+  // const buttonPositions = isMobile ? [0, 1, 3, 4, 6, 7] : [1, 2, 3, 4, 6, 8];
+  const buttonPositions = useMemo(() => {
+    if (isMobile) {
+      return [0, 1, 3, 4, 6, 7];
+    } else {
+      return [1, 2, 3, 4, 6, 8];
+    }
+  }, [isMobile]);
+  const [selectedIndex, setSelectedIndex] = useState(buttonPositions[0]);
+  console.log(
+    isMobile,
+    buttonPositions[0],
+    selectedIndex,
+    buttonPositions[selectedIndex],
+    buttonPositions.indexOf(selectedIndex),
+  );
   const representative = useDisclosure();
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const isMobile = useIsMobile();
-  const isInView = useInView(containerRef, { once: true, amount: "some" });
 
   useEffect(() => {
     if (!representative.isOpen) {
-      setSelectedIndex(-1);
+      setSelectedIndex(buttonPositions[0]);
     }
-  }, [representative.isOpen]);
+  }, [representative.isOpen, buttonPositions]);
 
   const onThumbClick = (index: number) => {
     if (isMobile) {
-      setSelectedIndex(index);
+      setSelectedIndex(buttonPositions[index]);
       representative.onOpen();
     } else {
-      setSelectedIndex(index);
+      setSelectedIndex(buttonPositions[index]);
     }
   };
 
@@ -62,38 +76,12 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
       },
     },
   };
-  const calculateGradientColors = (idx: number) => {
-    const startColor = { r: 13, g: 0, b: 181 };
-    const endColor = { r: 200, g: 28, b: 204 };
-
-    const row = Math.floor(idx / 3);
-
-    const startPosition = row / 4;
-    const endPosition = (row + 1) / 2;
-
-    const startR = Math.round(
-      startColor.r + (endColor.r - startColor.r) * startPosition,
-    );
-    const startG = Math.round(
-      startColor.g + (endColor.g - startColor.g) * startPosition,
-    );
-    const startB = Math.round(
-      startColor.b + (endColor.b - startColor.b) * startPosition,
-    );
-
-    const endR = Math.round(
-      startColor.r + (endColor.r - startColor.r) * endPosition,
-    );
-    const endG = Math.round(
-      startColor.g + (endColor.g - startColor.g) * endPosition,
-    );
-    const endB = Math.round(
-      startColor.b + (endColor.b - startColor.b) * endPosition,
-    );
-
-    return `linear-gradient(180deg, rgb(${startR}, ${startG}, ${startB}), rgb(${endR}, ${endG}, ${endB}))`;
-  };
-  console.log("teams", teams);
+  console.log(
+    selectedIndex,
+    teams[buttonPositions[selectedIndex]],
+    buttonPositions.indexOf(selectedIndex),
+    buttonPositions[selectedIndex],
+  );
   return (
     <div className="max-w-[1552px] mx-auto flex flex-row-reverse flex-wrap-reverse gap-[96px] justify-center items-stretch">
       {selectedIndex !== -1 && (
@@ -105,7 +93,9 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
           className="flex-1 max-w-[668px] max-md:hidden"
           key={selectedIndex}
         >
-          <RepresentativeCard representative={teams[selectedIndex]} />
+          <RepresentativeCard
+            representative={teams[buttonPositions.indexOf(selectedIndex)]}
+          />
         </motion.div>
       )}
 
@@ -121,13 +111,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
             {Array.from({
               length: isMobile ? MOBILELENGTH : DESKTOPLENGTH,
             }).map((_, idx) => {
-              const buttonPositions = isMobile
-                ? [0, 1, 3, 4, 6, 7]
-                : [1, 2, 3, 4, 6, 8];
-
               const teamIndex = buttonPositions.indexOf(idx);
-
-              const sectionGradient = calculateGradientColors(idx);
 
               if (teamIndex === -1) {
                 return (
@@ -154,9 +138,10 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                     <TeamCarouselThumb
                       key={teams?.[teamIndex]?.university}
                       onClick={() => onThumbClick(teamIndex)}
-                      selected={teamIndex === selectedIndex}
+                      selected={
+                        buttonPositions.indexOf(selectedIndex) === teamIndex
+                      }
                       team={teams[teamIndex]}
-                      hoverEffect={sectionGradient}
                     />
                   </div>
                   {/* <div
@@ -173,7 +158,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
         </div>
       </motion.div>
       <RepresentativeModal
-        representative={teams[selectedIndex]}
+        representative={teams[buttonPositions.indexOf(selectedIndex)]}
         {...representative}
       />
     </div>

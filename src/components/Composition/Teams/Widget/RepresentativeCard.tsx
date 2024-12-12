@@ -23,6 +23,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
   representative,
   className,
 }) => {
+  if (!representative) return null;
   return (
     <div className={classNames("w-full relative h-full", className)}>
       <div
@@ -30,7 +31,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
         style={{
           backgroundImage: `url(${
             images[
-              `images/teams/agency/${representative.university}-default.png`
+              `images/teams/agency/${representative?.university}-default.png`
             ].src
           })`,
           backgroundRepeat: "no-repeat",

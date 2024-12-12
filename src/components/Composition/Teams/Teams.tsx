@@ -40,11 +40,8 @@ export const Teams: React.FC = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            console.log(entry);
             setIsInView(true);
             const intersectionHeight = entry.intersectionRect.y;
-            // console.log(intersectionHeight, sectionTop, sectionHeight);
-            // const viewportHeight = window.innerHeight;
 
             const progress = Math.min(
               Math.max((intersectionHeight - sectionTop) / sectionHeight, 0),

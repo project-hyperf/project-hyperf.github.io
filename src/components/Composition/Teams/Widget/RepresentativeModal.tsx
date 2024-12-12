@@ -26,7 +26,6 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  console.log(representative);
   return (
     <Modal
       isOpen={isOpen}

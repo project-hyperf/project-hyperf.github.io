@@ -31,18 +31,19 @@ const KeyTitle: React.FC = () => {
       </Text>
       <Text variant="h0" className="md:!text-[64px] !text-[28px] md:mb-3">
         엑사급
-        <br className="md:hidden" /> 초고성능 컴퓨터를 위한
+        <br className="md:hidden" /> 초고성능컴퓨터를 위한
         <br />
         다계층/다목적
-        <br className="md:hidden" /> 오토튜닝 프레임 워크 개발
+        <br className="md:hidden" /> 오토튜닝 프레임워크 개발
       </Text>
       <Text
         variant="t3"
         className="uppercase hidden md:block !text-[24px] tracking-[0] !font-bold"
       >
-        <StrongKeyWord>HY</StrongKeyWord>PERF High-
-        <StrongKeyWord>Per</StrongKeyWord>
-        formanceEnergy-AwareResourceAutotuning<StrongKeyWord>F</StrongKeyWord>
+        <StrongKeyWord>HY</StrongKeyWord>PERF{" "}
+        <StrongKeyWord>High</StrongKeyWord>-<StrongKeyWord>Per</StrongKeyWord>
+        formance Energy-Aware Resource Autotuning
+        <StrongKeyWord> F</StrongKeyWord>
         ramework
       </Text>
     </div>

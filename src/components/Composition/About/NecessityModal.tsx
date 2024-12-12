@@ -94,7 +94,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
             variant="h5"
             className="!text-[26px] text-center text-white pt-[34px] pb-[34px] max-md:!text-[20px] max-md:py-9 px-4 max-md:px-[15px]"
           >
-            엑사급 초고성능 컴퓨터의
+            엑사급 초고성능컴퓨터의
             <br className="md:hidden" /> 잠재성능을 최대한 활용하면서
             <br className="md:hidden" /> 응용별, 하드웨어별 기반 SW의
             <br className="md:hidden" /> 개발 노력을 최소화
