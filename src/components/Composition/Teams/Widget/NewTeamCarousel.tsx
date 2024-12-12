@@ -25,13 +25,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
     }
   }, [isMobile]);
   const [selectedIndex, setSelectedIndex] = useState(buttonPositions[0]);
-  console.log(
-    isMobile,
-    buttonPositions[0],
-    selectedIndex,
-    buttonPositions[selectedIndex],
-    buttonPositions.indexOf(selectedIndex),
-  );
+
   const representative = useDisclosure();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -76,12 +70,7 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
       },
     },
   };
-  console.log(
-    selectedIndex,
-    teams[buttonPositions[selectedIndex]],
-    buttonPositions.indexOf(selectedIndex),
-    buttonPositions[selectedIndex],
-  );
+
   return (
     <div className="max-w-[1552px] mx-auto flex flex-row-reverse flex-wrap-reverse gap-[96px] justify-center items-stretch">
       {selectedIndex !== -1 && (
