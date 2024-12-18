@@ -2,7 +2,6 @@ import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { ModalBody, ModalHeader } from "@nextui-org/react";
 import classNames from "classnames";
-
 import React, { useEffect, useRef, useState } from "react";
 
 interface IntegrationStepModalProps {}
@@ -55,33 +54,7 @@ const Divider: React.FC<DividerProps> = ({
   scrollRef,
 }) => {
   const stickyTopRef = useRef<HTMLDivElement>(null);
-  const [titleHeight, setTitleHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateTitleHeight = () => {
-      if (stickyTopRef.current) {
-        const rect = stickyTopRef.current.getBoundingClientRect();
-
-        setTitleHeight(rect.height);
-      }
-    };
-
-    const resizeObserver = new ResizeObserver(() => {
-      updateTitleHeight();
-    });
-
-    if (stickyTopRef.current) {
-      resizeObserver.observe(stickyTopRef.current);
-    }
-
-    // 초기 업데이트
-    updateTitleHeight();
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     const sticky = stickyTopRef.current;

@@ -6,6 +6,8 @@ import classNames from "classnames";
 
 import { Pagination } from "./Widget/Pagenation";
 import { useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
+import { EventModal } from "@/components/Widget/Modal/EventModal/EventModal";
 
 export const Events: React.FC = () => {
   const { posts, isLoading } = usePosts({
@@ -36,15 +38,20 @@ export const Events: React.FC = () => {
 interface EventListProps {
   posts: Post[];
 }
+const ITEMS_PER_PAGE = 5;
 const EventList: React.FC<EventListProps> = ({ posts }) => {
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const eventModal = useDisclosure();
+  const [selectedPost, setSelectedPost] = useState<Post>();
   const [currentPage, setCurrentPage] = useState(1);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const openModal = (post: Post) => {
+    setSelectedPost(post);
+    eventModal.onOpen();
+  };
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
   const postsPerPage = [...posts].slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div className="w-[1200px] mx-auto">
@@ -54,11 +61,12 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
             <div
               key={index}
               className={classNames(
-                "flex md:justify-between gap-2 py-[25px] px-5 items-center",
+                "flex md:justify-between gap-2 py-[25px] px-5 items-center cursor-pointer",
                 index !== postsPerPage.length - 1
                   ? "border-b-2 border-black"
                   : "",
               )}
+              onClick={() => openModal(event)}
             >
               <div className="flex items-center justify-between gap-2 w-full">
                 <div className="font-bold text-sm md:text-base text-black">
@@ -79,9 +87,16 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
 
       <Pagination
         totalItems={posts.length}
-        itemsPerPage={itemsPerPage}
+        itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={handlePageChange}
       />
+      {selectedPost && (
+        <EventModal
+          isOpen={eventModal.isOpen}
+          onClose={eventModal.onClose}
+          post={selectedPost}
+        />
+      )}
     </div>
   );
 };
