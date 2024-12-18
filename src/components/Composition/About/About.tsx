@@ -8,11 +8,14 @@ import { NecessityModal } from "./NecessityModal";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ModalsDispatchContext } from "@/components/Utilities/Providers/ModalProvider";
 import { MethodModal } from "@/components/Widget/Modal/MethodModal";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { IntegrationStepModal } from "./IntegrationStepModal";
-import classNames from "classnames";
+
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { useIsMobile } from "@/hooks/useWindowSize";
+
+import { AboutArticle } from "./UI/Article";
+import { images } from "@/assets/images/images";
+import { AboutContent } from "./UI/AboutContent";
 
 export const About: React.FC = () => {
   const { open } = useContext(ModalsDispatchContext);
@@ -32,54 +35,70 @@ export const About: React.FC = () => {
   ];
   return (
     <div
-      className="bg-black  pb-[146px] w-full flex flex-col items-center px-5"
+      className="bg-black md:pt-[168px] pb-[146px] w-full flex flex-col items-center relative"
       id="about"
     >
+      <div
+        style={{
+          backgroundImage: `url(${images["images/bg/bg_about.png"].src})`,
+          backgroundSize: "100% 962px",
+          backgroundPosition: "bottom",
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+      />
+
       <Text
         variant="t2"
-        className="text-white !text-[30px] md:hidden text-center pt-[40px]"
+        className="text-white md:!text-[50px] md:!font-bold text-center mb-[95px]"
       >
         About
       </Text>
+      <AboutArticle />
       <AboutTitle />
 
       <AboutContent />
-
-      <Text
-        variant="h0"
-        className="!text-[45px] max-md:!text-[20px] !font-extrabold text-white text-center max-md:font-bold mb-20"
-      >
-        다계층(multi-level),
-        <br className="md:hidden" /> 다목적(multi-objective) 오토튜닝 프레임워크
-        개발
-      </Text>
-      <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full max-md:px-5">
-        {DescriptionButtonList.map((button, idx) => (
-          <React.Fragment key={idx}>
-            <BorderButton
-              onClick={button.onClick}
-              className="hover:!bg-white group max-md:w-full"
-              endContent={
-                <div className="flex w-[60px] justify-between">
-                  <Divider
-                    orientation="vertical"
-                    className="!w-[2px] !h-[45px] bg-white group-hover:bg-primary-assistive"
-                  />
-                  {/* <div className="relative"> */}
-                  <GradientIcon className="my-auto" />
-                  {/* </div> */}
-                </div>
-              }
-            >
-              <Text
-                variant="h3"
-                className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px] max-md:!text-[20px]"
+      <div className="relative">
+        <Text
+          variant="h0"
+          className="!text-[45px] max-md:!text-[20px] !font-extrabold text-white text-center max-md:font-bold mb-20"
+        >
+          다계층(multi-level),
+          <br className="md:hidden" /> 다목적(multi-objective) 오토튜닝
+          프레임워크 개발
+        </Text>
+        <div className="flex xl:flex-row flex-col gap-10 items-center md:justify-center w-full max-md:px-5">
+          {DescriptionButtonList.map((button, idx) => (
+            <React.Fragment key={idx}>
+              <BorderButton
+                onClick={button.onClick}
+                className="hover:!bg-white group max-md:w-full"
+                endContent={
+                  <div className="flex w-[60px] justify-between">
+                    <Divider
+                      orientation="vertical"
+                      className="!w-[2px] !h-[45px] bg-white group-hover:bg-primary-assistive"
+                    />
+                    {/* <div className="relative"> */}
+                    <GradientIcon className="my-auto" />
+                    {/* </div> */}
+                  </div>
+                }
               >
-                {button.label}
-              </Text>
-            </BorderButton>
-          </React.Fragment>
-        ))}
+                <Text
+                  variant="h3"
+                  className="text-white group-hover:bg-primary-assistive group-hover:bg-clip-text group-hover:text-transparent leading-[33.60px] max-md:!text-[20px]"
+                >
+                  {button.label}
+                </Text>
+              </BorderButton>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -112,7 +131,7 @@ const AboutTitle: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full" ref={ref}>
+    <div className="w-full px-5" ref={ref}>
       <Text
         variant="h0"
         className="md:!text-[50px] !text-[26px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
@@ -219,121 +238,3 @@ const AboutTitle: React.FC = () => {
     </div>
   );
 };
-
-const AboutContent: React.FC = () => {
-  const ref = useRef(null);
-
-  const isInView = useInView(ref, {
-    amount: 0.3,
-    once: false,
-  });
-
-  const isMobile = useIsMobile();
-
-  const variants = {
-    desktop: {
-      container: {},
-      item: {
-        hidden: { width: "2px", padding: "0px", opacity: 0 },
-        visible: { width: "480px", padding: "60px", opacity: 1 },
-      },
-    },
-    mobile: {
-      container: {},
-      item: {
-        hidden: { y: 100, opacity: 0 },
-        visible: { y: 0, opacity: 1 },
-      },
-    },
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex md:flex-row flex-col gap-4 w-full max-w-[1440px] max-xl:w-full mx-auto mb-[61px]"
-    >
-      {ABOUT_CONTENT.map((item, index) => (
-        <motion.div
-          key={item.key}
-          className={classNames(
-            "md:h-[480px] h-[204px] max-md:min-w-full border-white",
-            "max-md:border-t-1 md:border-l-1 shadow-md flex flex-col",
-            "overflow-hidden max-md:!py-8",
-            isMobile ? "w-full" : "",
-          )}
-          variants={isMobile ? variants.mobile.item : variants.desktop.item}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          transition={{
-            duration: 0.8,
-            delay: index * 0.4,
-            ease: "easeOut",
-          }}
-        >
-          <div className="flex flex-col max-md:gap-5 max-md:px-5 flex-1">
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              transition={{
-                delay: index * 0.4 + 0.2,
-                duration: 0.8,
-              }}
-            >
-              <Text
-                variant="h2"
-                className="text-white md:!text-[34px] !text-[21px] font-thin"
-              >
-                {item.title}
-              </Text>
-              <Text
-                variant="t2"
-                className="text-white !md:text-[44px] !text-[31px] font-bold"
-              >
-                {item.key}
-              </Text>
-            </motion.div>
-
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              transition={{
-                delay: index * 0.4 + 0.4,
-                duration: 0.8,
-              }}
-              className="mt-auto"
-            >
-              <Text className="text-white md:!text-[24px] text-sm whitespace-pre-wrap">
-                {item.content}
-              </Text>
-            </motion.div>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-};
-const ABOUT_CONTENT = [
-  {
-    title: "다계층",
-    key: "multi-level",
-    content: "고차원/저차원 최적화\n플랫폼 중립 최적화\n최적화 간 피드백 제공",
-  },
-  {
-    title: "다목적",
-    key: "multi-objective",
-    content: "실행시간과 전력 동시 고려\n다목적 탐색 알고리즘\n전력 모델링",
-  },
-  {
-    title: "탐색기반",
-    key: "search-driven",
-    content: "오토튜닝 용 샘플 생성\n하드웨어 프로파일링\n비용 모델 기반 탐색",
-  },
-];
