@@ -35,7 +35,7 @@ export const About: React.FC = () => {
   ];
   return (
     <div
-      className="bg-black md:pt-[168px] pb-[146px] w-full flex flex-col items-center relative"
+      className="bg-black md:pt-[168px] pt-[42px] pb-[146px] w-full flex flex-col items-center relative"
       id="about"
     >
       <div
@@ -54,7 +54,7 @@ export const About: React.FC = () => {
 
       <Text
         variant="t2"
-        className="text-white md:!text-[50px] md:!font-bold text-center mb-[95px]"
+        className="text-white md:!text-[50px] !text-[30px] md:!font-bold text-center mb-[95px]"
       >
         About
       </Text>

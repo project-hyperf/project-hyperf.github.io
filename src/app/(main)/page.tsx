@@ -18,7 +18,7 @@ const Components = {
   framework: Framework,
   outcomes: Outcomes,
   // modules: Modules,
-  events: Events,
+  news: Events,
 };
 
 export default function Home() {
