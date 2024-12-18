@@ -31,7 +31,13 @@ export const Events: React.FC = () => {
       >
         News
       </Text>
-      <EventList posts={posts} />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="w-full px-5">
+          <EventList posts={posts} />
+        </div>
+      )}
     </div>
   );
 };
@@ -54,7 +60,7 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
   const postsPerPage = [...posts].slice(indexOfFirstItem, indexOfLastItem);
   return (
-    <div className="w-[1200px] mx-auto">
+    <div className="max-w-[1200px] mx-auto">
       <div className="border-t-2 border-b-2 border-black px-1">
         {postsPerPage.map((event, index) => {
           return (
@@ -68,7 +74,7 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
               )}
               onClick={() => openModal(event)}
             >
-              <div className="flex items-center justify-between gap-2 w-full">
+              <div className="flex items-center max-md:flex-wrap justify-between gap-2 w-full">
                 <div className="font-bold text-sm md:text-base text-black">
                   <div className="flex gap-2 items-center">
                     <span>{event.title}</span>
