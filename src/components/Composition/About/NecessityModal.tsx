@@ -2,7 +2,7 @@ import { GradientBox } from "@/components/UI/Box/GradientBox";
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalHeader } from "@nextui-org/react";
 
 interface NecessityModalProps {
   isOpen: boolean;
@@ -46,8 +46,8 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
             className="text-center text-white pt-[34px] pb-[34px] !text-[26px] max-md:!text-[14px] max-md:py-5 px-4 max-md:px-[13px]"
           >
             반복적인 최적화 개발을 최소화하면서도 확장
-            <br className="md:hidden" />과 적응이 용이한 "프레임워크" 형태의
-            최적화
+            <br className="md:hidden" />과 적응이 용이한 &quot;프레임워크&quot;
+            형태의 최적화
             <br className="md:hidden" /> 메커니즘이 요구됨.
           </Text>
         </div>
@@ -94,7 +94,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
             variant="h5"
             className="!text-[26px] text-center text-white pt-[34px] pb-[34px] max-md:!text-[20px] max-md:py-9 px-4 max-md:px-[15px]"
           >
-            엑사급 초고성능 컴퓨터의
+            엑사급 초고성능컴퓨터의
             <br className="md:hidden" /> 잠재성능을 최대한 활용하면서
             <br className="md:hidden" /> 응용별, 하드웨어별 기반 SW의
             <br className="md:hidden" /> 개발 노력을 최소화

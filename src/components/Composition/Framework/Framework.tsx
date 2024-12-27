@@ -1,14 +1,23 @@
 "use client";
+import { images } from "@/assets/images/images";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
-import { useScroll, useTransform, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
   return (
-    <div className="w-full bg-primary-bg pt-[104px] pb-[178px] max-md:px-5">
+    <div
+      className="w-full pt-[104px] pb-[178px] max-md:px-5"
+      style={{
+        backgroundImage: `url(${images["images/bg/bg_framework.png"].src})`,
+        backgroundSize: "100% 100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Text
         variant="t1"
         className="text-white uppercase text-center md:!text-[50px] !text-[30px] mb-[116px]"

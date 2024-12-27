@@ -55,6 +55,7 @@ export default {
         "primary-bg": "linear-gradient(180deg, #6541F2 0%, #0D00B5 100%)",
         "primary-bg-modal":
           "linear-gradient(180deg, rgba(13, 0, 181, 0.00) 0%, rgba(13, 0, 181, 0.09) 100%)",
+        "bg-black": "linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.49) 27%)",
       },
       border: {
         primary: "linear-gradient(90deg, #C81CCC 0%, #0D00B5 100%)",

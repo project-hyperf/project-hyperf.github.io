@@ -20,7 +20,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
   useEffect(() => {
     const target = document.getElementById(newMenuKey);
     // const realTarget = menuKey === "outcomes" ? "real"
-    console.log(target);
+
     if (!target) return;
 
     const observer = new IntersectionObserver(

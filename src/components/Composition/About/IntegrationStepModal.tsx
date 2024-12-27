@@ -1,11 +1,8 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
-import { ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalHeader } from "@nextui-org/react";
 import classNames from "classnames";
-import { useScroll } from "framer-motion";
-import { disconnect } from "process";
 import React, { useEffect, useRef, useState } from "react";
-import style from "styled-jsx/style";
 
 interface IntegrationStepModalProps {}
 
@@ -57,34 +54,7 @@ const Divider: React.FC<DividerProps> = ({
   scrollRef,
 }) => {
   const stickyTopRef = useRef<HTMLDivElement>(null);
-  const [titleHeight, setTitleHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateTitleHeight = () => {
-      if (stickyTopRef.current) {
-        const rect = stickyTopRef.current.getBoundingClientRect();
-
-        setTitleHeight(rect.height);
-      }
-    };
-
-    // ResizeObserver로 요소 크기 변경 감지
-    const resizeObserver = new ResizeObserver(() => {
-      updateTitleHeight();
-    });
-
-    if (stickyTopRef.current) {
-      resizeObserver.observe(stickyTopRef.current);
-    }
-
-    // 초기 업데이트
-    updateTitleHeight();
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     const sticky = stickyTopRef.current;
@@ -92,17 +62,13 @@ const Divider: React.FC<DividerProps> = ({
 
     if (!sticky || !scroll) return;
 
-    const { top: stickyTop, bottom: stickyBottom } =
-      sticky.getBoundingClientRect();
-    const { top: scrollTop } = scroll.getBoundingClientRect();
-
     const observer = new IntersectionObserver(([entry]) => {}, {
       root: scroll,
       threshold: 1,
     });
     observer.observe(sticky);
   }, [scrollRef]);
-  console.log(idx, year);
+
   return (
     // <div key={year}>
     //   <div className="flex flex-col">
