@@ -3,25 +3,26 @@ import { images } from "@/assets/images/images";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useIsMobile } from "@/hooks/useWindowSize";
-import { button } from "@nextui-org/react";
 import classNames from "classnames";
-import {
-  useInView,
-  motion,
-  animate,
-  AnimatePresence,
-  PanInfo,
-} from "framer-motion";
-import { type } from "os";
-import { exit, title } from "process";
+import { useInView, motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/swiper-bundle.css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 export const AboutContent: React.FC = () => {
   const [expandComplete, setExpandComplete] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [currentStep, setCurrentStep] = useState(1);
   const cycleIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  const isMobile = useIsMobile();
+  useEffect(() => {
+    if (isMobile) {
+      setExpandComplete(true);
+    }
+  }, [isMobile]);
   useEffect(() => {
     if (expandComplete) {
       setCurrentStep(1);
@@ -33,7 +34,6 @@ export const AboutContent: React.FC = () => {
     }
   }, [expandComplete]);
   const startSequence = () => {
-    // 기존 인터벌 제거
     if (cycleIntervalRef.current) {
       clearInterval(cycleIntervalRef.current);
     }
@@ -53,7 +53,6 @@ export const AboutContent: React.FC = () => {
       }
     };
   };
-
   return (
     <div className="w-full">
       <AboutContentCategory
@@ -79,13 +78,10 @@ export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
   activeIndex,
 }) => {
   const ref = useRef(null);
-  const [dragStart, setDragStart] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const isInView = useInView(ref, {
     amount: 0.3,
     once: false,
   });
-
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -109,89 +105,68 @@ export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
       },
     },
   };
-  const handleDragStart = (event: any, info: PanInfo) => {
-    setDragStart(info.point.x);
-  };
 
-  const handleDragEnd = (event: any, info: PanInfo) => {
-    const diff = dragStart - info.point.x;
-    const threshold = 50; // 드래그 임계값
+  const swiperRef = useRef<any>(null);
 
-    if (Math.abs(diff) > threshold) {
-      if (diff > 0 && currentSlide < ABOUT_CONTENT.length - 1) {
-        setCurrentSlide((prev) => prev + 1);
-      } else if (diff < 0 && currentSlide > 0) {
-        setCurrentSlide((prev) => prev - 1);
-      }
+  useEffect(() => {
+    if (swiperRef.current && activeIndex !== -1) {
+      swiperRef.current.slideTo(activeIndex);
     }
-  };
+  }, [activeIndex]);
   if (isMobile) {
     return (
-      <div className="relative w-full overflow-hidden">
-        <motion.div
-          className="flex flex-col items-center"
-          initial={false}
-          ref={ref}
+      <div className="px-5">
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={"auto"}
+          centeredSlides={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className={classNames(
+            "swiper-container",
+            "[&_.swiper-pagination-bullets]:!-bottom-10 [&_.swiper-pagination-bullets]:!ml-5 text-white text-[10px] font-['Pretendard'] font-normal",
+            "[&_.swiper-pagination-current]:text-[#fff]",
+            " [&_.swiper-pagination]:bg-gray-8 [&_.swiper-pagination]:w-[36px] [&_.swiper-pagination]:h-[20px] [&_.swiper-pagination]:rounded-full [&_.swiper-pagination]:px-1 [&_.swiper-pagination]:pt-[2px]",
+            " [&_.swiper-pagination]:left-[295px]",
+          )}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
         >
-          {/* 캐러셀 컨테이너 */}
-          <motion.div className="w-full overflow-hidden" initial={false}>
-            <motion.div
-              className="flex"
-              animate={{ x: -currentSlide * 100 + "%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.1}
-              onDragStart={handleDragStart}
-              onDragEnd={handleDragEnd}
-            >
-              {ABOUT_CONTENT.map((item, index) => (
-                <motion.div
-                  key={item.key}
-                  className={classNames(
-                    "min-w-full px-4 py-8",
-                    "transition-colors duration-300",
-                    activeIndex === index ? "bg-primary-bg" : "bg-[#131313]",
-                  )}
-                >
-                  <div className="flex flex-col gap-6 p-6">
-                    <div>
-                      <Text
-                        variant="h2"
-                        className="text-white text-[21px] font-thin"
-                      >
-                        {item.title}
-                      </Text>
-                      <Text
-                        variant="t2"
-                        className="text-white text-[31px] font-bold"
-                      >
-                        {item.key}
-                      </Text>
-                    </div>
-                    <Text className="text-white text-sm whitespace-pre-wrap">
-                      {item.content}
+          {ABOUT_CONTENT.map((item, index) => (
+            <SwiperSlide key={item.key} className="min-w-[304px] max-w-[95%]">
+              <div
+                className={classNames(
+                  "w-full px-4 py-8",
+                  "transition-colors duration-300 border-x-1 border-white",
+                  activeIndex === index ? "bg-primary-bg" : "bg-transparent",
+                )}
+              >
+                <div className="flex flex-col gap-6 p-6">
+                  <div>
+                    <Text
+                      variant="h2"
+                      className="text-white text-[21px] font-thin"
+                    >
+                      {item.title}
+                    </Text>
+                    <Text
+                      variant="t2"
+                      className="text-white text-[31px] font-bold"
+                    >
+                      {item.key}
                     </Text>
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* 슬라이드 인디케이터 */}
-          <div className="flex justify-center gap-2 mt-4">
-            {ABOUT_CONTENT.map((_, index) => (
-              <button
-                key={index}
-                className={classNames(
-                  "w-2 h-2 rounded-full",
-                  currentSlide === index ? "bg-primary-normal" : "bg-gray-400",
-                )}
-                onClick={() => setCurrentSlide(index)}
-              />
-            ))}
-          </div>
-        </motion.div>
+                  <Text className="text-white text-sm whitespace-pre-wrap">
+                    {item.content}
+                  </Text>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     );
   }
@@ -280,8 +255,9 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
   expandComplete,
   currentStep,
 }) => {
+  const isMobile = useIsMobile();
   return (
-    <div className="relative pt-[61px] mb-[135px] h-[645px]">
+    <div className="relative pt-[61px] mb-[135px] h-auto min-md:min-h-[645px] max-[1400px]:h-auto">
       <div
         style={{
           backgroundImage: `url(${images["images/bg/bg_black_gradient.png"].src})`,
@@ -295,73 +271,61 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
           left: 0,
         }}
       />
-      <div className="absolute inset-0 pt-[21px] mx-auto md:w-[1421px] flex  items-center justify-center">
+      <div
+        className={classNames(
+          "pt-[21px] mx-auto min-[1400px]:w-[1421px] flex items-center justify-center max-[1400px]:min-w-[720px] max-[1400px]:w-[90%]",
+          "relative max-md:min-w-[320px] max-md:w-[90%]",
+        )}
+      >
         <motion.div
-          className="flex items-center w-full max-[1400px]:flex-col"
+          className="flex items-center w-full max-[1400px]:flex-col max-[1400px]:gap-1 min-[1400px]:gap-8"
           initial={{ y: 100, opacity: 0 }}
           animate={expandComplete ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <motion.div className="w-[179px] h-[470px] bg-[#131313] flex flex-col max-[1400px]:flex-row items-center pl-6 pr-[35px] pt-[71px] pb-[65px] gap-8">
+          <motion.div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] max-md:h-[60px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row max-[1400px]:justify-center items-center pl-6 pr-[35px] md:pt-[71px] md:pb-[65px] py-5 gap-8">
             {imageList.map((image, index) => (
               <CustomImage
                 key={index}
                 src={`images/about/${image.key}.png`}
                 alt={image.key}
-                className="w-full h-full"
+                className="w-full h-full max-[1400px]:w-auto max-[1400px]:w-20 max-md:w-12 max-md:h-4 max-[1400px]:h-8"
               />
             ))}
           </motion.div>
 
-          <motion.div>
+          <motion.div className="max-[1400px]:rotate-90">
             <CustomImage
               src="images/union/Union_right.png"
               alt="arrow"
-              className="w-[72px] h-[99px] mr-1.5"
+              className="w-[72px] h-[99px] mr-1.5 max-[1400px]:w-8 max-[1400px]:h-12"
             />
           </motion.div>
 
-          {/* Center section with steps */}
-          <motion.div className="flex-1">
-            <div className="w-full h-[470px] bg-[#131313] flex justify-center items-center text-white gap-4 px-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentStep}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -50, opacity: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    ease: "easeOut",
-                    opacity: { duration: 0.5 },
-                  }}
-                >
-                  <CustomImage
-                    src={`images/about/step/step_${currentStep}.png`}
-                    alt={`step_${currentStep}`}
-                    className="w-[888px]"
-                  />
-                </motion.div>
-              </AnimatePresence>
+          <motion.div className="flex-1 max-[1400px]:w-full">
+            <div className="w-full md:h-[470px] max-md:min-h-[518px] md:bg-[#131313] flex justify-center items-center text-white gap-4 px-8 max-[1400px]:px-4">
+              <AnimatedSteps currentStep={currentStep} isMobile={isMobile} />
             </div>
           </motion.div>
-          <div>
+
+          <div className="max-[1400px]:rotate-90">
             <CustomImage
               src={`images/union/Union_right.png`}
               alt={"arrow"}
-              className="w-[72px] h-[99px] mr-1.5"
+              className="w-[72px] h-[99px] mr-1.5 max-[1400px]:w-8 max-[1400px]:h-12"
             />
           </div>
-          <div className="w-[179px] h-[470px] bg-[#131313] flex flex-col items-center justify-center gap-5">
+
+          <div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row justify-center items-center gap-5 p-4">
             <CustomImage
               src={`images/about/sc.png`}
               alt={"Graph"}
-              className="w-[102px] h-[78px]"
+              className="w-[102px] h-[78px] max-md:w-[58px] max-md:h-12"
             />
             <CustomImage
               src={`images/about/sc.png`}
               alt={"Graph"}
-              className="w-[102px] h-[78px]"
+              className="w-[102px] h-[78px] max-md:w-[58px] max-md:h-12"
             />
           </div>
         </motion.div>
@@ -369,6 +333,52 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
     </div>
   );
 };
+
+const AnimatedSteps = ({
+  currentStep,
+  isMobile,
+}: {
+  currentStep: number;
+  isMobile: boolean;
+}) => {
+  const desktopVariants = {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    exit: { y: -50, opacity: 0 },
+  };
+
+  const mobileVariants = {
+    initial: { x: 100, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentStep}
+        initial={isMobile ? mobileVariants.initial : desktopVariants.initial}
+        animate={isMobile ? mobileVariants.animate : desktopVariants.animate}
+        exit={isMobile ? mobileVariants.exit : desktopVariants.exit}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+          opacity: { duration: 0.5 },
+        }}
+        className="max-[1400px]:w-full"
+      >
+        <CustomImage
+          src={`images/about/step/${
+            isMobile ? "mobile_" : ""
+          }step_${currentStep}.png`}
+          alt={`step_${currentStep}`}
+          className="w-[888px] max-[1400px]:w-full max-[1400px]:max-w-[720px] mx-auto"
+        />
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const imageList = [
   { key: "HPCG" },
   { key: "linpack" },
