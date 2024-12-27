@@ -7,11 +7,12 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useIsMobile } from "@/hooks/useWindowSize";
 import classNames from "classnames";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Outcomes: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
+  const [viewportHeight, setViewportHeight] = useState(0);
   const isMobile = useIsMobile();
   const [selectedStep, setSelectedStep] = useState(1);
   const { scrollYProgress } = useScroll({
@@ -19,10 +20,31 @@ export const Outcomes: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const step1Y = useTransform(scrollYProgress, [0.1, 0.35], [100, -50]);
+  useEffect(() => {
+    setViewportHeight(window.innerHeight);
+
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const step1Y = useTransform(
+    scrollYProgress,
+    [0.1, 0.35],
+    [viewportHeight * 0.2, -viewportHeight * 0.1],
+  );
+
   const step1Opacity = useTransform(scrollYProgress, [0.25, 0.35], [1, 0]);
 
-  const step2Y = useTransform(scrollYProgress, [0.3, 0.6], [100, 30]);
+  const step2Y = useTransform(
+    scrollYProgress,
+    [0.3, 0.6],
+    [viewportHeight * 0.2, -viewportHeight * 0.06],
+  );
+
   const step2Opacity = useTransform(
     scrollYProgress,
     [0.25, 0.4, 0.9],
@@ -104,7 +126,7 @@ export const Outcomes: React.FC = () => {
           style={{ height: "5000px" }}
         >
           <div
-            className="sticky w-100vw h-[994px] mt-[106px] top-[180px] overflow-hidden  z-[20]"
+            className="sticky w-100vw h-[994px] mt-[106px] top-[100px] overflow-hidden  z-[20]"
             ref={stickyRef}
             id="real-outcomes"
           >
