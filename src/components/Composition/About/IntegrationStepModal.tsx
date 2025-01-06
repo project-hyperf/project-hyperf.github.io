@@ -91,7 +91,7 @@ const Divider: React.FC<DividerProps> = ({
         }}
       >
         <div className="border-dashed border-1 max-md:border-[0.5px] border-black" />
-        <div className="flex flex-1 items-center max-md:flex-col max-md:items-start">
+        <div className="flex flex-1 items-start max-md:flex-col max-md:items-start">
           <Text
             variant="b2"
             className="pl-[18px] !text-[24px] !font-bold mt-3 max-md:!text-[14px] max-md:pl-[10px]"

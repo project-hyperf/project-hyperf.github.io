@@ -25,7 +25,7 @@ export type TeamItem = {
   }[];
   career: {
     duration: string;
-    company: string;
+    university: string;
   }[];
 
   researchFields: string[];

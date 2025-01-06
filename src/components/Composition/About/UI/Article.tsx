@@ -83,7 +83,7 @@ export const AboutArticle: React.FC = () => {
         </div>
         <div className="w-full min-[1400px]:w-1/2 p-4 md:px-[74px] md:pt-9">
           <FadeInUpSection>
-            <div className="flex flex-col gap-8 md:gap-[62px] max-w-[803px] max-[1400px]:mx-auto ">
+            <div className="flex flex-col gap-8 md:gap-[62px] max-w-[603px] max-[1400px]:mx-auto ">
               <Text
                 variant="b2"
                 className="text-white text-min-[1400px] md:!text-[32px] font-light font-['SUIT'] leading-relaxed md:!leading-[48px] min-[1400px]:block hidden "

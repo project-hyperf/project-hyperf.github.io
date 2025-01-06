@@ -23,6 +23,7 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
   representative,
   className,
 }) => {
+  console.log(representative);
   if (!representative) return null;
   return (
     <div className={classNames("w-full relative h-full", className)}>
@@ -60,13 +61,15 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
               </Text>
             </div>
             <div>
-              {representative.description?.map((keyword: any, idx: number) => (
-                <RespresentativeKeywords
-                  keyword={keyword}
-                  key={idx}
-                  idx={idx}
-                />
-              ))}
+              {representative.description?.map(
+                (keyword: { title: string; content: string }, idx: number) => (
+                  <RespresentativeKeywords
+                    keyword={keyword}
+                    key={idx}
+                    idx={idx}
+                  />
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -91,11 +94,16 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
             학력
           </Text>
           <ul className="">
-            {representative.education?.map((education: any, idx: number) => (
-              <li key={idx} className="text-sm font-['SUIT'] font-medium">
-                {education?.duration + " " + education.university}
-              </li>
-            ))}
+            {representative.education?.map(
+              (
+                education: { duration: string; university: string },
+                idx: number,
+              ) => (
+                <li key={idx} className="text-sm font-['SUIT'] font-medium">
+                  {education?.duration + " " + education.university}
+                </li>
+              ),
+            )}
           </ul>
         </div>
         <div className="history2">
@@ -106,11 +114,16 @@ export const RepresentativeCard: React.FC<RepresentativeCardProps> = ({
             경력
           </Text>
           <ul>
-            {representative.career?.map((career: any, idx: number) => (
-              <li key={idx} className="text-sm font-['SUIT'] font-medium">
-                {career?.duration + " " + career.university}
-              </li>
-            ))}
+            {representative.career?.map(
+              (
+                career: { duration: string; university: string },
+                idx: number,
+              ) => (
+                <li key={idx} className="text-sm font-['SUIT'] font-medium">
+                  {career?.duration + " " + career.university}
+                </li>
+              ),
+            )}
           </ul>
         </div>
 
@@ -192,7 +205,6 @@ interface RepresentativeKeywordsrops {
 export const RespresentativeKeywords: React.FC<RepresentativeKeywordsrops> = ({
   keyword,
   idx,
-  onClick,
 }) => {
   const detailModal = useDisclosure();
   return (
@@ -238,12 +250,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       placement="center"
-      className="w-[470px] min-h-[306px] rounded-none bg-[#F0F0F0] text-black"
+      className="md:min-w-[500px] min-h-[306px] rounded-none bg-[#F0F0F0] text-black"
     >
       <ModalContent>
         <>
           <ModalHeader className="p-0" />
-          <ModalBody className="px-6 pb-6 pt-11 flex flex-col items-center gap-5">
+          <ModalBody className="px-6 pb-8 pt-11 flex flex-col items-center gap-5 md:px-10">
             <div className="text-[18px] font-bold text-center px-4 break-keep">
               {keyword.title}
             </div>

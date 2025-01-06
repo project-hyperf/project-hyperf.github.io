@@ -17,7 +17,7 @@ export const Events: React.FC = () => {
   });
   return (
     <div
-      className="w-full pt-[104px] md:mb-[230px] pb-[144px] mb-0"
+      className="w-full pt-[104px] md:min-h-[901px] md:mb-[0px] pb-[144px] mb-0"
       style={{
         backgroundImage: `url(${images["images/bg/bg_event.png"].src})`,
         backgroundSize: "100% 100%",
@@ -61,7 +61,7 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
   const postsPerPage = [...posts].slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div className="max-w-[1200px] mx-auto">
-      <div className="border-t-2 border-b-2 border-black px-1">
+      <div className="border-t-2 border-b-2 border-black px-1 mb-[100px]">
         {postsPerPage.map((event, index) => {
           return (
             <div
@@ -75,12 +75,12 @@ const EventList: React.FC<EventListProps> = ({ posts }) => {
               onClick={() => openModal(event)}
             >
               <div className="flex items-center max-md:flex-wrap justify-between gap-2 w-full">
-                <div className="font-bold text-sm md:text-base text-black">
+                <div className="font-bold text-sm md:!text-[20px] text-black">
                   <div className="flex gap-2 items-center">
                     <span>{event.title}</span>
                   </div>
                 </div>
-                <div className="font-bold text-sm md:text-base text-[#868686]">
+                <div className="font-bold text-sm md:!text-base text-[#868686]">
                   <div className="flex gap-2 items-center">
                     <span>{event.date}</span>
                   </div>

@@ -1,7 +1,6 @@
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
-
 import { TeamItem } from "@/hooks/useTeams";
-import { Image } from "@nextui-org/react";
+import { useIsMobile } from "@/hooks/useWindowSize";
 import React, { useState } from "react";
 
 type PropType = {
@@ -14,7 +13,7 @@ type PropType = {
 export const TeamCarouselThumb: React.FC<PropType> = (props) => {
   const { selected, team, onClick, style } = props;
   const [isHover, setIsHover] = useState(false);
-
+  const isMobile = useIsMobile();
   return (
     <div
       className={"embla-thumbs__slide md:h-[200px] cursor-pointer".concat(
@@ -29,9 +28,9 @@ export const TeamCarouselThumb: React.FC<PropType> = (props) => {
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <Image
+        <img
           src={
-            selected
+            selected || isMobile
               ? team.activeImage
               : isHover
               ? team.hoverImage

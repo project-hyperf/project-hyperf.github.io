@@ -2,9 +2,9 @@
 import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
-import { useTeams } from "@/hooks/useTeams";
+import { TeamItem, useTeams } from "@/hooks/useTeams";
 
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { NewTeamCarousel } from "./Widget/NewTeamCarousel";
 
 const AGNECY_LIST = [
@@ -19,52 +19,9 @@ export const CurrentTeamContext = createContext<any>(null);
 export const SetCurrentTeamContext = createContext<any>(null);
 export const Teams: React.FC = () => {
   const { data: teams } = useTeams();
-  const [isInView, setIsInView] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const [currentTeam, setCurrentTeam] = useState<any>(null);
+  const [currentTeam, setCurrentTeam] = useState<TeamItem | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-
-  const stickyRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      const sticky = stickyRef.current;
-
-      if (!section || !sticky) return;
-
-      const { top: sectionTop, height: sectionHeight } =
-        section.getBoundingClientRect();
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            const intersectionHeight = entry.intersectionRect.y;
-
-            const progress = Math.min(
-              Math.max((intersectionHeight - sectionTop) / sectionHeight, 0),
-              1,
-            );
-
-            setScrollProgress(progress);
-          }
-        },
-        {
-          root: null,
-          threshold: 0.5,
-        },
-      );
-      observer.observe(sticky);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className="w-full pt-[93px] pb-[100px] px-5" ref={sectionRef}>

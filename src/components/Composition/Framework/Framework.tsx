@@ -3,14 +3,15 @@ import { images } from "@/assets/images/images";
 import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useArchive } from "@/hooks/useArchive";
+import { useIsMobile } from "@/hooks/useWindowSize";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 export const Framework: React.FC = () => {
   const { data: archiveList } = useArchive();
 
   return (
     <div
-      className="w-full pt-[104px] pb-[178px] max-md:px-5"
+      className="w-full md:pt-[104px] md:pb-[178px] pt-10 pb-[94px] max-md:px-5"
       style={{
         backgroundImage: `url(${images["images/bg/bg_framework.png"].src})`,
         backgroundSize: "100% 100%",
@@ -20,7 +21,7 @@ export const Framework: React.FC = () => {
     >
       <Text
         variant="t1"
-        className="text-white uppercase text-center md:!text-[50px] !text-[30px] mb-[116px]"
+        className="text-white uppercase text-center md:!text-[50px] !text-[30px] md:mb-[116px] mb-7"
       >
         hYPERF
       </Text>
@@ -43,11 +44,23 @@ interface ArchiveProps {
 
 const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
+  const [margin, setMargin] = useState<
+    `${number}px` | `${number}% ${number}px ${number}% ${number}px`
+  >("-100px");
+
+  useEffect(() => {
+    if (isMobile) {
+      setMargin("-50px");
+    } else {
+      setMargin("-100px");
+    }
+  }, [isMobile]);
+
   const isInView = useInView(ref, {
-    margin: "-100px",
+    margin,
     amount: 0.5,
   });
-
   return (
     <motion.div
       ref={ref}
@@ -58,7 +71,7 @@ const ArchiveLink: React.FC<ArchiveProps> = ({ title, link }) => {
           opacity: 0.7,
         },
         visible: {
-          height: window.innerWidth >= 768 ? "142px" : "92px",
+          height: window.innerWidth >= 768 ? "142px" : "102px",
           opacity: 1,
         },
       }}

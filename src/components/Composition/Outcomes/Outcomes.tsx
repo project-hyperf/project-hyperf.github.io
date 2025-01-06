@@ -34,20 +34,20 @@ export const Outcomes: React.FC = () => {
   const step1Y = useTransform(
     scrollYProgress,
     [0.1, 0.35],
-    [viewportHeight * 0.2, -viewportHeight * 0.1],
+    [viewportHeight * 0.2, -viewportHeight * 0.05],
   );
 
   const step1Opacity = useTransform(scrollYProgress, [0.25, 0.35], [1, 0]);
 
   const step2Y = useTransform(
     scrollYProgress,
-    [0.3, 0.6],
-    [viewportHeight * 0.2, -viewportHeight * 0.06],
+    [0.4, 0.6],
+    [viewportHeight * 0.2, -viewportHeight * 0.02],
   );
 
   const step2Opacity = useTransform(
     scrollYProgress,
-    [0.25, 0.4, 0.9],
+    [0.4, 0.45, 0.9],
     [0, 1, 1],
   );
 
@@ -59,7 +59,7 @@ export const Outcomes: React.FC = () => {
   const x = useTransform(smoothScrollY, [0, 1], [0, -2600]);
 
   return (
-    <div className="pt-[104px] pb-[114px]">
+    <div className="pt-[104px]">
       <div>
         <Text
           variant="t1"
@@ -126,7 +126,7 @@ export const Outcomes: React.FC = () => {
           style={{ height: "5000px" }}
         >
           <div
-            className="sticky w-100vw h-[994px] mt-[106px] top-[100px] overflow-hidden  z-[20]"
+            className="sticky w-100vw h-[994px] mt-[106px] top-[140px] overflow-hidden  z-[20]"
             ref={stickyRef}
             id="real-outcomes"
           >
@@ -175,8 +175,8 @@ interface StepProps {
 const Step1: React.FC<StepProps> = ({ isMobile = false }) => {
   return (
     <>
-      <div className="w-full max-md:overflow-hidden flex md:flex-row md:flex-wrap flex-col md:gap-[143px] gap-10 items-center justify-center md:items-end pb-3 px-4">
-        <div className="flex flex-col items-center gap-14">
+      <div className="w-full max-md:overflow-hidden flex md:flex-row md:flex-wrap flex-col md:gap-[143px] gap-10 items-center justify-center md:items-start pb-3 px-4">
+        <div className="flex flex-col-reverse items-center gap-14">
           <Text
             variant="h4"
             className="text-center text-primary-normal !leading-[33.6px] whitespace-pre-wrap max-md:!text-[20px] max-md:leading-7"
@@ -199,14 +199,15 @@ const Step1: React.FC<StepProps> = ({ isMobile = false }) => {
 
         {/* 우측 Text & 박스 */}
 
-        <div className="max-w-[768px] grow shrink relative z-[40]">
+        <div className="max-w-[798px] grow shrink relative z-[40]">
           <div className="w-full h-full mb-6">
             <Text
               variant="h4"
               className="max-md:text-[18px] max-md:text-center"
             >
               TVM 컴파일러를
-              <br className="max-md:block " /> HPC(고성능 컴퓨팅)를 사용해 확장
+              <br className="max-md:block hidden" /> HPC(고성능 컴퓨팅)를 사용해
+              확장
             </Text>
           </div>
           <div className="md:grid md:grid-cols-2 flex max-md:w-screen max-md:-mx-4 max-md:px-[calc(50vw-160px)] overflow-y-auto overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide  max-md:items-end max-md:-mt-[300px] max-md:relative">
@@ -329,11 +330,11 @@ const StepBox: React.FC<{
 }> = ({ title, purpose, tasks }) => {
   return (
     <>
-      <div className="md:pt-6 md:pb-[29px] md:px-[24px] p-[18px] md:min-w-[384px] bg-primary-bg max-md:min-w-[273px] max-md:h-[313px] flex flex-col gap-3 justify-center border-2 border-black max-md:px-4">
+      <div className="md:pt-6 md:pb-[29px] md:px-[24px] max-md:pt-[18px] max-md:pb-4 md:min-w-[384px] bg-primary-bg max-md:min-w-[273px] max-md:h-[333px] flex flex-col gap-3 justify-center border-2 border-black max-md:px-4">
         <div className="flex-1 flex flex-col gap-3 justify-center items-center">
           <Text
             variant="h4"
-            className="text-white pb-3 whitespace-pre-wrap text-center !font-extrabold max-md:!text-[18px]"
+            className="text-white pb-3 whitespace-pre-wrap text-center !font-bold max-md:!text-[18px]"
           >
             {title}
           </Text>
@@ -355,7 +356,7 @@ const StepBox: React.FC<{
             >
               <Text
                 variant="h5"
-                className="text-black !font-bold !text-[16px] max-md:!text-[14px] tracking-tighter w-full text-center"
+                className="text-black !font-bold !text-[16px] max-md:!text-[14px] w-full text-center"
               >
                 {task}
               </Text>
@@ -369,8 +370,8 @@ const StepBox: React.FC<{
 
 const Step2: React.FC = () => {
   return (
-    <div className="w-full flex flex-wrap flex-row justify-center md:gap-[143px] gap-10 items-end pb-3 max-md:px-4">
-      <div className="flex flex-col items-center md:gap-14 max-md:gap-10">
+    <div className="w-full flex flex-wrap flex-row justify-center md:gap-[143px] gap-10 items-start pb-3 max-md:px-4">
+      <div className="flex flex-col-reverse items-center md:gap-14 max-md:gap-10">
         <Text
           variant="h4"
           className="text-center text-primary-normal !leading-[33.6px] flex-wrap max-md:!text-[20px] max-md:!leading-7"

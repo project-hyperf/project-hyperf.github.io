@@ -59,7 +59,7 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
           최적화 프레임워크 개발에 필요한 요구사항
         </Text>
 
-        <div className="flex justify-center md:flex-nowrap flex-wrap items-center pt-6 gap-[18px] max-md:gap-3 max-md:pt-3">
+        <div className="flex justify-center md:flex-nowrap flex-wrap items-center pt-6 gap-[18px] max-md:gap-3 max-md:pt-3 ">
           {[
             "기반 SW 통합",
             "다계층 최적화",
@@ -106,10 +106,10 @@ export const NecessityModal: React.FC<NecessityModalProps> = ({}) => {
 };
 
 const RequirementCard = ({ text }: { text: string }) => (
-  <div className="bg-[#f0f0f0] basis-1/5 h-[215px] flex justify-center items-center md:whitespace-pre-line max-md:basis-[45%] max-md:h-[69px]">
+  <div className="bg-[#f0f0f0] basis-1/5 h-[215px] flex justify-center items-center md:whitespace-pre-line max-md:basis-[45%] max-md:h-[69px] group hover:bg-primary-bg ">
     <Text
       variant="h4"
-      className="text-inverse-primary p-4 max-md:px-6 text-center !text-[26px] max-md:!text-[14px] max-md:leading-snug"
+      className="text-inverse-primary p-4 max-md:px-6 text-center !text-[26px] max-md:!text-[14px] max-md:leading-snug group-hover:text-white"
     >
       {text}
     </Text>

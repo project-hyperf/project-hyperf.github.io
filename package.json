@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
+    "@studio-freight/lenis": "^1.0.42",
+    "@studio-freight/react-lenis": "^0.0.47",
     "@tanstack/react-query": "^5.60.5",
     "@types/uuid": "^10.0.0",
     "add": "^2.0.6",
@@ -20,6 +22,7 @@
     "embla-carousel-react": "^8.5.1",
     "framer-motion": "^11.11.17",
     "intersection-observer": "^0.12.2",
+    "lenis": "^1.1.18",
     "lucide-react": "^0.460.0",
     "next": "^15.0.3",
     "react": "^18.3.1",
