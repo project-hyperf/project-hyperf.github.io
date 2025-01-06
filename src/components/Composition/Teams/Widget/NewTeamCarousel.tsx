@@ -16,7 +16,7 @@ const MOBILELENGTH = 8;
 const DESKTOPLENGTH = 9;
 export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
   const isMobile = useIsMobile();
-  // const buttonPositions = isMobile ? [0, 1, 3, 4, 6, 7] : [1, 2, 3, 4, 6, 8];
+
   const buttonPositions = useMemo(() => {
     if (isMobile) {
       return [0, 1, 3, 4, 6, 7];
@@ -133,13 +133,6 @@ export const NewTeamCarousel: React.FC<TeamCarouselType> = ({ teams }) => {
                       team={teams[teamIndex]}
                     />
                   </div>
-                  {/* <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.26] transition-opacity duration-300 pointer-events-none max-md:hidden"
-                    style={{
-                      background: sectionGradient,
-                      // backgroundBlendMode: "overlay",
-                    }}
-                  /> */}
                 </motion.div>
               );
             })}

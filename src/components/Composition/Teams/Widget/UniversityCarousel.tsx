@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CurrentTeamContext } from "../Teams";
 import { TeamItem } from "@/hooks/useTeams";
@@ -33,7 +33,7 @@ export const UniversityCarousel: React.FC<EmblemCarouselProps> = ({
       <AnimatePresence mode="popLayout">
         {reorderedTeams?.map((team, index) => {
           const isActive = team.university === currentTeam?.university;
-          const yOffset = index * 150; // 기본 수직 간격
+          const yOffset = index * 150;
 
           return (
             <motion.div

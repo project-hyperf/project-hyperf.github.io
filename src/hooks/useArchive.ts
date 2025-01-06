@@ -1,6 +1,5 @@
 import { fetchFile } from "@/utils/fetch";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export const ARCHIVE_QUERY_KEY = "ARCHIVE_QUERY";
 
@@ -16,7 +15,7 @@ export const useArchive = () => {
       const { data } = await fetchFile<ArchiveItem[]>(
         "/data/archive/archive.json",
       );
-      // const { data } = await axios.get<MenuItem[]>("/data/menu.json");
+
       return data;
     },
   });

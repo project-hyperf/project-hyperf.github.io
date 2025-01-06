@@ -2,11 +2,9 @@ import { AssistiveStyle } from "@/components/UI/Text/AssistiveStyle";
 import { Text } from "@/components/UI/Text/Text";
 import { ModalBody, ModalHeader } from "@nextui-org/react";
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-interface IntegrationStepModalProps {}
-
-export const IntegrationStepModal: React.FC<IntegrationStepModalProps> = () => {
+export const IntegrationStepModal: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -62,7 +60,7 @@ const Divider: React.FC<DividerProps> = ({
 
     if (!sticky || !scroll) return;
 
-    const observer = new IntersectionObserver(([entry]) => {}, {
+    const observer = new IntersectionObserver(() => {}, {
       root: scroll,
       threshold: 1,
     });
@@ -70,9 +68,6 @@ const Divider: React.FC<DividerProps> = ({
   }, [scrollRef]);
 
   return (
-    // <div key={year}>
-    //   <div className="flex flex-col">
-
     <React.Fragment key={year}>
       <div
         className={classNames(
@@ -121,9 +116,6 @@ const Divider: React.FC<DividerProps> = ({
         {list?.map((item) => renderList(item.id, item.content))}
       </div>
     </React.Fragment>
-
-    //   </div>
-    // </div>
   );
 };
 

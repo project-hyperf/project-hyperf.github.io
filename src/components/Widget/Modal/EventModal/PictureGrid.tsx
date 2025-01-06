@@ -1,9 +1,7 @@
 "use client";
 import { GeneralButton } from "@/components/UI/Button/GeneralButton";
-import { button } from "@nextui-org/react";
 import classNames from "classnames";
-import { animate, AnimatePresence, motion } from "framer-motion";
-import { exit } from "process";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Swiper as SW } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -89,7 +87,7 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
                 >
                   <img
                     src={image.src}
-                    alt={image.alt}
+                    alt={image.alt || "이름없는 이미지"}
                     className="object-center object-cover w-full h-full"
                   />
                   <AnimatePresence>

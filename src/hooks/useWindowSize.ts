@@ -20,7 +20,6 @@ export const useWindowSize = (query: string) => {
   return matches;
 };
 
-// 자주 사용하는 미디어쿼리를 위한 훅
 export const useIsMobile = () => {
   return useWindowSize("(max-width: 768px)");
 };

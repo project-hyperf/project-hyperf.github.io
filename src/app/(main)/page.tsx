@@ -1,6 +1,4 @@
-// import { Footer } from "@/components/Footer/Footer";
 import { KeyVisual } from "@/components/Composition/Keyvisual/Keyvisual";
-// import { GeneralNavigationBar } from "@/components/Navigator/GeneralNavigationBar/GeneralNavigationBar";
 import { About } from "@/components/Composition/About/About";
 import { Teams } from "@/components/Composition/Teams/Teams";
 import { Footer } from "@/components/Widget/Footer/Footer";
@@ -17,7 +15,6 @@ const Components = {
   teams: Teams,
   framework: Framework,
   outcomes: Outcomes,
-  // modules: Modules,
   news: Events,
 };
 

@@ -1,8 +1,6 @@
 "use client";
 import React, { createContext, useState, PropsWithChildren } from "react";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
-import { CloseButton } from "@/components/UI/Button/CloseButton";
-import { motion } from "framer-motion";
 
 interface ModalProps {
   Component: React.FC<any>;
@@ -87,9 +85,8 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
         },
       }}
       classNames={{
-        // wrapper 클래스 수정
-        wrapper: "items-center", // sm: 제거하고 항상 center로
-        base: "m-auto", // sm: 제거하고 항상 auto margin
+        wrapper: "items-center",
+        base: "m-auto",
         backdrop: "bg-black/50",
         closeButton: "transform md:scale-[1.75] md:right-4 md:top-4",
       }}

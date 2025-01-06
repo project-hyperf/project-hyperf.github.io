@@ -8,7 +8,7 @@ export const useHeaderMargin = () => {
     const updateMargin = () => {
       if (headerRef.current) {
         const rect = headerRef.current.getBoundingClientRect();
-        // const headerHeight = headerRef.current.offsetHeight;
+
         setGNBHeight(rect.height);
       }
     };
