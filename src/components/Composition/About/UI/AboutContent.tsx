@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/swiper-bundle.css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import { CategoryButton } from "./CategoryButton";
 
 export const AboutContent: React.FC = () => {
   const [expandComplete, setExpandComplete] = useState(false);
@@ -72,179 +73,199 @@ interface AboutContentCategoryProps {
   setExpandComplete: React.Dispatch<React.SetStateAction<boolean>>;
   activeIndex: number;
 }
-export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
+// export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
+//   expandComplete,
+//   setExpandComplete,
+//   activeIndex,
+// }) => {
+//   const ref = useRef(null);
+//   const isInView = useInView(ref, {
+//     amount: 0.3,
+//     once: false,
+//   });
+//   const isMobile = useIsMobile();
+
+//   useEffect(() => {
+//     if (isInView && !expandComplete) {
+//       const timer = setTimeout(() => {
+//         setExpandComplete(true);
+//       }, 800);
+//       return () => clearTimeout(timer);
+//     }
+//   }, [isInView, expandComplete, setExpandComplete]);
+
+//   const variants = {
+//     desktop: {
+//       container: {},
+//       item: {
+//         hidden: { width: "2px", padding: "0px", opacity: 0 },
+//         visible: { width: "480px", padding: "32px 52px", opacity: 1 },
+//         active: {
+//           transition: { duration: 0.3 },
+//         },
+//       },
+//     },
+//   };
+
+//   const swiperRef = useRef<any>(null);
+
+//   useEffect(() => {
+//     if (swiperRef.current && activeIndex !== -1) {
+//       swiperRef.current.slideTo(activeIndex);
+//     }
+//   }, [activeIndex]);
+//   if (isMobile) {
+//     return (
+//       <div className="px-5">
+//         <Swiper
+//           spaceBetween={20}
+//           slidesPerView={"auto"}
+//           centeredSlides={true}
+//           pagination={{
+//             clickable: true,
+//           }}
+//           modules={[Pagination]}
+//           className={classNames(
+//             "swiper-container",
+//             "[&_.swiper-pagination-bullets]:!-bottom-10 [&_.swiper-pagination-bullets]:!ml-5 text-white text-[10px] font-['Pretendard'] font-normal",
+//             "[&_.swiper-pagination-current]:text-[#fff]",
+//             " [&_.swiper-pagination]:bg-gray-8 [&_.swiper-pagination]:w-[36px] [&_.swiper-pagination]:h-[20px] [&_.swiper-pagination]:rounded-full [&_.swiper-pagination]:px-1 [&_.swiper-pagination]:pt-[2px]",
+//             " [&_.swiper-pagination]:left-[295px]",
+//           )}
+//           onSwiper={(swiper) => {
+//             swiperRef.current = swiper;
+//           }}
+//         >
+//           {ABOUT_CONTENT.map((item, index) => (
+//             <SwiperSlide key={item.key} className="min-w-[304px] max-w-[95%]">
+//               <div
+//                 className={classNames(
+//                   "w-full px-4 py-8",
+//                   "transition-colors duration-300 border-x-1 border-white",
+//                   activeIndex === index ? "bg-primary-bg" : "bg-transparent",
+//                 )}
+//               >
+//                 <div className="flex flex-col gap-6 ">
+//                   <div>
+//                     <Text
+//                       variant="h2"
+//                       className="text-white text-[21px] font-thin"
+//                     >
+//                       {item.title}
+//                     </Text>
+//                     <Text
+//                       variant="t2"
+//                       className="text-white text-[31px] font-bold whitespace-nowrap"
+//                     >
+//                       {item.key}
+//                     </Text>
+//                   </div>
+//                   <Text className="text-white text-sm whitespace-pre-wrap">
+//                     {item.content}
+//                   </Text>
+//                 </div>
+//               </div>
+//             </SwiperSlide>
+//           ))}
+//         </Swiper>
+//       </div>
+//     );
+//   }
+//   return (
+//     <motion.div
+//       ref={ref}
+//       className="flex md:flex-row flex-col w-full max-w-[1440px] max-xl:w-full mx-auto  px-5"
+//     >
+//       {ABOUT_CONTENT.map((item, index) => (
+//         <motion.div
+//           key={item.key}
+//           className={classNames(
+//             "md:h-[320px] h-[204px] max-md:min-w-full border-white",
+//             "max-md:border-t-1 md:border-l-1 shadow-md flex flex-col",
+//             "overflow-hidden max-md:!py-[52px]",
+//             "transition-colors duration-300",
+//             activeIndex === index ? "bg-primary-bg" : "bg-transparent",
+//           )}
+//           variants={variants.desktop.item}
+//           initial="hidden"
+//           animate={[
+//             isInView ? "visible" : "hidden",
+//             activeIndex >= index ? "active" : "",
+//           ]}
+//           transition={{
+//             duration: 0.8,
+//             delay: index * 0.4,
+//             ease: "easeOut",
+//           }}
+//         >
+//           <div className="flex flex-col max-md:gap-[30px] max-md:px-5 flex-1">
+//             <motion.div
+//               variants={{
+//                 hidden: { opacity: 0, y: 20 },
+//                 visible: { opacity: 1, y: 0 },
+//               }}
+//               initial="hidden"
+//               animate={isInView ? "visible" : "hidden"}
+//               transition={{
+//                 delay: index * 0.4 + 0.2,
+//                 duration: 0.8,
+//               }}
+//             >
+//               <Text
+//                 variant="h2"
+//                 className="text-white md:!text-[34px] !text-[21px] font-thin"
+//               >
+//                 {item.title}
+//               </Text>
+//               <Text
+//                 variant="t2"
+//                 className="text-white md:!text-[44px] !text-[31px] font-bold"
+//               >
+//                 {item.key}
+//               </Text>
+//             </motion.div>
+
+//             <motion.div
+//               variants={{
+//                 hidden: { opacity: 0, y: 20 },
+//                 visible: { opacity: 1, y: 0 },
+//               }}
+//               initial="hidden"
+//               animate={isInView ? "visible" : "hidden"}
+//               transition={{
+//                 delay: index * 0.4 + 0.4,
+//                 duration: 0.8,
+//               }}
+//               className="mt-auto"
+//             >
+//               <Text className="text-white md:!text-[24px] text-sm whitespace-pre-wrap">
+//                 {item.content}
+//               </Text>
+//             </motion.div>
+//           </div>
+//         </motion.div>
+//       ))}
+//     </motion.div>
+//   );
+// };
+const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
   expandComplete,
   setExpandComplete,
   activeIndex,
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    amount: 0.3,
-    once: false,
-  });
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isInView && !expandComplete) {
-      const timer = setTimeout(() => {
-        setExpandComplete(true);
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, expandComplete, setExpandComplete]);
-
-  const variants = {
-    desktop: {
-      container: {},
-      item: {
-        hidden: { width: "2px", padding: "0px", opacity: 0 },
-        visible: { width: "480px", padding: "32px 52px", opacity: 1 },
-        active: {
-          transition: { duration: 0.3 },
-        },
-      },
-    },
-  };
-
-  const swiperRef = useRef<any>(null);
-
-  useEffect(() => {
-    if (swiperRef.current && activeIndex !== -1) {
-      swiperRef.current.slideTo(activeIndex);
-    }
-  }, [activeIndex]);
-  if (isMobile) {
-    return (
-      <div className="px-5">
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={"auto"}
-          centeredSlides={true}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className={classNames(
-            "swiper-container",
-            "[&_.swiper-pagination-bullets]:!-bottom-10 [&_.swiper-pagination-bullets]:!ml-5 text-white text-[10px] font-['Pretendard'] font-normal",
-            "[&_.swiper-pagination-current]:text-[#fff]",
-            " [&_.swiper-pagination]:bg-gray-8 [&_.swiper-pagination]:w-[36px] [&_.swiper-pagination]:h-[20px] [&_.swiper-pagination]:rounded-full [&_.swiper-pagination]:px-1 [&_.swiper-pagination]:pt-[2px]",
-            " [&_.swiper-pagination]:left-[295px]",
-          )}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-        >
-          {ABOUT_CONTENT.map((item, index) => (
-            <SwiperSlide key={item.key} className="min-w-[304px] max-w-[95%]">
-              <div
-                className={classNames(
-                  "w-full px-4 py-8",
-                  "transition-colors duration-300 border-x-1 border-white",
-                  activeIndex === index ? "bg-primary-bg" : "bg-transparent",
-                )}
-              >
-                <div className="flex flex-col gap-6 ">
-                  <div>
-                    <Text
-                      variant="h2"
-                      className="text-white text-[21px] font-thin"
-                    >
-                      {item.title}
-                    </Text>
-                    <Text
-                      variant="t2"
-                      className="text-white text-[31px] font-bold whitespace-nowrap"
-                    >
-                      {item.key}
-                    </Text>
-                  </div>
-                  <Text className="text-white text-sm whitespace-pre-wrap">
-                    {item.content}
-                  </Text>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    );
-  }
   return (
-    <motion.div
-      ref={ref}
-      className="flex md:flex-row flex-col w-full max-w-[1440px] max-xl:w-full mx-auto  px-5"
-    >
-      {ABOUT_CONTENT.map((item, index) => (
-        <motion.div
-          key={item.key}
-          className={classNames(
-            "md:h-[320px] h-[204px] max-md:min-w-full border-white",
-            "max-md:border-t-1 md:border-l-1 shadow-md flex flex-col",
-            "overflow-hidden max-md:!py-[52px]",
-            "transition-colors duration-300",
-            activeIndex === index ? "bg-primary-bg" : "bg-transparent",
-          )}
-          variants={variants.desktop.item}
-          initial="hidden"
-          animate={[
-            isInView ? "visible" : "hidden",
-            activeIndex >= index ? "active" : "",
-          ]}
-          transition={{
-            duration: 0.8,
-            delay: index * 0.4,
-            ease: "easeOut",
-          }}
-        >
-          <div className="flex flex-col max-md:gap-[30px] max-md:px-5 flex-1">
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              transition={{
-                delay: index * 0.4 + 0.2,
-                duration: 0.8,
-              }}
-            >
-              <Text
-                variant="h2"
-                className="text-white md:!text-[34px] !text-[21px] font-thin"
-              >
-                {item.title}
-              </Text>
-              <Text
-                variant="t2"
-                className="text-white md:!text-[44px] !text-[31px] font-bold"
-              >
-                {item.key}
-              </Text>
-            </motion.div>
-
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              transition={{
-                delay: index * 0.4 + 0.4,
-                duration: 0.8,
-              }}
-              className="mt-auto"
-            >
-              <Text className="text-white md:!text-[24px] text-sm whitespace-pre-wrap">
-                {item.content}
-              </Text>
-            </motion.div>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
+    <div>
+      <div className="flex gap-5 items-center justify-center">
+        {ABOUT_CONTENT.map((item, index) => (
+          <CategoryButton
+            key={item.key}
+            item={item}
+            selected
+            onChange={() => {}}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 interface AboutContentImageProps {
@@ -401,5 +422,11 @@ const ABOUT_CONTENT = [
     title: "탐색기반",
     key: "search-driven",
     content: "오토튜닝 용 샘플 생성\n하드웨어 프로파일링\n비용 모델 기반 탐색",
+  },
+  {
+    title: "SW 생태계 조성",
+    key: "sw-ecosystem",
+    content:
+      "전문인력 양성\n초고성능컴퓨팅 정부책임기관 참여\n프레임워크 활용 워크샵 개최\n및 사용자 지원",
   },
 ];
