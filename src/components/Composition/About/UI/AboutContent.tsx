@@ -144,7 +144,7 @@ export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
                   activeIndex === index ? "bg-primary-bg" : "bg-transparent",
                 )}
               >
-                <div className="flex flex-col gap-6 p-6">
+                <div className="flex flex-col gap-6 ">
                   <div>
                     <Text
                       variant="h2"
@@ -154,7 +154,7 @@ export const AboutContentCategory: React.FC<AboutContentCategoryProps> = ({
                     </Text>
                     <Text
                       variant="t2"
-                      className="text-white text-[31px] font-bold"
+                      className="text-white text-[31px] font-bold whitespace-nowrap"
                     >
                       {item.key}
                     </Text>
@@ -283,13 +283,13 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
           animate={expandComplete ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <motion.div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] max-md:h-[60px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row max-[1400px]:justify-center items-center pl-6 pr-[35px] md:pt-[71px] md:pb-[65px] py-5 gap-8">
+          <motion.div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] max-md:h-[60px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row max-[1400px]:justify-center items-center pl-6 pr-[35px] md:pt-[71px] md:pb-[65px] py-5 gap-8 max-sm:gap-3">
             {imageList.map((image, index) => (
               <CustomImage
                 key={index}
                 src={`images/about/${image.key}.png`}
                 alt={image.key}
-                className="w-full h-full max-[1400px]:w-auto max-[1400px]:w-20 max-md:w-12 max-md:h-4 max-[1400px]:h-8"
+                className="w-full h-full max-[1400px]:w-auto max-md:w-12 max-md:h-4 max-[1400px]:h-8"
               />
             ))}
           </motion.div>
@@ -303,7 +303,7 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
           </motion.div>
 
           <motion.div className="flex-1 max-[1400px]:w-full">
-            <div className="w-full md:h-[470px] max-md:min-h-[518px] md:bg-[#131313] flex justify-center items-center text-white gap-4 px-8 max-[1400px]:px-4">
+            <div className="w-full md:h-[470px] max-md:min-h-[329px] md:bg-[#131313] flex justify-center items-center text-white gap-4 px-8 max-[1400px]:px-4">
               <AnimatedSteps currentStep={currentStep} isMobile={isMobile} />
             </div>
           </motion.div>

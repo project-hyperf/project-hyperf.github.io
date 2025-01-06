@@ -134,7 +134,7 @@ const AboutTitle: React.FC = () => {
     <div className="w-full px-5" ref={ref}>
       <Text
         variant="h0"
-        className="md:!text-[50px] !text-[26px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
+        className="md:!text-[50px] !text-[24px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[65px]"
       >
         엑사급 초고성능컴퓨터의
         <br className="lg:hidden" /> 잠재 성능을{" "}
@@ -159,13 +159,13 @@ const AboutTitle: React.FC = () => {
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="md:mx-1 transform max-md:scale-[0.65]"
+                  className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
                 />
                 대
                 <CustomImage
                   src="images/icons/slash.svg"
                   alt="slash"
-                  className="md:mx-1 transform max-md:scale-[0.65]"
+                  className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
                 />
                 한
               </motion.div>
