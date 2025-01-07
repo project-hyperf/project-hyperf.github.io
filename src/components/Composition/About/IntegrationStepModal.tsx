@@ -81,12 +81,12 @@ const Divider: React.FC<DividerProps> = ({
           top: `${
             idx *
             (window.innerWidth >= 768
-              ? 106.97
+              ? 111.97
               : idx === 1
-              ? 104
+              ? 107
               : idx === 3
               ? 30
-              : 96)
+              : 100)
           }px`,
         }}
       >
@@ -100,7 +100,7 @@ const Divider: React.FC<DividerProps> = ({
           </Text>
           <Text
             variant="h4"
-            className="!text-[38px] !font-light px-[115px] tracking-[0px] mt-3 whitespace-pre-wrap max-md:!text-[15px] max-md:px-[10px] max-md:mt-2"
+            className="!text-[38px] !font-light px-[115px] tracking-[0px] mt-3 mb-2 whitespace-pre-wrap max-md:!text-[15px] max-md:px-[10px] max-md:mt-2 max-md:mb-1"
           >
             {summary}
           </Text>

@@ -29,7 +29,7 @@ export const MethodModal: React.FC<MethodModalProps> = ({}) => {
           추진방법
         </AssistiveStyle>
       </ModalHeader>
-      <ModalBody className="scrollbar-hide">
+      <ModalBody className="scrollbar-hide mb-5">
         <div className="flex flex-col items-center gap-10 md:px-[70px]">
           <Text
             variant="h4"

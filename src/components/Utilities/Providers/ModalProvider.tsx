@@ -1,5 +1,10 @@
 "use client";
-import React, { createContext, useState, PropsWithChildren } from "react";
+import React, {
+  createContext,
+  useState,
+  PropsWithChildren,
+  useEffect,
+} from "react";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
 
 interface ModalProps {
@@ -57,12 +62,25 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
   isOpen,
   onClose,
 }) => {
+  useEffect(() => {
+    if (isOpen) {
+      window.lenisLockScroll?.();
+    } else {
+      window.lenisUnlockScroll?.();
+    }
+
+    return () => {
+      window.lenisUnlockScroll?.();
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       placement="center"
-      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] h-[700px] min-w-[340px] max-w-[360px] max-h-[90vh] rounded-none"
+      className="md:min-w-[800px] md:max-w-[1440px] md:h-[844px] h-[700px] min-w-[340px] max-w-[360px] max-h-[90vh] rounded-none "
       scrollBehavior="inside"
       motionProps={{
         variants: {

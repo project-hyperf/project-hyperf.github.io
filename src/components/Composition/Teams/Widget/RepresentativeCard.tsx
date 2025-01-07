@@ -178,13 +178,13 @@ export const Tags: React.FC<TagsProps> = ({ tags }) => {
         <div
           key={tag}
           className={classNames(
-            "h-auto md:min-h-[68px] min-h-[31px] md:w-[204px] md:px-4 md:py-3 px-2.5 py-1.5 md:rounded-[20px] rounded-[8px] flex items-center justify-center",
+            "h-auto md:min-h-[68px] min-h-[31px] md:w-[204px] md:px-4 md:pt-[14px] md:pb-[10px] px-2.5 py-1.5 md:rounded-[20px] rounded-[8px] flex items-center justify-center",
           )}
           style={{ background: "rgba(13, 0, 181, 0.20)" }}
         >
           <div
             className={classNames(
-              "md:text-base text-[12px] font-bold font-['SUIT'] text-center md:leading-snug leading-3 text-primary-normal break-keep max-md:whitespace-nowrap tracking-tighter",
+              "md:text-base text-[12px] font-bold font-['SUIT'] text-center md:leading-[20.8px] leading-3 text-primary-normal break-keep max-md:whitespace-nowrap tracking-tighter",
             )}
           >
             {tag}

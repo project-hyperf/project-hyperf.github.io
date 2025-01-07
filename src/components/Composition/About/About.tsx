@@ -104,170 +104,13 @@ export const About: React.FC = () => {
   );
 };
 
-// const AboutTitle: React.FC = () => {
-//   const ref = useRef<HTMLDivElement>(null);
-//   const isInView = useInView(ref, {
-//     amount: 0.8,
-//     once: false,
-//     margin: "-150px",
-//   });
-
-//   return (
-//     <div className="w-full px-5" ref={ref}>
-//       <Text
-//         variant="h0"
-//         className="md:!text-[50px] md:!font-semibold !text-[24px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[55px]"
-//       >
-//         엑사급 초고성능컴퓨터의
-//         <br className="lg:hidden" /> 잠재 성능을{" "}
-//         <motion.span
-//           className="px-2 max-h-[64px] inline-block"
-//           animate={{
-//             letterSpacing: isInView ? "0.1em" : "0em",
-//             transition: { duration: 0.5, ease: "easeInOut" },
-//           }}
-//         >
-//           <AnimatePresence mode="wait">
-//             {isInView ? (
-//               <motion.div
-//                 key="expanded"
-//                 className="flex bg-primary-assistive bg-clip-text text-transparent"
-//                 initial={{ opacity: 0 }}
-//                 animate={{ opacity: 1 }}
-//                 exit={{ opacity: 0 }}
-//                 transition={{ duration: 0.5 }}
-//               >
-//                 최
-//                 <CustomImage
-//                   src="images/icons/slash.svg"
-//                   alt="slash"
-//                   className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
-//                 />
-//                 대
-//                 <CustomImage
-//                   src="images/icons/slash.svg"
-//                   alt="slash"
-//                   className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
-//                 />
-//                 한
-//               </motion.div>
-//             ) : (
-//               <motion.div
-//                 key="collapsed"
-//                 className="bg-primary-normal px-2 pt-1.5"
-//                 initial={{ opacity: 1 }}
-//                 animate={{ opacity: 1 }}
-//                 exit={{ opacity: 1 }}
-//               >
-//                 최대한
-//               </motion.div>
-//             )}
-//           </AnimatePresence>
-//         </motion.span>
-//         활용하며
-//         <br className="" />
-//         <Spacer y={5} className="max-lg:block" />
-//         <Spacer y={20} className="lg:hidden max-md:hidden" /> 응용별, 하드웨어
-//         별 기반
-//         <br className="lg:hidden" /> SW 개발 노력을{" "}
-//         <motion.span
-//           className="px-2 py-1.5 max-h-[64px] inline-block"
-//           animate={{
-//             letterSpacing: isInView ? "0.1em" : "0em",
-//             transition: { duration: 0.5, ease: "easeInOut" },
-//           }}
-//         >
-//           <AnimatePresence mode="wait">
-//             {!isInView ? (
-//               <motion.div
-//                 key="expanded"
-//                 className="flex bg-primary-strong px-2"
-//                 initial={{ opacity: 1 }}
-//                 animate={{ opacity: 1 }}
-//                 exit={{ opacity: 1 }}
-//               >
-//                 최
-//                 <CustomImage
-//                   src="images/icons/square-dot.svg"
-//                   alt="slash"
-//                   className="mx-1 max-md:hidden"
-//                 />
-//                 <span className="md:hidden">·</span>
-//                 소
-//                 <CustomImage
-//                   src="images/icons/square-dot.svg"
-//                   alt="slash"
-//                   className="mx-1 max-md:hidden"
-//                 />
-//                 <span className="md:hidden">·</span>화
-//               </motion.div>
-//             ) : (
-//               <motion.div
-//                 key="collapsed"
-//                 className="bg-primary-assistive px-2 pt-1.5"
-//                 initial={{ opacity: 0 }}
-//                 animate={{ opacity: 1 }}
-//                 exit={{ opacity: 0 }}
-//                 transition={{ duration: 0.5 }}
-//               >
-//                 최소화
-//               </motion.div>
-//             )}
-//           </AnimatePresence>
-//         </motion.span>
-//         하는
-//       </Text>
-//     </div>
-//   );
-// };
-
 const AboutTitle: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
-    amount: 0.8,
+    amount: 0.45,
     once: false,
     margin: "-150px",
   });
-
-  const textVariants = {
-    initial: { opacity: 1, letterSpacing: "0em" },
-    animate: {
-      opacity: 1,
-      letterSpacing: "0.1em",
-      transition: {
-        duration: 0.7,
-        ease: "easeInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const imageVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0.8,
-      x: -20,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        type: "spring",
-        stiffness: 100,
-        y: 40,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      transition: { duration: 0.4 },
-    },
-  };
 
   return (
     <div className="w-full px-5" ref={ref}>
@@ -279,36 +122,47 @@ const AboutTitle: React.FC = () => {
         <br className="lg:hidden" /> 잠재 성능을{" "}
         <motion.span
           className="px-2 max-h-[64px] inline-block"
-          variants={textVariants}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
+          animate={{
+            letterSpacing: isInView ? "0.1em" : "0em",
+            transition: { duration: 0.5, ease: "easeInOut", delay: 0.1 },
+          }}
         >
           <AnimatePresence mode="wait">
             {isInView ? (
               <motion.div
                 key="expanded"
-                className="flex bg-primary-assistive bg-clip-text text-transparent items-center justify-center"
-                variants={imageVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
+                className="flex bg-primary-assistive bg-clip-text text-transparent"
+                initial={{
+                  opacity: 1,
+                  scale: 0.95,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 1,
+                  scale: 0.95,
+                }}
+                transition={{
+                  duration: 0.4,
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20,
+                }}
               >
                 최
-                <motion.div variants={imageVariants} className="transform">
-                  <CustomImage
-                    src="images/icons/slash.svg"
-                    alt="slash"
-                    className=" md:mr-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5 md:-translate-y-1"
-                  />
-                </motion.div>
+                <CustomImage
+                  src="images/icons/slash.svg"
+                  alt="slash"
+                  className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
+                />
                 대
-                <motion.div variants={imageVariants} className="transform">
-                  <CustomImage
-                    src="images/icons/slash.svg"
-                    alt="slash"
-                    className="md:mr-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5 md:-translate-y-1"
-                  />
-                </motion.div>
+                <CustomImage
+                  src="images/icons/slash.svg"
+                  alt="slash"
+                  className="md:mx-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5"
+                />
                 한
               </motion.div>
             ) : (
@@ -332,30 +186,16 @@ const AboutTitle: React.FC = () => {
         <br className="lg:hidden" /> SW 개발 노력을{" "}
         <motion.span
           className="px-2 py-1.5 max-h-[64px] inline-block"
-          variants={textVariants}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          transition={{ delay: 0.2 }}
+          animate={{
+            letterSpacing: isInView ? "0.1em" : "0em",
+            transition: { duration: 0.5, ease: "easeInOut" },
+          }}
         >
           <AnimatePresence mode="wait">
-            {isInView ? (
-              <motion.div
-                key="collapsed"
-                className="bg-primary-assistive px-2 pt-1.5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.2, // 0.2초 딜레이 추가
-                }}
-              >
-                최소화
-              </motion.div>
-            ) : (
+            {!isInView ? (
               <motion.div
                 key="expanded"
-                className="flex bg-primary-strong px-2"
+                className="flex bg-primary-strong px-2 pt-1.5"
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 1 }}
@@ -375,6 +215,17 @@ const AboutTitle: React.FC = () => {
                 />
                 <span className="md:hidden">·</span>화
               </motion.div>
+            ) : (
+              <motion.div
+                key="collapsed"
+                className="bg-primary-assistive px-2 pt-1.5"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                최소화
+              </motion.div>
             )}
           </AnimatePresence>
         </motion.span>
@@ -383,3 +234,166 @@ const AboutTitle: React.FC = () => {
     </div>
   );
 };
+
+// const AboutTitle: React.FC = () => {
+//   const ref = useRef<HTMLDivElement>(null);
+//   const isInView = useInView(ref, {
+//     amount: 0.8,
+//     once: false,
+//     margin: "-150px",
+//   });
+
+//   const textVariants = {
+//     initial: { opacity: 1, letterSpacing: "0em" },
+//     animate: {
+//       opacity: 1,
+//       letterSpacing: "0.1em",
+//       transition: {
+//         duration: 0.7,
+//         ease: "easeInOut",
+//       },
+//     },
+//     exit: {
+//       opacity: 0,
+//       transition: { duration: 0.5 },
+//     },
+//   };
+
+//   const imageVariants = {
+//     initial: {
+//       opacity: 0,
+//       scale: 0.8,
+//       x: -20,
+//     },
+//     animate: {
+//       opacity: 1,
+//       scale: 1,
+//       x: 0,
+//       transition: {
+//         duration: 0.6,
+//         type: "spring",
+//         stiffness: 100,
+//         y: 40,
+//       },
+//     },
+//     exit: {
+//       opacity: 0,
+//       scale: 0.8,
+//       transition: { duration: 0.4 },
+//     },
+//   };
+
+//   return (
+//     <div className="w-full px-5" ref={ref}>
+//       <Text
+//         variant="h0"
+//         className="md:!text-[50px] md:!font-semibold !text-[24px] text-white text-center mb-[84px] pt-5 md:pt-[115px] max-lg:whitespace-nowrap md:!leading-[55px]"
+//       >
+//         엑사급 초고성능컴퓨터의
+//         <br className="lg:hidden" /> 잠재 성능을{" "}
+//         <motion.span
+//           className="px-2 max-h-[64px] inline-block"
+//           variants={textVariants}
+//           initial="initial"
+//           animate={isInView ? "animate" : "initial"}
+//         >
+//           <AnimatePresence mode="wait">
+//             {isInView ? (
+//               <motion.div
+//                 key="expanded"
+//                 className="flex bg-primary-assistive bg-clip-text text-transparent items-center justify-center"
+//                 variants={imageVariants}
+//                 initial="initial"
+//                 animate="animate"
+//                 exit="exit"
+//               >
+//                 최
+//                 <motion.div variants={imageVariants} className="transform">
+//                   <CustomImage
+//                     src="images/icons/slash.svg"
+//                     alt="slash"
+//                     className=" md:mr-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5 md:-translate-y-1"
+//                   />
+//                 </motion.div>
+//                 대
+//                 <motion.div variants={imageVariants} className="transform">
+//                   <CustomImage
+//                     src="images/icons/slash.svg"
+//                     alt="slash"
+//                     className="md:mr-1 transform max-md:scale-[0.65] max-md:-rotate-12 max-md:w-5 md:-translate-y-1"
+//                   />
+//                 </motion.div>
+//                 한
+//               </motion.div>
+//             ) : (
+//               <motion.div
+//                 key="collapsed"
+//                 className="bg-primary-normal px-2 pt-1.5"
+//                 initial={{ opacity: 1 }}
+//                 animate={{ opacity: 1 }}
+//                 exit={{ opacity: 1 }}
+//               >
+//                 최대한
+//               </motion.div>
+//             )}
+//           </AnimatePresence>
+//         </motion.span>
+//         활용하며
+//         <br className="" />
+//         <Spacer y={5} className="max-lg:block" />
+//         <Spacer y={20} className="lg:hidden max-md:hidden" /> 응용별, 하드웨어
+//         별 기반
+//         <br className="lg:hidden" /> SW 개발 노력을{" "}
+//         <motion.span
+//           className="px-2 py-1.5 max-h-[64px] inline-block"
+//           variants={textVariants}
+//           initial="initial"
+//           animate={isInView ? "animate" : "initial"}
+//           transition={{ delay: 0.2 }}
+//         >
+//           <AnimatePresence mode="wait">
+//             {isInView ? (
+//               <motion.div
+//                 key="collapsed"
+//                 className="bg-primary-assistive px-2 pt-1.5"
+//                 initial={{ opacity: 0 }}
+//                 animate={{ opacity: 1 }}
+//                 exit={{ opacity: 0 }}
+//                 transition={{
+//                   duration: 0.5,
+//                   delay: 0.2, // 0.2초 딜레이 추가
+//                 }}
+//               >
+//                 최소화
+//               </motion.div>
+//             ) : (
+//               <motion.div
+//                 key="expanded"
+//                 className="flex bg-primary-strong px-2"
+//                 initial={{ opacity: 1 }}
+//                 animate={{ opacity: 1 }}
+//                 exit={{ opacity: 1 }}
+//               >
+//                 최
+//                 <CustomImage
+//                   src="images/icons/square-dot.svg"
+//                   alt="slash"
+//                   className="mx-1 max-md:hidden"
+//                 />
+//                 <span className="md:hidden">·</span>
+//                 소
+//                 <CustomImage
+//                   src="images/icons/square-dot.svg"
+//                   alt="slash"
+//                   className="mx-1 max-md:hidden"
+//                 />
+//                 <span className="md:hidden">·</span>화
+//               </motion.div>
+//             )}
+//           </AnimatePresence>
+//         </motion.span>
+//         하는
+//       </Text>
+//     </div>
+//   );
+// };

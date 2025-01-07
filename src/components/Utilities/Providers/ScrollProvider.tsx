@@ -45,17 +45,5 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       delete window.lenisUnlockScroll;
     };
   }, []);
-  return (
-    <>
-      {children}
-      <style jsx global>{`
-        body.scroll-locked {
-          overflow: hidden;
-          position: fixed;
-          width: 100%;
-          height: 100%;
-        }
-      `}</style>
-    </>
-  );
+  return children;
 }
