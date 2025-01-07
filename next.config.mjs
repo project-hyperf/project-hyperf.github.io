@@ -52,7 +52,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   distDir: "build",
-  output: "standalone", // Netlify 최적화
 
   eslint: {
     ignoreDuringBuilds: true,
