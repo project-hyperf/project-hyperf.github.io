@@ -5,13 +5,15 @@ import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useIsMobile } from "@/hooks/useWindowSize";
 import classNames from "classnames";
 import { useInView, motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/swiper-bundle.css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Mousewheel, Pagination } from "swiper/modules";
 import { CategoryButton } from "./CategoryButton";
+
+const MemoizedButton = memo(CategoryButton);
 
 export const AboutContent: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,20 +25,81 @@ export const AboutContent: React.FC = () => {
   };
   return (
     <div className="w-full">
-      <div className="flex gap-5 items-center justify-center">
-        {ABOUT_CONTENT.map((item, index) => (
-          <CategoryButton
-            key={item.key}
-            item={item}
-            selected={activeIndex === index}
-            onChange={() => handleCategoryClick(index)}
-          />
-        ))}
-      </div>
+      {isMobile ? (
+        <MobileSlideView
+          activeIndex={activeIndex}
+          handleCategoryClick={handleCategoryClick}
+        />
+      ) : (
+        <DesktopView
+          activeIndex={activeIndex}
+          handleCategoryClick={handleCategoryClick}
+        />
+      )}
       <AboutContentImage currentStep={currentStep} />
     </div>
   );
 };
+
+const MobileSlideView = memo(
+  ({
+    activeIndex,
+    handleCategoryClick,
+  }: {
+    activeIndex: number;
+    handleCategoryClick: (index: number) => void;
+  }) => (
+    <Swiper
+      modules={[Mousewheel, Pagination]}
+      spaceBetween={16}
+      slidesPerView="auto"
+      centeredSlides
+      pagination={{
+        clickable: true,
+        dynamicBullets: true,
+      }}
+      mousewheel
+      direction="horizontal"
+      onSlideChange={(swiper) => handleCategoryClick(swiper.activeIndex)}
+      className={classNames(
+        "w-full px-4 h-[240px]",
+        "swiper-container",
+        "[&_.swiper-pagination]:!z-[999][&_.swiper-pagination-bullet]:!opacity-100 [&_.swiper-pagination-bullet]:!bg-[#f2f2f2] [&_.swiper-pagination-bullet.swiper-pagination-bullet-active]:!bg-white",
+      )}
+    >
+      {ABOUT_CONTENT.map((item, index) => (
+        <SwiperSlide key={item.key} className="min-w-[234px] max-w-[290px]">
+          <MemoizedButton
+            item={item}
+            selected={activeIndex === index}
+            onChange={() => handleCategoryClick(index)}
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  ),
+);
+
+const DesktopView = memo(
+  ({
+    activeIndex,
+    handleCategoryClick,
+  }: {
+    activeIndex: number;
+    handleCategoryClick: (index: number) => void;
+  }) => (
+    <div className="min-[1400px]:flex md:grid md:grid-cols-2 md:grid-rows-2 min-[1400px]:gap-10 items-center justify-center md:w-[720px] min-[1400px]:w-full max-[1400px]:mx-auto md:gap-y-5 md:gap-x-4">
+      {ABOUT_CONTENT.map((item, index) => (
+        <MemoizedButton
+          key={item.key}
+          item={item}
+          selected={activeIndex === index}
+          onChange={() => handleCategoryClick(index)}
+        />
+      ))}
+    </div>
+  ),
+);
 
 interface AboutContentImageProps {
   currentStep: number;
@@ -46,7 +109,7 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
 }) => {
   const isMobile = useIsMobile();
   return (
-    <div className="relative pt-[61px] mb-[135px] h-auto min-md:min-h-[645px] max-[1400px]:h-auto">
+    <div className="relative pt-[61px] mb-[135px] h-auto min-md:min-h-[645px] max-[1400px]:h-auto max-md:pt-10">
       <div
         style={{
           backgroundImage: `url(${images["images/bg/bg_black_gradient.png"].src})`,
@@ -72,13 +135,13 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <motion.div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] max-md:h-[60px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row max-[1400px]:justify-center items-center pl-6 pr-[35px] md:pt-[71px] md:pb-[65px] py-5 gap-8 max-sm:gap-3">
+          <motion.div className="min-[1400px]:w-[179px] min-[1400px]:h-[470px] max-md:h-[60px] bg-[#131313] flex flex-col max-[1400px]:w-full max-[1400px]:flex-row max-[1400px]:justify-center items-center pl-6 pr-[35px] min-[1400px]:pt-[71px] min-[1400px]:pb-[65px] py-5 gap-8 max-sm:gap-3">
             {imageList.map((image, index) => (
               <CustomImage
                 key={index}
                 src={`images/about/${image.key}.png`}
                 alt={image.key}
-                className="w-full h-full max-[1400px]:w-auto max-md:w-12 max-md:h-4 max-[1400px]:h-8"
+                className="w-full h-full max-[1400px]:w-auto max-md:w-12 max-md:h-5 max-[1400px]:h-8"
               />
             ))}
           </motion.div>
@@ -123,6 +186,13 @@ const AboutContentImage: React.FC<AboutContentImageProps> = ({
               alt={"Graph"}
               className="w-[102px] h-[78px] max-md:w-[58px] max-md:h-12"
             />
+            {currentStep === 4 && (
+              <CustomImage
+                src={`images/about/person.png`}
+                alt={"Graph"}
+                className="w-[102px] h-[78px] max-md:w-[58px] max-md:h-12 max-[1400px]:block hidden"
+              />
+            )}
           </div>
         </motion.div>
       </div>

@@ -19,9 +19,9 @@ export const CategoryButton: React.FC<CategoryButtonProps> = ({
   return (
     <label
       className={`
-        flex items-center gap-2 cursor-pointer min-h-[224px]
+        flex min-[1400px]:shrink-0 max-[1400px]:w-[345px] items-center gap-2 cursor-pointer min-[1400px]:min-h-[224px] max-[1400px]:min-h-[212px] max-md:min-w-[234px]
         transition-all duration-300
-        ${selected ? "scale-105" : "scale-100"}
+        ${selected ? "scale-100" : "scale-95"}
       `}
       onClick={onChange}
     >
@@ -30,8 +30,8 @@ export const CategoryButton: React.FC<CategoryButtonProps> = ({
       </VisuallyHidden>
       <div
         className={`
-          bg-[#212121] py-7 px-12 rounded-[20px] cursor-pointer
-          transition-all duration-300
+          bg-[#212121] md:py-7 md:px-12 rounded-[20px] cursor-pointer
+          transition-all duration-300 w-full h-full max-md:max-w-[290px] max-md:max-h-[212px] max-md:p-6
           ${
             selected
               ? "border-2 border-primary-strong shadow-lg"
@@ -43,14 +43,14 @@ export const CategoryButton: React.FC<CategoryButtonProps> = ({
           <div>
             <Text
               variant="h2"
-              className="text-white !text-[30px] !font-semibold"
+              className="text-white min-[1400px]:!text-[30px] !font-semibold !text-[26px]"
             >
               {item.title}
             </Text>
             {item.key !== "sw-ecosystem" ? (
               <Text
                 variant="t2"
-                className="text-primary-strong !text-[28px] !font-normal whitespace-nowrap mb-1"
+                className="text-primary-strong min-[1400px]:!text-[28px] !font-normal whitespace-nowrap mb-1 !text-[24px]"
               >
                 {item.key}
               </Text>
@@ -58,7 +58,7 @@ export const CategoryButton: React.FC<CategoryButtonProps> = ({
               <div className="h-[18px]"></div>
             )}
           </div>
-          <Text className="text-white !text-[22px] !font-thin whitespace-pre-wrap !leading-[28.6px]">
+          <Text className="text-white min-[1400px]:!text-[22px] !font-thin whitespace-pre-wrap min-[1400px]:!leading-[28.6px] !text-[17px]">
             {item.content}
           </Text>
         </div>
