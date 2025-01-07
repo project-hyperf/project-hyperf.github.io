@@ -10,6 +10,7 @@
     "deploy": "next build && next export && netlify deploy --prod"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.9.2",
     "@nextui-org/react": "^2.4.8",
     "@studio-freight/lenis": "^1.0.42",
     "@studio-freight/react-lenis": "^0.0.47",
