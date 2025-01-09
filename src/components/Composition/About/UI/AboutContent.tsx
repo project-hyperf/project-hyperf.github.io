@@ -254,6 +254,11 @@ const imageList = [
 ];
 const ABOUT_CONTENT = [
   {
+    title: "탐색기반",
+    key: "search-driven",
+    content: "오토튜닝 용 샘플 생성\n하드웨어 프로파일링\n비용 모델 기반 탐색",
+  },
+  {
     title: "다계층",
     key: "multi-level",
     content: "고차원/저차원 최적화\n플랫폼 중립 최적화\n최적화 간 피드백 제공",
@@ -262,11 +267,6 @@ const ABOUT_CONTENT = [
     title: "다목적",
     key: "multi-objective",
     content: "실행시간과 전력 동시 고려\n다목적 탐색 알고리즘\n전력 모델링",
-  },
-  {
-    title: "탐색기반",
-    key: "search-driven",
-    content: "오토튜닝 용 샘플 생성\n하드웨어 프로파일링\n비용 모델 기반 탐색",
   },
   {
     title: "SW 생태계 조성",
