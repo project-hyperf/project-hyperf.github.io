@@ -46,7 +46,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
     const elementPosition = target.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
-      top: elementPosition - 120,
+      top: elementPosition - 110,
       behavior: "smooth",
     });
   };
