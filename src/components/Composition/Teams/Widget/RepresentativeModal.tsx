@@ -40,7 +40,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
           <ModalBody className="px-5 scrollbar-hide bg-primary-bg-modal">
             <ScrollShadow className="scrollbar-hide pb-7">
               <div className="tag mb-4 px-0">
-                <Tags tags={representative.tags} />
+                <Tags tags={representative?.tags} />
               </div>
 
               <div className="person mb-[1px] w-full">
@@ -57,17 +57,17 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                       className="md:!text-[28px] !text-[24px] !font-medium"
                     >
                       {representative?.university} {representative?.name}{" "}
-                      {representative.title}
+                      {representative?.title}
                     </Text>
                     <Text variant="b2" className="!text-base !font-medium">
-                      ({representative.major})
+                      ({representative?.major})
                     </Text>
                   </div>
                 </div>
               </div>
               <div className="descriptio mb-[13px]">
                 <div className="flex flex-col gap-1">
-                  {representative.description?.map(
+                  {representative?.description?.map(
                     (
                       keyword: { title: string; content: string },
                       idx: number,
@@ -105,7 +105,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                   학력
                 </Text>
                 <ul className="py-1">
-                  {representative.education?.map(
+                  {representative?.education?.map(
                     (
                       education: { duration: string; university: string },
                       idx: number,
@@ -117,7 +117,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                         <span className="text-[#756AF2] ">
                           {education?.duration}
                         </span>
-                        <span>{education.university}</span>
+                        <span>{education?.university}</span>
                       </li>
                     ),
                   )}
@@ -131,7 +131,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                   경력
                 </Text>
                 <ul className="py-1">
-                  {representative.career?.map(
+                  {representative?.career?.map(
                     (
                       career: { duration: string; university: string },
                       idx: number,
@@ -140,7 +140,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                         key={idx}
                         className="text-sm font-['SUIT'] font-medium"
                       >
-                        {career?.duration + " " + career.university}
+                        {career?.duration + " " + career?.university}
                       </li>
                     ),
                   )}
@@ -156,7 +156,7 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                     주요 연구 분야
                   </Text>
                   <ul className="info2">
-                    {representative.researchFields?.map(
+                    {representative?.researchFields?.map(
                       (researchFields: string, idx: number) => (
                         <li
                           key={idx}
@@ -174,10 +174,10 @@ export const RepresentativeModal: React.FC<RepresentativeModalProps> = ({
                   variant="b3"
                   className="!text-sm !font-bold text-primary-normal"
                 >
-                  {representative.representativeAchievements.label}
+                  {representative?.representativeAchievements.label}
                 </Text>
                 <ul>
-                  {representative.representativeAchievements.content?.map(
+                  {representative?.representativeAchievements.content?.map(
                     (content: string, idx: number) => (
                       <li
                         key={idx}
