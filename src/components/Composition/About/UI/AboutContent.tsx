@@ -227,9 +227,9 @@ const AnimatedSteps = ({
         animate={isMobile ? mobileVariants.animate : desktopVariants.animate}
         exit={isMobile ? mobileVariants.exit : desktopVariants.exit}
         transition={{
-          duration: 0.6,
+          duration: 0.3,
           ease: "easeOut",
-          opacity: { duration: 0.5 },
+          opacity: { duration: 0.2 },
         }}
         className="max-[1400px]:w-full"
       >
