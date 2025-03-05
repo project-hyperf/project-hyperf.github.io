@@ -4,7 +4,6 @@ import { QueryProvider } from "@/components/Utilities/Providers/QueryProvider";
 import { NextUiProvider } from "@/components/Utilities/Providers/NextUiProvider";
 import ModalsProvider from "@/components/Utilities/Providers/ModalProvider";
 import { Suspense } from "react";
-import { LenisProvider } from "@/components/Utilities/Providers/ScrollProvider";
 
 export const metadata: Metadata = {
   title: "HYPERF",

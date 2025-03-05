@@ -15,6 +15,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
   isBlackArea,
 }) => {
   const newMenuKey = menuKey === "outcomes" ? "real-outcomes" : menuKey;
+  const isFramework = menuKey === "framework";
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
     const elementPosition = target.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
-      top: elementPosition - 110,
+      top: isFramework ? elementPosition - 160 : elementPosition - 110,
       behavior: "smooth",
     });
   };

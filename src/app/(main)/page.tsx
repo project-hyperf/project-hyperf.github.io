@@ -5,15 +5,15 @@ import { Footer } from "@/components/Widget/Footer/Footer";
 import { GNB } from "@/components/Widget/GNB/GNB";
 import { Main } from "@/components/Widget/Layout/Main";
 import { Section } from "@/components/Widget/Layout/Section";
-import { Framework } from "@/components/Composition/Framework/Framework";
+// import { Framework } from "@/components/Composition/Framework/Framework";
 import { Outcomes } from "@/components/Composition/Outcomes/Outcomes";
 import { Events } from "@/components/Composition/Events/Events";
 
 const Components = {
   "key-visual": KeyVisual,
   about: About,
+  // framework: Framework,
   teams: Teams,
-  framework: Framework,
   outcomes: Outcomes,
   news: Events,
 };

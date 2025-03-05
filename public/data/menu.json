@@ -4,12 +4,12 @@
     "key": "about"
   },
   {
-    "label": "Teams",
-    "key": "teams"
-  },
-  {
     "label": "Framework",
     "key": "framework"
+  },
+  {
+    "label": "Teams",
+    "key": "teams"
   },
   {
     "label": "Outcomes",

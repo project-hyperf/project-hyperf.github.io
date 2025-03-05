@@ -1,11 +1,10 @@
 "use client";
 import { images } from "@/assets/images/images";
-import { Text } from "@/components/UI/Text/Text";
 import { CustomImage } from "@/components/Utilities/Asset/CustomImage";
 import { useIsMobile } from "@/hooks/useWindowSize";
 import classNames from "classnames";
-import { useInView, motion, AnimatePresence } from "framer-motion";
-import { memo, useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { memo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/swiper-bundle.css";
@@ -24,7 +23,7 @@ export const AboutContent: React.FC = () => {
     setCurrentStep(index + 1);
   };
   return (
-    <div className="w-full">
+    <div className="w-full" id="framework">
       {isMobile ? (
         <MobileSlideView
           activeIndex={activeIndex}
@@ -79,7 +78,7 @@ const MobileSlideView = memo(
     </Swiper>
   ),
 );
-
+MobileSlideView.displayName = "MobileSlideView";
 const DesktopView = memo(
   ({
     activeIndex,
@@ -100,7 +99,7 @@ const DesktopView = memo(
     </div>
   ),
 );
-
+DesktopView.displayName = "DesktopView";
 interface AboutContentImageProps {
   currentStep: number;
 }
