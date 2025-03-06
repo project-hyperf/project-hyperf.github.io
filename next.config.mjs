@@ -3,8 +3,8 @@
 const isProduction = process.env.NODE_ENV === "production";
 const nextConfig = {
   output: "export",
-  assetPrefix: isProduction ? "/hyperf" : "",
-  basePath: isProduction ? "/hyperf" : "",
+  assetPrefix: isProduction ? "/hyperf" : "/hyperf",
+  basePath: isProduction ? "/hyperf" : "/hyperf",
   trailingSlash: true,
   images: {
     unoptimized: true,
