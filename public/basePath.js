@@ -1,1 +1,1 @@
-window.basePath = "";
+window.basePath = "/hyperf";
