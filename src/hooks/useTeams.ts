@@ -43,9 +43,9 @@ export const useTeams = () => {
 
       const dataWithImage = data.map((team) => ({
         ...team,
-        defaultImage: `/hyperf/data/teams/image/${team.university}_${team.name}_default.jpg`,
-        hoverImage: `/hyperf/data/teams/image/${team.university}_${team.name}_hover.jpg`,
-        activeImage: `/hyperf/data/teams/image/${team.university}_${team.name}_active.jpg`,
+        defaultImage: `/data/teams/image/${team.university}_${team.name}_default.jpg`,
+        hoverImage: `/data/teams/image/${team.university}_${team.name}_hover.jpg`,
+        activeImage: `/data/teams/image/${team.university}_${team.name}_active.jpg`,
       }));
       return dataWithImage;
     },

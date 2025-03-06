@@ -11,7 +11,7 @@ export const KeyVisual: React.FC = () => {
         playsInline
         className="absolute md:inset-0 max-md:-top-24 max-sm:-ml-[250px] max-md:-ml-[100px] max-md:min-w-[700px] max-md:h-[500px] object-cover transform lg:scale-[1.3] md:-translate-x-[60px] max-sm:scale-80 flex-1 "
       >
-        <source src="/hyperf/images/hyperf_main.mp4" type="video/mp4" />
+        <source src="/images/hyperf_main.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 flex items-end md:pb-[30px] pb-[54px] max-md:mx-0">
         <KeyTitle />

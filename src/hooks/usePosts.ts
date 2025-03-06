@@ -24,6 +24,13 @@ export interface Post {
   }[];
 }
 
+const getFullPath = (path: string) => {
+  if (path.startsWith("http")) return path;
+  // basePath가 undefined일 때 빈 문자열 사용
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  return `${basePath}${path}`;
+};
+
 export const usePosts = ({
   postScope,
   category = ".",
@@ -88,18 +95,17 @@ export const usePosts = ({
           const thumbnailRaw = data.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "";
           const thumbnail = thumbnailRaw.startsWith("http")
             ? thumbnailRaw
-            : window?.["basePath" as any] + thumbnailRaw;
+            : getFullPath(thumbnailRaw);
 
           const picture = data.match(/!\[(.*?)\]\((.*?)\)/g)?.map((p) => {
             const match = p.match(/!\[(.*?)\]\((.*?)\)/);
             const alt = match?.[1] ?? "";
             const src = match?.[2] ?? "";
 
-            const finalSrc = src.startsWith("http")
-              ? src
-              : window?.["basePath" as any] + src;
-
-            return { alt, src: finalSrc };
+            return {
+              alt,
+              src: getFullPath(src),
+            };
           });
 
           const author =
