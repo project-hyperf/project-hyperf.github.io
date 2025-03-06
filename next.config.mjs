@@ -1,7 +1,9 @@
 // export default nextConfig;
 /** @type {import('next').NextConfig} */
+const isProduction = process.env.NODE_ENV === "production";
 const nextConfig = {
   output: "export",
+  assetPrefix: isProduction ? "project-hyperf.github.io/hyperf/" : "",
   trailingSlash: true,
   images: {
     unoptimized: true,
