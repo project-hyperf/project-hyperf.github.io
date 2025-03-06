@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "FLYHEAD";
-  src: url("/hyperf/font/FlyheadRegular.woff2") format("woff2");
+  src: url("/font/FlyheadRegular.woff2") format("woff2");
   font-weight: 400; /* Light */
   font-style: normal;
 }
