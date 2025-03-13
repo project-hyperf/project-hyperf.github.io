@@ -1,7 +1,18 @@
-HYPERF- 오토튜닝 프레임워크 홈페이지
-클라이언트 : KISTI
-개발자
-윤선호
+<div align="center">
+  <h1>🚀 HYPERF - Auto-Tuning Framework</h1>
+  <p>
+    <strong>Client: KISTI </strong>
+  </p>
+</div>
 
-배포 
-Github action으로 관리 합니다.
+## 👨‍💻 Developer
+Sunho Yoon (윤선호)
+
+## 🚀 Deployment
+This project is managed through GitHub Actions for automated CI/CD pipeline.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ by Sunho Yoon</sub>
+</div>
