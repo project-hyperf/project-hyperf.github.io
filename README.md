@@ -5,14 +5,10 @@
   </p>
 </div>
 
-## 👨‍💻 Developer
-Sunho Yoon (윤선호)
+## 개발자
+윤선호
 
 ## 🚀 Deployment
-This project is managed through GitHub Actions for automated CI/CD pipeline.
+Github Action으로 관리됩니다.
 
 ---
-
-<div align="center">
-  <sub>Built with ❤️ by Sunho Yoon</sub>
-</div>
